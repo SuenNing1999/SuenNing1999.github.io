@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suenning.com.cn","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="序言别怕路长梦远，总有星河照耀(●’◡’●)，当初那张稚嫩青涩的脸庞早已不见了模样，但是我们依然要记得来时的路。复习之余整理了一些关于计算机网络的基础知识以便查漏补缺，巩固加强（主要还是方便查阅）。在此还要感谢各位老师在我困惑中指点迷津。卑微小生，才疏学浅，还望各位同仁批评指正！时间紧迫，我们快开始吧！🤍知足，上进，不负野心！ （一）计算机网络基础1.1 计算机通信网的组成(●’◡’●)&amp;amp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一位考研党亲自整理的大学计算机网络基础知识总结（不看后悔版）">
+<meta property="og:url" content="https://suenning.com.cn/2023/02/01/%E4%B8%80%E4%BD%8D%E8%80%83%E7%A0%94%E5%85%9A%E4%BA%B2%E8%87%AA%E6%95%B4%E7%90%86%E7%9A%84%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8D%E7%9C%8B%E5%90%8E%E6%82%94%E7%89%88%EF%BC%89/index.html">
+<meta property="og:site_name" content="橘生淮南">
+<meta property="og:description" content="序言别怕路长梦远，总有星河照耀(●’◡’●)，当初那张稚嫩青涩的脸庞早已不见了模样，但是我们依然要记得来时的路。复习之余整理了一些关于计算机网络的基础知识以便查漏补缺，巩固加强（主要还是方便查阅）。在此还要感谢各位老师在我困惑中指点迷津。卑微小生，才疏学浅，还望各位同仁批评指正！时间紧迫，我们快开始吧！🤍知足，上进，不负野心！ （一）计算机网络基础1.1 计算机通信网的组成(●’◡’●)&amp;amp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127181322266.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127183125256.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127184557921.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020112718495992.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127185552830.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020112718591834.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127190323412.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127191431768.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127191818474.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127191833991.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127192003653.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127192126681.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127192134801.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127192241768.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127192311811.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127193020802.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127193111237.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127193138511.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202011271931584.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127193359351.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128090708951.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128090844959.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127193702198.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127193848592.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127193927311.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127194014689.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127194244216.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127194423566.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127194607545.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128094644610.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195017782.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195056869.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195112712.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195120882.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195129703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195137643.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195224768.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195419892.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195547999.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127195624931.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200128316.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200203962.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200223135.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200359875.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020112720044919.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200512515.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200532461.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200541692.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200630552.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200647634.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020112720070370.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200717541.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200732581.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200746203.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200759610.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200835513.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200856419.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127200905792.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127201418188.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127201714413.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127201753440.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127201800193.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127201820256.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127201840433.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128120630209.jpeg">
+<meta property="article:published_time" content="2023-02-01T08:11:37.409Z">
+<meta property="article:modified_time" content="2023-02-01T08:53:56.620Z">
+<meta property="article:author" content="sunning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201127181322266.jpeg">
+
+<link rel="canonical" href="https://suenning.com.cn/2023/02/01/%E4%B8%80%E4%BD%8D%E8%80%83%E7%A0%94%E5%85%9A%E4%BA%B2%E8%87%AA%E6%95%B4%E7%90%86%E7%9A%84%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8D%E7%9C%8B%E5%90%8E%E6%82%94%E7%89%88%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一位考研党亲自整理的大学计算机网络基础知识总结（不看后悔版） | 橘生淮南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="橘生淮南" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">橘生淮南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录学习中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://suenning.com.cn/2023/02/01/%E4%B8%80%E4%BD%8D%E8%80%83%E7%A0%94%E5%85%9A%E4%BA%B2%E8%87%AA%E6%95%B4%E7%90%86%E7%9A%84%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8D%E7%9C%8B%E5%90%8E%E6%82%94%E7%89%88%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sunning">
+      <meta itemprop="description" content="且视他人之疑目如盏盏鬼火，大胆地去走你的夜路。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="橘生淮南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一位考研党亲自整理的大学计算机网络基础知识总结（不看后悔版）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-02-01 16:11:37 / 修改时间：16:53:56" itemprop="dateCreated datePublished" datetime="2023-02-01T16:11:37+08:00">2023-02-01</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>46k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>41 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h4><p>别怕路长梦远，总有星河照耀(●’◡’●)，当初那张稚嫩青涩的脸庞早已不见了模样，但是我们依然要记得来时的路。复习之余整理了一些关于计算机网络的基础知识以便查漏补缺，巩固加强（主要还是方便查阅）。在此还要感谢各位老师在我困惑中指点迷津。卑微小生，才疏学浅，还望各位同仁批评指正！时间紧迫，我们快开始吧！🤍知足，上进，不负野心！<br><img src="https://img-blog.csdnimg.cn/20201127181322266.jpeg" alt="祝我上岸成功"></p>
+<h3 id="（一）计算机网络基础"><a href="#（一）计算机网络基础" class="headerlink" title="（一）计算机网络基础"></a>（一）计算机网络基础</h3><h4 id="1-1-计算机通信网的组成-●’◡’●"><a href="#1-1-计算机通信网的组成-●’◡’●" class="headerlink" title="1.1 计算机通信网的组成(●’◡’●)"></a>1.1 计算机通信网的组成(●’◡’●)</h4><p>&amp;emsp;&amp;emsp;计算机网络是将不同地理位置的具有独立功能的多台计算机及其外部设备，通过通信线路连接起来，在网络操作系统，网络管理软件及网络通信协议的管理和协调下，实现资源共享和信息传递的计算机系统。</p>
+<p><strong>网络的主要类型</strong><br>一、网络的地理覆盖范围分:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">A、局域网:</span><br><span class="line">　　1、属于一个组织，一个单位或一个部门所有。</span><br><span class="line">　　2、网络一般不对外提供公共服务，管理方便，安全保密性高。</span><br><span class="line">　　3、组建方便，投资少，见效快，使用灵活应用最普遍的计算机网络。</span><br><span class="line">B、城域网：</span><br><span class="line">　　1、一般是一个地区或一个城市。</span><br><span class="line">C、广域网</span><br><span class="line">　　1、小到一个地区，一个城市，大到一个国家，几个国家乃至全世界。</span><br><span class="line">　　2、提供大范围的公共服务。因特网就是典型的广域网。</span><br><span class="line">　　3、与局域网相比，广域网投资大，安全保密性差，传输速率慢。</span><br></pre></td></tr></table></figure>
+<p>二、按计算机网络的线路结构分：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A、总线型</span><br><span class="line">　　1、该结构采用一条公共总线作为传输介质，每台计算机通过相应的硬件接口入网，信号沿总线进行广播式传送</span><br><span class="line">　　2、是典型的共享传输介质的网络。从信源所发的信息会传送到介质长度所及之处，被其他所有站点看到。如果有两个以上的节点同时发送数据，可能会造成冲突，就像公路上的两车相撞一样。</span><br><span class="line"></span><br><span class="line">　　优点：布线容易，增删容易，节约电缆；</span><br><span class="line">　　缺点：</span><br><span class="line">　　1、任何两个站点传送信息都要经过总线，总线称为传输瓶颈；当计算机站点多时，容易造成信息阻塞，传递不畅。</span><br><span class="line">　　2、一台计算机接入总线的接口发生故障，会造成整个网络瘫痪。</span><br><span class="line">　　3、当网络发生故障时，故障诊断和隔离困难。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">B、星型</span><br><span class="line">　　由一台中央节点和周围的从节点组成。</span><br><span class="line">　　中央节点和从节点可以直接通信，而从节点必须经过中央节点转接才能通信。</span><br><span class="line"></span><br><span class="line">　　优点:</span><br><span class="line">　　1、可靠性高。每台计算机及其接口的故障不会影响其他计算机，不会影响整个网络，也不会造成网络瘫痪。</span><br><span class="line">　　2、故障诊断和隔离容易，网络容易管理和维护。</span><br><span class="line">　　3、可扩性好，配置灵活。增删改一个站点容易实现，和其他计算机没有关系</span><br><span class="line">　　4、传输速率高。每个节点独占一条线路，消除了信息阻塞的情况。而总线和环形网络的瓶颈都在线路上。</span><br><span class="line">　　　　　</span><br><span class="line">　　缺点:</span><br><span class="line">　　1、线缆使用量大。</span><br><span class="line">　　2、布线、安装工作量大。</span><br><span class="line">　　3、网络可靠性依赖于中央节点。如交换机或集线器选择不当，发生故障会造成全网瘫痪。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C、环型</span><br><span class="line">　　计算机通过硬件接口入网，这些接口首尾相连成一条链路。信息传送也是广播式的，沿着一个方向（如逆时针方向）单向逐点传送。</span><br><span class="line">　　优点:</span><br><span class="line">　　点到点且沿一个方向单向传输，非常适合用光纤作为传输介质。</span><br><span class="line">　　1、传输距离远，适合做主干网。</span><br><span class="line">　　2、故障诊断容易定位。</span><br><span class="line">　　3、初始安装容易，线缆用量少。环形线路也是一条总线，只是首尾封闭。</span><br></pre></td></tr></table></figure>
+
+<p>三、按传输介质分：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A、有线网络</span><br><span class="line">　　1、同轴电缆：成本低，安装方便，但传输率低，抗干扰能力一般，传输距离短</span><br><span class="line">　　2、双绞线：组建局域网时常用，优缺点类似于同轴电缆。</span><br><span class="line">　　3、光纤：主要用于网络的主干部分，其特点是成本高，安装技术要求高，传输距离长，传输率高，抗干扰能力强，且不会受到电子监听设备的监听等，是组建高安全性网络的理想选择。</span><br><span class="line"></span><br><span class="line">B、无线网络</span><br><span class="line">　　1、红外线</span><br><span class="line">　　2、微波</span><br><span class="line">　　3、无线电</span><br></pre></td></tr></table></figure>
+<p>&amp;emsp;&amp;emsp;计算机网络由通信子网和资源子网组成。<br>• 通信子网负责数据的无差错和有序传递，其处理功能包括差错控制、流量控制、路由选择、网络互连等。<br>• 资源子网是计算机通信的本地系统环境，包括主机、终端和应用程序等，资源子网的主要功能是用户资源配置、数据的处理和管理、软件和硬件共享以及负载均衡等。<br>• 总的来说，计算机通信网就是一个由通信子网承载的、传输和共享资源子网的各类信息的系统。(✿◕‿◕✿)</p>
+<h4 id="1-2-通信协议-●’◡’●"><a href="#1-2-通信协议-●’◡’●" class="headerlink" title="1.2 通信协议(●’◡’●)"></a>1.2 通信协议(●’◡’●)</h4><p>为了完成计算机之间有序的信息交换，提出了通信协议的概念，其定义是相互通信的双方（或者多方）对如何进行信息交换所必须遵守的一整套规则。</p>
+<p>协议涉及到三个要素，分别为：</p>
+<pre><code>1. 语法：语法是用户数据与控制信息的结构与格式，以及数据出现顺序的意义
+2. 语义：用于解释比特流的每一部分的意义
+3. 时序：事件实现顺序的详细说明
+</code></pre>
+<h4 id="1-3-OSI参考模型（Open-System-Interconnection）"><a href="#1-3-OSI参考模型（Open-System-Interconnection）" class="headerlink" title="1.3 OSI参考模型（Open System Interconnection）"></a>1.3 OSI参考模型（Open System Interconnection）</h4><p>OSI参考模型是国际标准化组织（ISO）制定的一个用于计算机或通信系统间互联的标准体系，一般称为OSI参考模型或七层模型。</p>
+<p><strong>OSI定义了网络互连的七层框架：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</strong></p>
+<blockquote>
+<p>每一层实现各自的功能和协议，并完成与相邻层的接口通信，OSI的服务定义详细说明了各层所提供的服务。某一层的服务就是该层及其下各层的一种能力，它通过接口提供给更高一层。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20201127183125256.png" alt="OSI参考模型"><br>物理层</p>
+<pre><code>1. 提供建立、维护和释放物理链路所需的机械、电气功能和规程等特性
+2. 通过传输介质进行数据流(比特流)的物理传输、故障监测和物理层管理
+3. 从数据链路层接收帧，将比特流转换成底层物理介质上的信号
+4. 物理层并不是物理媒体本身，它只是开放系统中利用物理媒体实现物理连接的功能描述和执行连接的规程
+5. 物理层提供用于建立、保持和断开物理连接的机械的、电气的、功能的和过程的条件
+6. 简而言之，物理层提供有关同步和比特流在物理媒体上的传输手段
+</code></pre>
+<p>数据链路层</p>
+<pre><code>1. 在物理链路的两端之间传输数据
+2. 在网络层实体间提供数据传输功能和控制
+3. 提供数据的流量控制
+4. 检测和纠正物理链路产生的差错
+5. 格式化的消息称为帧
+6. 数据链路层用于建立、维持和拆除链路连接，实现无差错传输的功能
+7. 在点到点或点到多点的链路上，保证信息的可靠传递
+8. 该层对连接相邻的通路进行差错控制、数据成帧、同步等控制
+</code></pre>
+<p>网络层</p>
+<pre><code>1. 负责端到端的数据的路由或交换，为透明地传输数据建立连接
+2. 寻址并解决与数据在异构网络间传输相关的所有问题
+3. 使用上面的传输层和下面的数据链路层的功能
+4. 格式化的消息称为分组
+5. 网络层规定了网络连接的建立、维持和拆除的协议
+6. 它的主要功能是利用数据链路层所提供的相邻节点间的无差错数据传输功能，通过路由选择和中继功能，实现两个系统之间的连接
+</code></pre>
+<p>传输层</p>
+<pre><code>1. 提供无差错的数据传输
+2. 接收来自会话层的数据，如果需要，将数据分割成更小的分组，向网络层传送分组并确保分组完整和正确到达它们的目的地
+3. 在系统之间提供可靠的透明的数据传输，提供端到端的错误恢复和流量控制
+4. 传输层完成开放系统之间的数据传送控制
+5. 主要功能是开放系统之间的数据的收发确认
+6. 同时还用于弥补各种通信网络的质量差异，对经过下三层之后仍然存在的传输差错进行恢复，进一步提高可靠性
+7. 另外，还通过复用、分段和组合、连接和分离、分流和合流等技术措施，提高吞吐量和服务质量
+</code></pre>
+<p>会话层</p>
+<pre><code>1. 提供节点之间通信过程的协调
+2. 负责执行会话规则（如：连接是否允许半双工或全双工通信）、同步数据流以及当故障发生时重新建立连接
+3. 使用上面的表示层和下面的传输层的功能
+4. 会话层依靠传输层以下的通信功能使数据传送功能在开放系统间有效地进行
+5. 其主要功能是按照在应用进程之间的约定，按照正确的顺序收发数据，进行各种形式的对话
+6. 控制方式可以归纳为以下两类：
+7. 一是为了在会话应用中易于实现接受处理和发送处理的逐次交替变换，设置某一时刻只有一端发送数据。因此需要有交替改变发信端的传送控制。
+8. 二是在类似文件传送等单方向传送大量数据的情况下，为了防备应用处理中出现意外，在传送数据的过程中需要给数据记上标记，当出现意外时，可以由记标记处重发。
+</code></pre>
+<p>表示层</p>
+<pre><code>1. 提供数据格式、变换和编码转换
+2. 涉及正在传输数据的语法和语义
+3. 将消息以合适电子传输的格式编码
+4. 执行该层的数据压缩和加密
+5. 从应用层接收消息，转换格式，并传送到会话层，该层常合并在应用层中
+6. 表示层的主要功能是把应用层提供的信息变换为能够共同理解的形式，提供字符代码、数据格式、控制信息格式、加密等的统一表示
+7. 表示层仅对应用层信息内容的形式进行变换，而不改变其内容本身
+</code></pre>
+<p>应用层</p>
+<pre><code>1. 包括各种协议，它们定义了具体的面向用户的应用：如电子邮件、文件传输等
+2. 应用层是OSI参考模型的最高层。其功能是实现应用进程(如用户程序、终端操作员等)之间的信息交换，还具有一系列业务处理所需要的服务功能。
+</code></pre>
+<h4 id="1-4-OSI模型的优点-●’◡’●"><a href="#1-4-OSI模型的优点-●’◡’●" class="headerlink" title="1.4 OSI模型的优点(●’◡’●)"></a>1.4 OSI模型的优点(●’◡’●)</h4><p><strong>(1) 分工合作，责任明确</strong><br>性质相似的工作划分在同一层，性质不同的工作则划分到不同层，这样每一层的功能都是明确的，每一层都有其负责的工作范围，一旦出现问题，很容易找到问题所在的层，仅对此层加以改善即可。<br><strong>(2) 对等交谈</strong><br>计算机通过网络进行通信时，按照对等交谈的原则，即同一层找同层，通过各对等层的协议来进行通信，比如，两个对等的网络层使用网络协议通信。<br><img src="https://img-blog.csdnimg.cn/20201127184557921.png" alt="对等层的协议"><br><strong>(3) 逐层处理，层层负责。</strong><br>在OSI中，两个实体通信必须涉及下一层，只有相邻层之间可以通信，<strong>下层向上层提供服务，上层通过接口调用下层的服务</strong>，层间不能有越级调用关系，每层功能的实现都是在下层提供服务的基础上完成的。即每一层都是利用下层提供的服务来完成本层功能，并在此基础上为上层提供进一步的服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">✈低三层模型属于通信子网，涉及为用户间提供透明连接，操作主要以每条链路为基础，在节点间的各条数据链路上进行通信。由网络层来控制各条链路上的通信，但要依赖于其他节点的协调操作。</span><br><span class="line"></span><br><span class="line">✈高三层属于资源子网，主要涉及保证信息以正确可理解形式传送。</span><br><span class="line"></span><br><span class="line">✈传输层是高三层和低三层之间的接口，它是第一个端到端的层次，保证透明的端到端连接，满足用户的服务质量（QoS）要求，并向高三层提供合适的信息形式。</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-TCP-x2F-IP协议簇-●’◡’●"><a href="#1-5-TCP-x2F-IP协议簇-●’◡’●" class="headerlink" title="1.5 TCP &#x2F; IP协议簇(●’◡’●)"></a>1.5 TCP &#x2F; IP协议簇(●’◡’●)</h4><p>&amp;emsp;&amp;emsp;由于ISO指定的OSI参考模型过于庞大和复杂，在实现的时候造成了很大困难，所以招到了很多批评。在实际中，TCP&#x2F;IP协议栈获得了更加广泛的应用。主流的操作系统基本上都采用TCP&#x2F;IP协议栈。<br><img src="https://img-blog.csdnimg.cn/2020112718495992.png" alt="TCP/IP协议簇"><br><strong>五层协议体系结构的各层功能：</strong></p>
+<p>&amp;emsp;&amp;emsp;<strong>应用层</strong>：是体系结构中的最高直接为用户的应用进程提供服务，在因特网中的应用层协议很多，如支持万维网应用的HTTP协议，支持电子邮件的SMTP协议，支持文件传送的FTP协议等。</p>
+<p>&amp;emsp;&amp;emsp;<strong>运输层</strong>：负责向两个主机中进程之间的通信提供服务由于一个主机可同时运行多个进程，因此运输层有复用和分用的功能：</p>
+<blockquote>
+<pre><code>1. 复用，是多个应用层进程可同时使用下面运输层的服务
+2. 分用，是把收到的信息分别交付给上面应用层中相应的进程
+</code></pre>
+</blockquote>
+<ol>
+<li>运输层主要使用以下两种协议： </li>
+<li>传输控制协议TCP：面向连接的，数据传输的单位是报文段，能够提供可靠的交付 </li>
+<li>用户数据包协议UDP：面向无连接的，数据传输的单位是用户数据报，不保证提供可靠的交付，只能提供尽最大努力交付</li>
+</ol>
+<p>&amp;emsp;&amp;emsp;<strong>网络层</strong>：主要包括以下两个任务：</p>
+<ol>
+<li>负责为分组交换网上的不同主机提供通信服务在发送数据时，网络层把运输层残生的报文段或用户数据报封装成分组或包进行传送。在TCP&#x2F;IP体系中，由于网络层使用IP协议，因此分组也叫做IP数据报，或简称为数据报。</li>
+<li>选中合适的路由，使源主机运输层所传下来的分组，能够通过网络中的路由器找到目的主机。</li>
+</ol>
+<p>&amp;emsp;&amp;emsp;<strong>数据链路层</strong>：常简称为链路层，两个主机之间的数据传输，总是在一段一段的链路上传送的，也就是说，在两个相邻结点之间传送数据是直接传送的(点对点)，这时就需要使用专门的链路层的协议。</p>
+<p>在两个相邻结点之间传送数据时，数据链路层将网络层交下来的IP数据报组装成帧，在两个相邻结点之间的链路上“透明”地传送帧中的数据，每一帧包括数据和必要的控制信息(如同步信息、地址信息、差错控制等)。</p>
+<blockquote>
+<p>注：透明是一个很重要的术语:：它表示某一个实际存在的事物看起来却好像不存在一样。”在数据链路层透明传送数据”表示无论什么样的比特组合的数据都能够通过这个数据链路层。因此，对所传送的数据来说，这些数据就“看不见”数据链路层。或者说，数据链路层对这些数据来说是透明的。</p>
+</blockquote>
+<p>&amp;emsp;&amp;emsp;&amp;emsp;(1)在接收数据时，控制信息使接收端能知道一个帧从哪个比特开始和到哪个比特结束。这样数据链路层在收到一个帧后，就可从中提取出数据部分，上交给网络层。<br>&amp;emsp;&amp;emsp;&amp;emsp;(2)控制信息还使接收端能检测到所收到的帧中有无差错。如发现有差错，数据链路层就简单地丢弃这个出了差错的帧，以免继续传送下去白白浪费网络资源。如需改正错误，就由运输层的TCP协议来完成。</p>
+<p>&amp;emsp;&amp;emsp;<strong>物理层</strong>：在物理层上所传数据的单位是比特，物理层的任务就是透明地传送比特流。</p>
+<h4 id="1-6-数据在各层之间的传递过程-●’◡’●"><a href="#1-6-数据在各层之间的传递过程-●’◡’●" class="headerlink" title="1.6 数据在各层之间的传递过程(●’◡’●)"></a>1.6 数据在各层之间的传递过程(●’◡’●)</h4><p><img src="https://img-blog.csdnimg.cn/20201127185552830.png" alt="数据在各层之间的传递过程"><br><strong>OSI参考模型各层主要功能、传输数据单位：</strong></p>
+<table>
+<thead>
+<tr>
+<th>物理层</th>
+<th>原始比特流的传输，基本单位：比特</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据链路层</td>
+<td>建立相邻节点数据链路传输，基本单位：帧</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>基于IP地址的路由选路传输数据，基本单位： 数据包</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>常规数据传递，面向连接或者无连接，基本单位：数据段</td>
+</tr>
+<tr>
+<td>会话层</td>
+<td>建立会话关系</td>
+</tr>
+<tr>
+<td>表示层</td>
+<td>统一数据传输格式</td>
+</tr>
+<tr>
+<td>应用层</td>
+<td>为用户应用程序提供服务接口</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">物理层 --&gt; 比特流 --&gt; bit</span><br><span class="line">数据链路层 --&gt; 数据帧 --&gt; frame</span><br><span class="line">网络层 --&gt; 数据包 --&gt; packet</span><br><span class="line">传输层 --&gt; 数据段 --&gt;  segment</span><br><span class="line">应用层 --&gt; 消息 --&gt; message</span><br></pre></td></tr></table></figure>
+
+<h3 id="（二）MAC地址"><a href="#（二）MAC地址" class="headerlink" title="（二）MAC地址"></a>（二）MAC地址</h3><p>&amp;emsp;&amp;emsp;MAC地址也叫物理地址、硬件地址，由网络设备制造商生产时烧录在网卡的EPROM。IP地址与MAC地址在计算机里都是以二进制表示的，IP地址是32位的，而MAC地址则是48位的。</p>
+<p>&amp;emsp;&amp;emsp;MAC地址的长度为48位(6个字节)，通常表示为12个16进制数，如：00-16-EA-AE-3C-40就是一个MAC地址，其中前3个字节，16进制数00-16-EA代表网络硬件制造商的编号，它由IEEE(电气与电子工程师协会)分配，而后3个字节，16进制数AE-3C-40代表该制造商所制造的某个网络产品(如网卡)的系列号。</p>
+<p>&amp;emsp;&amp;emsp;只要不更改自己的MAC地址，MAC地址在世界是唯一的。形象地说，MAC地址就如同身份证上的身份证号码，具有唯一性。</p>
+<h4 id="2-1-MAC地址组成-●’◡’●"><a href="#2-1-MAC地址组成-●’◡’●" class="headerlink" title="2.1 MAC地址组成(●’◡’●)"></a>2.1 MAC地址组成(●’◡’●)</h4><p><img src="https://img-blog.csdnimg.cn/2020112718591834.png" alt="MAC地址组成"><br><strong>MAC帧格式</strong><br><img src="https://img-blog.csdnimg.cn/20201127190323412.png" alt="MAC帧格式"><br>单播：</p>
+<blockquote>
+<p>指从单一的源端发送到单一的目的端。每个主机接口由一个MAC地址唯一标识，MAC地址的OUI中，第一字节第8个比特表示地址类型。对于主机MAC地址，这个比特固定为0，表示目的MAC地址为此MAC地址的帧都是发送到某个唯一的目的端。在冲突域中，所有主机都能收到源主机发送的单播帧，但是其他主机发现目的地址与本地MAC地址不一致后会丢弃收到的帧，只有真正的目的主机才会接收并处理收到的帧。</p>
+</blockquote>
+<p>广播：</p>
+<blockquote>
+<p>表示帧从单一的源发送到共享以太网上的所有主机。广播帧的目的MAC地址为十六进制的FFFFFFFFFFFF，所有收到该广播帧的主机都要接收并处理这个帧。<br>广播方式会产生大量流量，导致带宽利用率降低，进而影响整个网络的性能，当需要网络中的所有主机都能接收到相同的信息并进行处理的情况下，通常会使用广播方式。</p>
+</blockquote>
+<p>组播： </p>
+<blockquote>
+<p>组播比广播更加高效，组播转发可以理解为选择性的广播，主机侦听特定组播地址，接收并处理目的MAC地址为该组播MAC地址的帧。<br>组播MAC地址和单播MAC地址是通过第一字节中的第8个比特区分的。<br>组播MAC地址的第8个比特为1，而单播MAC地址的第8个比特为0。<br>当需要网络上的一组主机（而不是全部主机）接收相同信息，并且其他主机不受影响的情况下通常会使用组播方式。</p>
+</blockquote>
+<h3 id="（三）IP地址"><a href="#（三）IP地址" class="headerlink" title="（三）IP地址"></a>（三）IP地址</h3><p>&amp;emsp;&amp;emsp;IP地址（Internet Protocol Address）是指互联网协议地址，又译为网际协议地址。</p>
+<blockquote>
+<p>IP地址是IP协议提供的一种统一的地址格式，它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。</p>
+</blockquote>
+<h4 id="3-1-IP地址的组成-●’◡’●"><a href="#3-1-IP地址的组成-●’◡’●" class="headerlink" title="3.1 IP地址的组成(●’◡’●)"></a>3.1 IP地址的组成(●’◡’●)</h4><p>（1）长度：32bit（4字节&#x3D;4B&#x3D;32bit），一共有2^32个IPv4地址。</p>
+<p>（2）写法：4组点分十进制数，意思将一个32位的IP地址分为4段，每段由二进制转换为十进制的数来进行表示，每段数字范围为0-255。</p>
+<p>（3）组成：一个IP地址由网络号和主机号组成。</p>
+<h4 id="3-2-IP地址类型-●’◡’●"><a href="#3-2-IP地址类型-●’◡’●" class="headerlink" title="3.2 IP地址类型(●’◡’●)"></a>3.2 IP地址类型(●’◡’●)</h4><pre><code>1. 公有地址
+</code></pre>
+<p>公有地址（Public address）由Inter NIC（Internet Network Information Center 因特网信息中心）负责，这些IP地址分配给注册并向Inter NIC提出申请的组织机构，通过它直接访问因特网。</p>
+<pre><code>2. 私有地址
+</code></pre>
+<p>私有地址（Private address）属于非注册地址，专门为组织机构内部使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A类 10.0.0.0--10.255.255.255</span><br><span class="line">B类 172.16.0.0--172.31.255.255</span><br><span class="line">C类 192.168.0.0--192.168.255.255</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-IP地址编址方式-●’◡’●"><a href="#3-3-IP地址编址方式-●’◡’●" class="headerlink" title="3.3 IP地址编址方式(●’◡’●)"></a>3.3 IP地址编址方式(●’◡’●)</h4><p>最初设计互联网时，为了便于寻址以及层次化构造网络，每个IP地址包括两个标识码ID，即网络ID和主机ID。同一个物理网络上的所有主机都使用同一个网络ID，网络上的一个主机有一个主机ID与其对应。<br><img src="https://img-blog.csdnimg.cn/20201127191431768.png" alt="在这里插入图片描述"></p>
+<pre><code>A类IP地址
+</code></pre>
+<p>一个A类IP地址是指， 在IP地址的四段号码中，第一段号码为网络号码，剩下的三段号码为本地计算机的号码。如果用二进制表示IP地址的话，A类IP地址就由1字节的网络地址和3字节主机地址组成，网络地址的最高位必须是”0”。A类IP地址中网络的标识长度为8位，主机标识的长度为24位，A类网络地址数量较少，有126个网络，每个网络可以容纳主机数达1600多万台。</p>
+<p>A类IP地址的地址范围1.0.0.1到127.255.255.254</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（二进制表示为：00000001 00000000 00000000 00000001----01111111 11111111 11111111 11111110）</span><br></pre></td></tr></table></figure>
+
+<pre><code>B类IP地址
+</code></pre>
+<p>一个B类IP地址是指，在IP地址的四段号码中，前两段号码为网络号码。如果用二进制表示IP地址的话，B类IP地址就由2字节的网络地址和2字节主机地址组成，网络地址的最高位必须是”10”。B类IP地址中网络的标识长度为16位，主机标识的长度为14位，B类网络地址适用于中等规模的网络，有16384个网络，每个网络所能容纳的计算机数为6万多台。</p>
+<p>B类IP地址地址范围128.0.0.1到191.255.255.254</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（二进制表示为：10000000 00000000 00000000 00000001----10111111 11111111 11111111 11111110）</span><br></pre></td></tr></table></figure>
+
+<pre><code>C类IP地址
+</code></pre>
+<p>一个C类IP地址是指，在IP地址的四段号码中，前三段号码为网络号码，剩下的一段号码为本地计算机的号码。如果用二进制表示IP地址的话，C类IP地址就由3字节的网络地址和1字节主机地址组成，网络地址的最高位必须是”110”。C类IP地址中网络的标识长度为24位，主机标识的长度为8位，C类网络地址数量较多，有209万余个网络。适用于小规模的局域网络，每个网络最多只能包含254台计算机。</p>
+<p>C类IP地址范围192.0.0.1到223.255.255.254</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（二进制表示为: 11000000 00000000 00000000 00000001----11011111 11111111 11111111 11111110）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：IP地址中不能以十进制127作为开头，该类地址中数字127.0.0.1到127.255.255.255用于回路测试</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-子网-●’◡’●"><a href="#3-4-子网-●’◡’●" class="headerlink" title="3.4 子网(●’◡’●)"></a>3.4 子网(●’◡’●)</h4><p>&amp;emsp;&amp;emsp;引入子网掩码，从逻辑上把一个大网络划分成一些小网络。子网掩码是由一系列的1和0构成，通过将其同IP地址做<strong>与运算</strong>来指出一个IP地址的网络号是什么。<br>&amp;emsp;&amp;emsp;对于传统IP地址分类来说，A类地址的子网掩码是255.0.0.0；B类地址的子网掩码是255.255.0.0；C类地址的子网掩码是255.255.255.0。</p>
+<blockquote>
+<p>例如，如果要将一个B类网络166.111.0.0划分为多个C类子网来用的话，只要将其子网掩码设置为255.255.255.0即可，这样166.111.1.1和166.111.2.1就分属于不同的网络了。像这样，通过较长的子网掩码将一个网络划分为多个网络的方法就叫做划分子网。</p>
+</blockquote>
+<h4 id="3-5-超网-●’◡’●"><a href="#3-5-超网-●’◡’●" class="headerlink" title="3.5 超网(●’◡’●)"></a>3.5 超网(●’◡’●)</h4><p>&amp;emsp;&amp;emsp;超网是同子网类似的概念，它通过较短的子网掩码将多个小网络合成一个大网络。</p>
+<blockquote>
+<p>例如，一个单位分到了8个C类地址：202.120.224.0到202.120.231.0，只要将其子网掩码设置为255.255.248.0，就能使这些C类网络相通。</p>
+</blockquote>
+<h3 id="（四）ARP-x2F-RARP协议"><a href="#（四）ARP-x2F-RARP协议" class="headerlink" title="（四）ARP &#x2F; RARP协议"></a>（四）ARP &#x2F; RARP协议</h3><p>&amp;emsp;&amp;emsp;地址解析协议，即ARP（Address Resolution Protocol），是根据IP地址获取物理地址的一个TCP&#x2F;IP协议。主机发送信息时将包含目标IP地址的ARP请求广播到网络上的所有主机，并接收返回消息，以此确定目标的物理地址。收到返回消息后将该IP地址和物理地址存入本机ARP缓存中并保留一定时间，下次请求时直接查询ARP缓存以节约资源。</p>
+<h4 id="4-1-ARP欺骗-●ˇ∀ˇ●"><a href="#4-1-ARP欺骗-●ˇ∀ˇ●" class="headerlink" title="4.1 ARP欺骗(●ˇ∀ˇ●)"></a>4.1 ARP欺骗(●ˇ∀ˇ●)</h4><p>地址解析协议是建立在网络中各个主机互相信任的基础上的，网络上的主机可以自主发送ARP应答消息，其他主机收到应答报文时不会检测该报文的真实性就会将其记入本机ARP缓存；由此攻击者就可以向某一主机发送伪ARP应答报文，使其发送的信息无法到达预期的主机或到达错误的主机，这就构成了一个ARP欺骗。</p>
+<h4 id="4-2-ARP工作流程举例-●ˇ∀ˇ●"><a href="#4-2-ARP工作流程举例-●ˇ∀ˇ●" class="headerlink" title="4.2 ARP工作流程举例(●ˇ∀ˇ●)"></a>4.2 ARP工作流程举例(●ˇ∀ˇ●)</h4><p>主机A的IP地址为192.168.1.1，MAC地址为0A-11-22-33-44-01；<br>主机B的IP地址为192.168.1.2，MAC地址为0A-11-22-33-44-02；<br>　　<br>当主机A要与主机B通信时，地址解析协议可以将主机B的IP地址192.168.1.2解析成主机B的MAC地址，以下为工作流程：</p>
+<ol>
+<li>根据主机A上的路由表内容，IP确定用于访问主机B的转发IP地址是192.168.1.2，然后A主机在自己的本地ARP缓存中检查主机B的匹配MAC地址。</li>
+<li>如果主机A在ARP缓存中没有找到映射，它将询问192.168.1.2的硬件地址，从而将ARP请求帧广播到本地网络上的所有主机。源主机A的IP地址和MAC地址都包括在ARP请求中。本地网络上的每台主机都接收到ARP请求并且检查是否与自己的IP地址匹配。</li>
+<li>如果主机发现请求的IP地址与自己的IP地址不匹配，它将丢弃ARP请求。</li>
+<li>主机B确定ARP请求中的IP地址与自己的IP地址匹配，则将主机A的IP地址和MAC地址映射添加到本地ARP缓存中。</li>
+<li>主机B将包含其MAC地址的ARP回复消息直接发送回主机A。</li>
+<li>当主机A收到从主机B发来的ARP回复消息时，会用主机B的IP和MAC地址映射更新ARP缓存。本机缓存是有生存期的，生存期结束后，将再次重复上面的过程。主机B的MAC地址一旦确定，主机A就能向主机B发送IP通信了。</li>
+</ol>
+<h4 id="4-3-逆地址解析协议-●ˇ∀ˇ●"><a href="#4-3-逆地址解析协议-●ˇ∀ˇ●" class="headerlink" title="4.3 逆地址解析协议(●ˇ∀ˇ●)"></a>4.3 逆地址解析协议(●ˇ∀ˇ●)</h4><p>&amp;emsp;&amp;emsp;RARP，功能和ARP协议相对，其将局域网中某个主机的物理地址转换为IP地址，比如局域网中有一台主机只知道物理地址而不知道IP地址，那么可以通过RARP协议发出征求自身IP地址的广播请求，然后由RARP服务器负责回答。</p>
+<blockquote>
+<p>RARP协议工作流程：<br>　　（1）给主机发送一个本地的RARP广播，在此广播包中，声明自己的MAC地址并且请求任何收到此请求的RARP服务器分配一个IP地址；<br>　　（2）本地网段上的RARP服务器收到此请求后，检查其RARP列表，查找该MAC地址对应的IP地址；<br>　　（3）如果存在，RARP服务器就给源主机发送一个响应数据包并将此IP地址提供给对方主机使用；<br>　　（4）如果不存在，RARP服务器对此不做任何的响应；<br>　　（5）源主机收到从RARP服务器的响应信息，就利用得到的IP地址进行通讯；<br>　　（6）如果一直没有收到RARP服务器的响应信息，表示初始化失败。</p>
+</blockquote>
+<h3 id="（五）IP协议"><a href="#（五）IP协议" class="headerlink" title="（五）IP协议"></a>（五）IP协议</h3><p>&amp;emsp;&amp;emsp;IP协议是TCP&#x2F;IP协议族中最为核心的协议。所有的TCP、IP、ICMP、IGMP数据都以IP协议数据报格式发送。IP协议提供无连接、不可靠的数据报传送服务。</p>
+<ol>
+<li>不可靠：它不保证数据能成功地发送到目的地，IP协议仅提供最好地传输服务。如果发生某种错误，如路由器暂时用完缓冲区，IP协议的处理算法是：丢弃该数据报，然后发送ICMP消息给发送源（告诉发送源为什么丢弃），任何要求的可靠性都需要在上层实现。</li>
+<li>无连接：IP协议并不维护后序数据报的状态信息，每个数据报的处理是独立的。举例：A向B依次发送1、2两个数据报，这两个数据报在网络上选择的路由线路可能不同，因此很有可能先收到报文2，后收到报文1。对于此种情况，IP协议并没有做处理。</li>
+</ol>
+<h4 id="5-1-IP报头-●ˇ∀ˇ●"><a href="#5-1-IP报头-●ˇ∀ˇ●" class="headerlink" title="5.1 IP报头(●ˇ∀ˇ●)"></a>5.1 IP报头(●ˇ∀ˇ●)</h4><p><img src="https://img-blog.csdnimg.cn/20201127191818474.png" alt="IP报头"><br>中文版：<br><img src="https://img-blog.csdnimg.cn/20201127191833991.png" alt="IP报头"></p>
+<ol>
+<li>Version（版本信息）（占4bit，指IP协议的版本）</li>
+<li>Header Length（头部长度）<ol>
+<li>头部长度是指IP报头的总长度，因为有Option可选部分，通常为20字节，在20–60字节；</li>
+<li>该字段单位为32位字（1个32位字为4字节），因此当IP报头长度为1111时是最大60字节；</li>
+<li>IP报头长度不是4字节的整数倍是，就需要对填充域进行填充；</li>
+</ol>
+</li>
+<li>Differentiated Services Field（服务类型）（占8bit）<br>TOS，服务类型：用来指定特殊的报文处理方式</li>
+<li>Total Length（总长度）（占16bit）<ol>
+<li>标示此IP报头和数据的之和的总长度</li>
+<li>总长度16位，一个数据最大长度65535字节，链路只允许1500字节，超过的话需要进行MTU分片</li>
+<li>一个数据包由IP报头和数据两部分组成，而IP报头为20—60字节，所以不会有一个数据包里纯数据超过1480字节的</li>
+</ol>
+</li>
+<li>Identification（ID标识符）（占16bit）与标记字段和偏移字段用于IP报文分片<ol>
+<li>原始报文大小超过MTU（&lt;1480字节）就必须将原始数据进行分片，每个分片小于MTU；</li>
+<li>对同一原始文件被分片的报文打上相同的标记，也用来判断流量是否来于同一主机；</li>
+<li>IP软件在存储器中维持一个计数器没生产一个数据包，计数器就加1，并赋予标识字段；</li>
+<li>数据报文进行分片处理后每个分片的标识值都与原数据包的标识值相同，接收端具有同标识值的分片就能最终正确重组为原数据。</li>
+</ol>
+</li>
+<li>Flag（标记）（占3bit），目前只有2位具有意义：<ol>
+<li>第一位没有被使用</li>
+<li>第二位不分片为（DF），当DF位置为1时表示路由器不能对报文进行分片处理</li>
+<li>第三位（多分片）（MF）</li>
+<li>当路由器对报文进行分片时，除了最后一个分片的MF位设置为0外，其他所有分片MF位置为1，以便接收者直到收到MF位为0的分片为止</li>
+</ol>
+</li>
+<li>Fragmentation Offset（分片偏移）（13bit）<ol>
+<li>标识分片在分组中的位置</li>
+<li>片偏移以8个字节为偏移单位，分片的长度为8字节的整数倍</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>以太网最大帧长为1518B，IP报文1500B（三层）+  帧头18B（二层）<br>注意：MTU不是固定1500，这要取决现场物理环境，MTU不包含帧头帧尾。</p>
+</blockquote>
+<ol start="8">
+<li>Time To Live（TTL生存时间）（8bit）<ol>
+<li>跳数大小，即数据包能传多少跳</li>
+<li>不同操作系统TTL的默认最大值会有所不同（Linux—255；Win98—225；Win7&#x2F;8&#x2F;10—64）</li>
+<li>表示数据包在网络中的寿命（最初以秒为单位，现在以跳数为单位，最大225）</li>
+<li>分组寿命，防止路由成环时IP数据被无限转发</li>
+<li>源和目的路由器之间的路由数量（跳数）</li>
+<li>路由设备每此转发将TTL值减1，TTL为0时丢弃该分组</li>
+</ol>
+</li>
+<li>Protocol（协议）（8bit）<br>标识数据携带的数据是何种协议，标识传输层地址或协议号，如1代表ICMP，6代表TCP，17代表UDP</li>
+<li>Header Checksum（报头校验和）（16bit）检查报文头部的完整性<ol>
+<li>用于校验检查IP报头是否有出入</li>
+<li>只校验IP报头部，数据部分由高层协议校验（TCP头的校验字段包含IP头和数据的校验）</li>
+<li>无需重复校验数据部分，缩短路由器转发分组时的处理时间，数据部分由终端用高层协议校验</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li><p>发送方先把校验和字段置为0，对首部中每个16bit（切割多个16bit）进行二进制反码求和，结果存在校验和字段中</p>
+</li>
+<li><p>收到一份IP数据包后同样对首部中每个16bit进行二进制码反求和，接收方计算中包含了发送方存在的首部校验和</p>
+</li>
+<li><p>如果传输过程无错误，接收方结算结果全为1，传输中出现错误或数据丢失校验和结果为非全1，接受者丢弃校验未通过数据</p>
+</li>
+<li><p>不生成错误报文，由上层发现丢失数据进行重传</p>
+</li>
+</ol>
+</blockquote>
+<ol start="11">
+<li><p>Source Ip address（源IP地址）（32bit）<br>数据发起者的IP地址</p>
+</li>
+<li><p>Destination Ip address（目的IP地址）（32bit）<br>数据的接收者IP地址</p>
+</li>
+<li><p>Option（可选字段）（24bit）<br>24bit用于提供一些数据报可选的服务，时间戳，记录路由等</p>
+</li>
+<li><p>Padding（填充项）<br>Options一般为0或者是32bit的倍数，如果不够32bit或者32bit的倍数则由Padding补齐。</p>
+</li>
+</ol>
+<h3 id="（六）TCP-x2F-IP协议"><a href="#（六）TCP-x2F-IP协议" class="headerlink" title="（六）TCP &#x2F; IP协议"></a>（六）TCP &#x2F; IP协议</h3><p>&amp;emsp;&amp;emsp;TCP&#x2F;IP协议是Internet最基本的协议、Internet国际互联网络的基础，由网络层的IP协议和传输层的TCP协议组成。通俗而言：TCP负责发现传输的问题，一有问题就发出信号，要求重新传输，直到所有数据安全正确地传输到目的地。</p>
+<p>&amp;emsp;&amp;emsp;IP层接收由更低层（网络接口层）发来的数据包，并把该数据包发送到更高层TCP或UDP层；相反，IP层也把从TCP或UDP层接收来的数据包传送到更低层。IP数据包是不可靠的，因为IP并没有做任何事情来确认数据包是否按顺序发送的或者有没有被破坏，IP数据包中含有发送它的主机的地址（源地址）和接收它的主机的地址（目的地址）。</p>
+<h4 id="6-1-UDP-●’◡’●"><a href="#6-1-UDP-●’◡’●" class="headerlink" title="6.1 UDP(●’◡’●)"></a>6.1 UDP(●’◡’●)</h4><p><strong>UDP：用户数据报文协议</strong><br><img src="https://img-blog.csdnimg.cn/20201127192003653.png" alt="用户数据报文协议"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">16位源端口</span><br><span class="line">16位目标端口</span><br><span class="line">16位的UDP包长度（UDP头部和UDP数据的总长度字节）</span><br><span class="line">16位头部校验和</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-2-UDP的特点-●’◡’●"><a href="#6-2-UDP的特点-●’◡’●" class="headerlink" title="6.2 UDP的特点(●’◡’●)"></a>6.2 UDP的特点(●’◡’●)</h4><p>1.协议开销小、效率高<br>2.UDP是无连接的，即发送数据之前不需要建立连接<br>3.UDP使用尽最大努力交付，即不保证可靠交付<br>4.UDP没有拥塞控制<br>5.UDP支持一对一、一对多、多对一和多对多交互通信<br>6.UDP的首部开销小，只有8个字节</p>
+<h4 id="6-3-TCP-●’◡’●"><a href="#6-3-TCP-●’◡’●" class="headerlink" title="6.3 TCP(●’◡’●)"></a>6.3 TCP(●’◡’●)</h4><p>&amp;emsp;&amp;emsp;<strong>TCP</strong>（Transmission Control Protocol，传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由RFC793定义。</p>
+<p>&amp;emsp;&amp;emsp;TCP是面向连接的通信协议，通过三次握手建立连接，通讯完成时要拆除连接，由于TCP是面向连接的所以只能用于端到端的通讯。</p>
+<p>&amp;emsp;&amp;emsp;TCP提供的是一种可靠的数据流服务，采用”带重传的肯定确认”技术来实现传输的可靠性。TCP还采用一种称为”滑动窗口”的方式进行流量控制，所谓窗口实际表示接收能力，用以限制发送方的发送速度。<br><img src="https://img-blog.csdnimg.cn/20201127192126681.png" alt="TCP"><br><img src="https://img-blog.csdnimg.cn/20201127192134801.png" alt="TCP"></p>
+<ol>
+<li>16位源端口，16位目的端口 </li>
+<li>32位序列编号：用来解决网络包乱序（reordering）问题。</li>
+<li>32位确认序号ACK：用于确认收到数据包，用来解决不丢包的问题。 </li>
+<li>4位首部长度：表示该TCP报头有多少个4字节(32个bit)</li>
+<li>6位保留位 </li>
+<li>6位标志位<br>    1. URG: 标识紧急指针是否有效<br>    2. ACK: 标识确认序号是否有效<br>    3. PSH: 用来提示接收端应用程序立刻将数据从TCP缓冲区读走<br>    4. RST: 要求重新建立连接. 我们把含有RST标识的报文称为复位报文段<br>    5. SYN: 请求建立连接. 我们把含有SYN标识的报文称为同步报文段<br>    6. FIN: 通知对端，本端即将关闭。我们把含有FIN标识的报文称为结束报文段</li>
+<li>16位窗口大小：用来数据传输时的流量控制避免拥塞 </li>
+<li>16位校验和：发送端填充，检验形式有CRC校验等，如果接收端校验不通过，则认为数据有问题。此处的校验和不光包含TCP首部，也包含TCP数据部分 </li>
+<li>16位紧急指针：用来标识哪部分数据是紧急数据</li>
+</ol>
+<h4 id="6-4-TCP的特点-●’◡’●"><a href="#6-4-TCP的特点-●’◡’●" class="headerlink" title="6.4 TCP的特点(●’◡’●)"></a>6.4 TCP的特点(●’◡’●)</h4><p>一、面向连接的传输，传输数据前需要先建立连接，数据传输完毕要释放连接<br>二、端到端通信，不支持广播通信<br>三、高可靠性，确保传输数据的正确性，不出现丢失或乱序<br>四、全双工方式传输<br>五、采用字节流方式 ，即以字节为单位传输字节序列。如果字节流太长，将其分段。<br>六、提供紧急数据传送功能，即当有紧急数据要发送时，发送进程会立即发送，接收方收到后会暂停当前工作，读取紧急数据并做相应处理。</p>
+<h4 id="6-5-TCP的状态-●’◡’●"><a href="#6-5-TCP的状态-●’◡’●" class="headerlink" title="6.5 TCP的状态(●’◡’●)"></a>6.5 TCP的状态(●’◡’●)</h4><p><img src="https://img-blog.csdnimg.cn/20201127192241768.png" alt="TCP的状态"></p>
+<h4 id="6-6-三次握手与四次挥手问题-●’◡’●"><a href="#6-6-三次握手与四次挥手问题-●’◡’●" class="headerlink" title="6.6 三次握手与四次挥手问题(●’◡’●)"></a>6.6 三次握手与四次挥手问题(●’◡’●)</h4><p>三次握手与四次挥手过程图：<br><img src="https://img-blog.csdnimg.cn/20201127192311811.png" alt="三次握手与四次挥手过程图"><br>&amp;emsp;&amp;emsp;<strong>三次握手</strong>（Three-Way Handshake）是指建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。</p>
+<ol>
+<li>第一次握手：客户端将标志位SYN置为1，随机产生一个值 seq&#x3D;s，并将该数据包发送给服务端，客户端进入SYN_SENT状态，等待服务端确认。</li>
+<li>第二次握手：服务端收到数据包后由标志位SYN&#x3D;1知道客户端请求建立连接，服务端将标志位SYN和ACK都置为1，ack&#x3D;s+1，随机产生一个值seq&#x3D;k，并将该数据包发送给客户端以确认连接请求，服务端进入SYN_RCVD状态。</li>
+<li>第三次握手：客户端收到确认后，检查ack值是否为s+1，ACK标志位是否为1，如果正确则将标志位ACK置为1，ack&#x3D;k+1，并将该数据包发送给服务端。服务端检查ack值是否为k+1，ACK标志位是否为1，如果正确则连接建立成功，客户端和服务端进入ESTABLISHED 状态，完成三次握手。</li>
+</ol>
+<h5 id="6-6-1-为什么要三次握手？"><a href="#6-6-1-为什么要三次握手？" class="headerlink" title="6.6.1 为什么要三次握手？"></a>6.6.1 为什么要三次握手？</h5><p>&amp;emsp;&amp;emsp;在只有两次握手的情形下，假设Client想跟Server建立连接，但是却因为中途连接请求的数据报丢失了，故Client端不得不重新发送一遍。这个时候Server端仅收到一个连接请求，因此可以正常的建立连接。但是，有时候Client端重新发送请求不是因为数据报丢失了，而是有可能数据传输过程因为网络并发量很大在某结点被阻塞了，这种情形下Server端将先后收到2次请求，并持续等待两个Client请求向它发送数据。<br>&amp;emsp;&amp;emsp;问题就在这里，Cient端实际上只有一次请求，而Server端却有2个响应，极端的情况可能由于Client端多次重新发送请求数据而导致Server端最后建立了N多个响应在等待，因而造成极大的资源浪费！所以，三次握手很有必要！</p>
+<p>&amp;emsp;&amp;emsp;<strong>四次挥手</strong>（Four-Way Wavehand）指断开一个TCP连接时，需要客户端和服务端总共发送4个包以确认连接的断开。</p>
+<ol>
+<li>第一次挥手客户端发送一个FIN，用来关闭客户端到服务端的数据传送，客户端进入FIN_WAIT_1状态。</li>
+<li>第二次挥手服务端收到FIN后，发送一个 ACK 给客户端，确认序号为收到序号+1，服务端进入CLOSE_WAIT状态。</li>
+<li>第三次挥手服务端发送一个FIN，用来关闭服务端到客户端的数据传送，服务端进入LAST_ACK 状态。</li>
+<li>第四次挥手客户端收到FIN 后，客户端进入TIME_WAIT 状态，接着发送一个ACK 给服务端，确认序号为收到序号+1，服务端进入 CLOSED状态，完成四次挥手。</li>
+</ol>
+<h5 id="6-6-2-为什么要四次挥手？"><a href="#6-6-2-为什么要四次挥手？" class="headerlink" title="6.6.2 为什么要四次挥手？"></a>6.6.2 为什么要四次挥手？</h5><p>&amp;emsp;&amp;emsp;试想一下，假如现在你是客户端，你想断开跟Server的所有连接该怎么做？<br>第一步，你自己先停止向Server端发送数据，并等待Server的回复。但事情还没有完，虽然你自身不往Server发送数据了，但是因为你们之前已经建立好平等的连接了，所以此时Server也有主动权向你发送数据。故Server端还得终止主动向你发送数据，并等待你的确认。其实，说白了就是保证双方的一个合约的完整执行！</p>
+<h4 id="6-7-三次握手详解-●’◡’●"><a href="#6-7-三次握手详解-●’◡’●" class="headerlink" title="6.7 三次握手详解(●’◡’●)"></a>6.7 三次握手详解(●’◡’●)</h4><p>三次握手过程图：<br><img src="https://img-blog.csdnimg.cn/20201127193020802.png" alt="三次握手过程图"></p>
+<ol>
+<li>握手之前主动打开连接的客户端结束CLOSED阶段，被动打开的服务器端也结束CLOSED阶段，并进入LISTEN阶段。</li>
+<li>随后开始三次握手：<ol>
+<li>首先客户端向服务器端发送一段TCP报文，其中：标记位为SYN，表示“请求建立新连接”，序号为Seq&#x3D;x（x一般为1），随后客户端进入SYN-SENT阶段。</li>
+<li>服务器端接收到来自客户端的TCP报文之后，结束LISTEN阶段。并返回一段TCP报文，其中：标志位为SYN和ACK，表示“确认客户端的报文Seq序号有效，服务器能正常接收客户端发送的数据，并同意创建新连接”（即告诉客户端，服务器收到了你的数据）；</li>
+<li>服务器端想从y开始，序号为Seq&#x3D;y；确认号为Ack&#x3D;x+1，表示收到客户端的序号Seq并将其值加1作为自己确认号Ack的值。随后服务器端进入SYN-RCVD阶段。</li>
+</ol>
+</li>
+<li>客户端接收到来自服务器端的确认收到数据的TCP报文之后，明确了从客户端到服务器的数据传输是正常的，结束SYN-SENT阶段。并返回最后一段TCP报文。其中：标志位为ACK，表示“确认收到服务器端同意连接的信号”（即告诉服务器，我知道你收到我发的数据了）；序号为Seq&#x3D;x+1，表示收到服务器端的确认号Ack，并将其值作为自己的序号值；确认号为Ack&#x3D;y+1，表示收到服务器端序号Seq，并将其值加1作为自己的确认号Ack的值；随后客户端进入ESTABLISHED阶段。</li>
+<li>服务器收到来自客户端的“确认收到服务器数据”的TCP报文之后，明确了从服务器到客户端的数据传输是正常的。结束SYN-SENT阶段，进入ESTABLISHED阶段。</li>
+<li>在客户端与服务器端传输的TCP报文中，双方的确认号Ack和序号Seq的值，都是在彼此Ack和Seq值的基础上进行计算的，这样做保证了TCP报文传输的连贯性。一旦出现某一方发出的TCP报文丢失，便无法继续握手，以此确保了三次握手的顺利完成，此后客户端和服务器端进行正常的数据传输。</li>
+</ol>
+<h5 id="6-7-1-为什么要进行第三次握手？"><a href="#6-7-1-为什么要进行第三次握手？" class="headerlink" title="6.7.1 为什么要进行第三次握手？"></a>6.7.1 为什么要进行第三次握手？</h5><p>&amp;emsp;&amp;emsp;1.进行第三次握手是为了防止服务器端开启一些无用的连接增加服务器开销以及防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。<br>&amp;emsp;&amp;emsp;2.由于网络传输是有延时的（要通过网络光纤和各种中间代理服务器），在传输的过程中，比如客户端发起了SYN&#x3D;1创建连接的请求（第一次握手）。<br>&amp;emsp;&amp;emsp;3.如果服务器端直接创建了这个连接并返回包含SYN、ACK和Seq等内容的数据包给客户端，这个数据包因为网络传输的原因丢失了，丢失之后客户端就一直没有接收到服务器返回的数据包。客户端可能设置了一个超时时间，时间到了就关闭了连接创建的请求。再重新发出创建连接的请求，而服务器端是不知道的，如果没有第三次握手告诉服务器端：客户端收的到服务器端传输的数据的话，服务器端是不知道客户端有没有接收到服务器端返回的信息的。</p>
+<p>这个过程可理解为：<br><img src="https://img-blog.csdnimg.cn/20201127193111237.png" alt="第三次握手"><br>&amp;emsp;&amp;emsp;4.这样没有给服务器端一个创建还是关闭连接端口的请求，服务器端的端口就一直开着，等到客户端因超时重新发出请求时，服务器就会重新开启一个端口连接。那么服务器端上没有接收到请求数据的上一个端口就一直开着，长此以往，这样的端口多了，就会造成服务器端开销的严重浪费。<br>&amp;emsp;&amp;emsp;5.还有一种情况是已经失效的客户端发出的请求信息，由于某种原因传输到了服务器端，服务器端以为是客户端发出的有效请求，接收后产生错误。<br>&amp;emsp;&amp;emsp;6.所以我们需要第三次握手来确认这个过程，让客户端和服务器端能够及时地察觉到因为网络等一些问题导致的连接创建失败，这样服务器端的端口就可以关闭了不用一直等待。</p>
+<blockquote>
+<p>也可以这样理解：第三次握手是客户端向服务器端发送数据，这个数据就是要告诉服务器，客户端有没有收到服务器第二次握手时传过去的数据。若发送的这个数据是”收到了”的信息，接收后服务器就正常建立TCP连接，否则建立TCP连接失败，服务器关闭连接端口，由此减少服务器开销和接收到失效请求发生的错误。</p>
+</blockquote>
+<h4 id="6-8-四次挥手详解：-●’◡’●"><a href="#6-8-四次挥手详解：-●’◡’●" class="headerlink" title="6.8 四次挥手详解：(●’◡’●)"></a>6.8 四次挥手详解：(●’◡’●)</h4><p>四次挥手过程图：<br><img src="https://img-blog.csdnimg.cn/20201127193138511.png" alt="四次挥手过程图"></p>
+<ol>
+<li>客户端打算关闭连接，此时会发送一个TCP首部FIN标志位被置为1的报文，也即FIN报文，之后客户端进入FIN_WAIT_1状态。</li>
+<li>服务端收到该报文后，就向客户端发送ACK应答报文，接着服务端进入CLOSED_WAIT状态。</li>
+<li>客户端收到服务端的ACK应答报文后，之后进入FIN_WAIT_2状态。等待服务端处理完数据后，也向客户端发送FIN报文，之后服务端进入LAST_ACK状态。客户端收到服务端的FIN报文后，回一个ACK应答报文，之后进入TIME_WAIT状态。</li>
+<li>服务器收到了ACK应答报文后，就进入了CLOSE状态，至此服务端已经完成连接的关闭。</li>
+<li>客户端在经过2MSL一段时间后，自动进入CLOSE状态，至此客户端也完成连接的关闭。<br><img src="https://img-blog.csdnimg.cn/202011271931584.png" alt="四次挥手过程图"></li>
+</ol>
+<p><strong>四次挥手详解：</strong></p>
+<ol>
+<li>挥手之前主动释放连接的客户端结束ESTABLISHED阶段。</li>
+<li>随后开始四次挥手：<ol>
+<li>首先客户端想要释放连接，向服务器端发送一段TCP报文，其中：标记位为FIN，表示“请求释放连接“；序号为Seq&#x3D;u；随后客户端进入FIN-WAIT-1阶段，即半关闭阶段。并且停止在客户端到服务器端方向上发送数据，但是客户端仍然能接收从服务器端传输过来的数据。注意：这里不发送的是正常连接时传输的数据(非确认报文)，而不是一切数据，所以客户端仍然能发送ACK确认报文。</li>
+<li>服务器端接收到从客户端发出的TCP报文之后，确认了客户端想要释放连接，随后服务器端结束ESTABLISHED阶段，进入CLOSE-WAIT阶段（半关闭状态）并返回一段TCP报文，其中：标记位为ACK，表示“接收到客户端发送的释放连接的请求”；序号为Seq&#x3D;v；确认号为Ack&#x3D;u+1，表示是在收到客户端报文的基础上，将其序号Seq值加1作为本段报文确认号Ack的值。</li>
+<li>随后服务器端开始准备释放服务器端到客户端方向上的连接。</li>
+<li>客户端收到从服务器端发出的TCP报文之后，确认了服务器收到了客户端发出的释放连接请求，随后客户端结束FIN-WAIT-1阶段，进入FIN-WAIT-2阶段，前”两次挥手”既让服务器端知道了客户端想要释放连接，也让客户端知道了服务器端了解了自己想要释放连接的请求。于是，可以确认关闭客户端到服务器端方向上的连接了。</li>
+</ol>
+</li>
+<li>服务器端自从发出ACK确认报文之后，经过CLOSED-WAIT阶段，做好了释放服务器端到客户端方向上的连接准备，再次向客户端发出一段TCP报文，其中：标记位为FIN，ACK，表示“已经准备好释放连接了”。注意：这里的ACK并不是确认收到服务器端报文的确认报文。序号为Seq&#x3D;w；确认号为Ack&#x3D;u+1；表示是在收到客户端报文的基础上，将其序号Seq值加1作为本段报文确认号Ack的值。随后服务器端结束CLOSE-WAIT阶段，进入LAST-ACK阶段。并且停止在服务器端到客户端的方向上发送数据，但是服务器端仍然能够接收从客户端传输过来的数据。</li>
+<li>客户端收到从服务器端发出的TCP报文，确认了服务器端已做好释放连接的准备，结束FIN-WAIT-2阶段，进入TIME-WAIT阶段，并向服务器端发送一段报文，其中：标记位为ACK，表示“接收到服务器准备好释放连接的信号”。序号为Seq&#x3D;u+1；表示是在收到了服务器端报文的基础上，将其确认号Ack值作为本段报文序号的值。确认号为Ack&#x3D;w+1；表示是在收到了服务器端报文的基础上，将其序号Seq值作为本段报文确认号的值。</li>
+<li>随后客户端开始在TIME-WAIT阶段等待2MSL，服务器端收到从客户端发出的TCP报文之后结束LAST-ACK阶段，进入CLOSED阶段。由此正式确认关闭服务器端到客户端方向上的连接。</li>
+<li>客户端等待完2MSL之后，结束TIME-WAIT阶段，进入CLOSED阶段，由此完成四次挥手。后两次挥手既让客户端知道了服务器端准备好释放连接了，也让服务器端知道了客户端了解了自己准备好释放连接了。于是，可以确认关闭服务器端到客户端方向上的连接了，由此完成四次挥手。</li>
+<li>与三次挥手一样，在客户端与服务器端传输的TCP报文中，双方的确认号Ack和序号Seq的值，都是在彼此Ack和Seq值的基础上进行计算的，这样做保证了TCP报文传输的连贯性，一旦出现某一方发出的TCP报文丢失，便无法继续挥手，以此确保了四次挥手的顺利完成。</li>
+</ol>
+<h5 id="6-8-1-为什么”握手”是三次，”挥手”却要四次？"><a href="#6-8-1-为什么”握手”是三次，”挥手”却要四次？" class="headerlink" title="6.8.1 为什么”握手”是三次，”挥手”却要四次？"></a>6.8.1 为什么”握手”是三次，”挥手”却要四次？</h5><p>&amp;emsp;&amp;emsp;TCP建立连接时之所以只需要”三次握手”，是因为在第二次握手过程中，服务器端发送给客户端的TCP报文是以SYN与ACK作为标志位的。SYN是请求连接标志，表示服务器端同意建立连接；ACK是确认报文，表示告诉客户端，服务器端收到了它的请求报文。即SYN建立连接报文与ACK确认接收报文是在同一次握手当中传输的，所以三次握手不多也不少，正好让双方明确彼此信息互通。<br>&amp;emsp;&amp;emsp;TCP释放连接时之所以需要四次挥手，是因为FIN释放连接报文与ACK确认接收报文是分别由第二次和第三次握手传输的。</p>
+<h5 id="6-8-2-为何建立连接时一起传输，释放连接时却要分开传输？"><a href="#6-8-2-为何建立连接时一起传输，释放连接时却要分开传输？" class="headerlink" title="6.8.2 为何建立连接时一起传输，释放连接时却要分开传输？"></a>6.8.2 为何建立连接时一起传输，释放连接时却要分开传输？</h5><p>&amp;emsp;&amp;emsp;建立连接时，被动方服务器端结束CLOSED阶段进入握手阶段并不需要任何准备，可以直接返回SYN和ACK报文，开始建立连接。<br>&amp;emsp;&amp;emsp;释放连接时，被动方服务器，突然收到主动方客户端释放连接的请求时并不能立即释放连接，因为还有必要的数据需要处理，所以服务器先返回ACK确认收到报文，经过CLOSE-WAIT阶段准备好释放连接之后，才能返回FIN释放连接报文。</p>
+<h5 id="6-8-3-为什么客户端在TIME-WAIT阶段要等2MSL"><a href="#6-8-3-为什么客户端在TIME-WAIT阶段要等2MSL" class="headerlink" title="6.8.3 为什么客户端在TIME-WAIT阶段要等2MSL?"></a>6.8.3 为什么客户端在TIME-WAIT阶段要等2MSL?</h5><p>&amp;emsp;&amp;emsp;<strong>为的是确认服务器端是否收到客户端发出的ACK确认报文</strong></p>
+<p>&amp;emsp;&amp;emsp;当客户端发出最后的ACK确认报文时，并不能确定服务器端能够收到该段报文。所以客户端在发送完ACK确认报文之后，会设置一个时长为2MSL的计时器。</p>
+<p>&amp;emsp;&amp;emsp;MSL指的是Maximum Segment Lifetime：一段TCP报文在传输过程中的最大生命周期。2MSL即是服务器端发出为FIN报文和客户端发出的ACK确认报文所能保持有效的最大时长。</p>
+<p>&amp;emsp;&amp;emsp;服务器端在1MSL内没有收到客户端发出的ACK确认报文，就会再次向客户端发出FIN报文。如果客户端在2MSL内，再次收到了来自服务器端的FIN报文，说明服务器端由于各种原因没有接收到客户端发出的ACK确认报文。<br>&amp;emsp;&amp;emsp;客户端再次向服务器端发出ACK确认报文，计时器重置，重新开始2MSL的计时；否则客户端在2MSL内没有再次收到来自服务器端的FIN报文，说明服务器端正常接收了ACK确认报文，客户端可以进入CLOSED阶段，完成“四次挥手”。<br>&amp;emsp;&amp;emsp;所以，客户端要经历时长为2SML的TIME-WAIT阶段，这也是为什么客户端比服务器端晚进入CLOSED阶段的原因。</p>
+<h3 id="（七）DNS协议"><a href="#（七）DNS协议" class="headerlink" title="（七）DNS协议"></a>（七）DNS协议</h3><p>&amp;emsp;&amp;emsp;<strong>DNS</strong>是域名系统(Domain Name System)的缩写，该系统用于命名组织到域层次结构中的计算机和网络服务，可以简单地理解为将URL转换为IP地址。<br>&amp;emsp;&amp;emsp;域名是由圆点分开一串单词或缩写组成的，每一个域名都对应一个唯一的IP地址，在Internet上域名与IP地址之间是一一对应的，DNS就是进行域名解析的服务器。<br>&amp;emsp;&amp;emsp;因特网采用了层次树状结构的命名方法。任何一个连接在因特网上的主机或路由器，都有一个唯一的层次结构的名字，即域名。域名空间有根域，顶层域，二级域，子域，区域之分。</p>
+<h4 id="7-1-域名结构示意图-●’◡’●"><a href="#7-1-域名结构示意图-●’◡’●" class="headerlink" title="7.1 域名结构示意图(●’◡’●)"></a>7.1 域名结构示意图(●’◡’●)</h4><p><img src="https://img-blog.csdnimg.cn/20201127193359351.png" alt="域名结构示意图"><br>每一个域名都是一个标号序列，用字母、数字和连接符组成，标号序列总长度不能超过255个字符，它由点号分割成一个个的标号，每个标号应该在63个字符之内，每个标号都可以看成一个层次的域名。</p>
+<blockquote>
+<p>级别最低的域名写在左边，级别最高的域名写在右边</p>
+</blockquote>
+<blockquote>
+<p>域名服务主要是基于UDP实现的，服务器的端口号为53</p>
+</blockquote>
+<h4 id="7-2-域名解析方式-●’◡’●"><a href="#7-2-域名解析方式-●’◡’●" class="headerlink" title="7.2 域名解析方式(●’◡’●)"></a>7.2 域名解析方式(●’◡’●)</h4><ol>
+<li>递归查询法<ol>
+<li>如果DNS服务器无法解析出DNS客户机所要求查询的域名所对应的IP地址时，DNS服务器代表DNS客户机来查询或联系其他DNS服务器，以完全解析该名称，并将应答返回给客户机。</li>
+<li>本机向本地域名服务器发出一次查询请求，就静待最终的结果。如果本地域名服务器无法解析，自己会以DNS客户机的身份向其它域名服务器查询，直到得到最终的IP地址告诉本机。</li>
+</ol>
+</li>
+<li>迭代查询法<ol>
+<li>客户机送出查询请求后，若该DNS服务器中不包含所需数据，它会告诉客户机另外一台DNS服务器的IP地址，使客户机自动转向另一台DNS服务器查询，以此类推，直到查询数据，否则由最后一台DNS服务器通知客户机查询失败。</li>
+<li>本地域名服务器向根域名服务器查询，根域名服务器告诉它下一步到哪里去查询，然后它再去查，每次它都是以客户机的身份去各个服务器查询。</li>
+</ol>
+</li>
+<li>反向查询<br> 客户机利用IP地址查询其主机完整域名。</li>
+</ol>
+<h4 id="7-3-域名解析过程-●’◡’●"><a href="#7-3-域名解析过程-●’◡’●" class="headerlink" title="7.3 域名解析过程(●’◡’●)"></a>7.3 域名解析过程(●’◡’●)</h4><p>域名解析总体可分为两大步骤：<br>第一个步骤是本机向本地域名服务器发出一个DNS请求报文，报文里携带需要查询的域名。<br>第二个步骤是本地域名服务器向本机回应一个DNS响应报文，里面包含域名对应的IP地址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">从下面对jocent.me进行域名解析的报文中可明显看出这两大步骤：</span><br><span class="line">具体的流程可描述如下：</span><br><span class="line">	1. 主机10.74.36.90先向本地域名服务器10.74.1.11进行递归查询</span><br><span class="line">	2. 本地域名服务器采用迭代查询，向一个根域名服务器进行查询</span><br><span class="line">	3. 根域名服务器告诉本地域名服务器，下一次应该查询的顶级域名服务器dns.me的IP地址</span><br><span class="line">	4. 本地域名服务器向顶级域名服务器dns.me进行查询</span><br><span class="line">	5. 顶级域名服务器me告诉本地域名服务器，下一步查询权限服务器dns.jocent.me 的IP地址</span><br><span class="line">	6. 本地域名服务器向权限服务器dns.jocent.me进行查询</span><br><span class="line">	7. 权限服务器dns.jocent.me告诉本地域名服务器所查询的主机的IP地址</span><br><span class="line">	8. 本地域名服务器最后把查询结果告诉10.74.36.90</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-4-DNS协议报文格式-●’◡’●"><a href="#7-4-DNS协议报文格式-●’◡’●" class="headerlink" title="7.4 DNS协议报文格式(●’◡’●)"></a>7.4 DNS协议报文格式(●’◡’●)</h4><p><img src="https://img-blog.csdnimg.cn/20201128090708951.png" alt="DNS协议报文格式"><br>整个 DNS 格式主要分为 3 部分内容，即基础结构部分、问题部分、资源记录部分：</p>
+<p><strong>1. 基础结构部分</strong><br><img src="https://img-blog.csdnimg.cn/20201128090844959.png" alt="基础结构部分"></p>
+<pre><code>1. 事务 ID：DNS 报文的 ID 标识，对于请求报文和其对应的应答报文，该字段的值是相同的，通过它可以区分 DNS 应答报文是对哪个请求进行响应的
+2. 标志：DNS 报文中的标志字段
+3. 问题计数：DNS 查询请求的数目
+4. 回答资源记录数：DNS 响应的数目
+5. 权威名称服务器计数：权威名称服务器的数目
+6. 附加资源记录数：额外的记录数目（权威名称服务器对应 IP 地址的数目）
+</code></pre>
+<p>基础结构部分中的标志字段又分为若干个字段：<br><img src="https://img-blog.csdnimg.cn/20201127193702198.png" alt="标志字段"></p>
+<pre><code>1. QR（Response）：查询请求/响应的标志信息。查询请求时，值为0；响应时，值为 1。
+2. Opcode：操作码。其中，0 表示标准查询；1 表示反向查询；2 表示服务器状态请求。
+3. AA（Authoritative）：授权应答，该字段在响应报文中有效。值为 1 时，表示名称服务器是权威服务器；值为 0 时，表示不是权威服务器。
+4. TC（Truncated）：表示是否被截断。值为 1 时，表示响应已超过 512 字节并已被截断，只返回前 512 个字节。
+5. RD（Recursion Desired）：期望递归。该字段能在一个查询中设置，并在响应中返回。该标志告诉名称服务器必须处理这个查询，这种方式被称为一个递归查询。如果该位为 0，且被请求的名称服务器没有一个授权回答，它将返回一个能解答该查询的其他名称服务器列表。这种方式被称为迭代查询。
+6. RA（Recursion Available）：可用递归。该字段只出现在响应报文中。当值为 1 时，表示服务器支持递归查询。
+7. Z：保留字段，在所有的请求和应答报文中，它的值必须为 0。
+8. rcode（Reply code）：返回码字段，表示响应的差错状态。
+      1. 当值为 0 时，表示没有错误；
+      2. 当值为 1 时，表示报文格式错误，服务器不能理解请求的报文；
+      3. 当值为 2 时，表示域名服务器失败，因为服务器的原因导致没办法处理这个请求；
+      4. 当值为 3 时，表示名字错误，只有对授权域名解析服务器有意义，指出解析的域名不存在；
+      5. 当值为 4 时，表示查询类型不支持，即域名服务器不支持查询类型；
+      6. 当值为 5 时，表示拒绝，一般是服务器由于设置的策略拒绝给出应答，如服务器不希望对某些请求者给出应答。
+</code></pre>
+<p><strong>2. 问题部分</strong><br>问题部分指的是报文格式中查询问题区域（Queries）部分。该部分是用来显示 DNS 查询请求的问题，通常只有一个问题。该部分包含正在进行的查询信息，包含查询名（被查询主机名字）、查询类型、查询类。<br><img src="https://img-blog.csdnimg.cn/20201127193848592.png" alt="问题部分"></p>
+<pre><code>1. 查询名：一般为要查询的域名，有时也会是 IP 地址，用于反向查询
+2. 查询类型：DNS 查询请求的资源类型，通常查询类型为 A 类型，表示由域名获取对应的 IP 地址
+3. 查询类：地址类型，通常为互联网地址，值为 1
+</code></pre>
+<p><strong>3. 资源记录部分</strong><br>资源记录部分是指DNS报文格式中的最后三个字段，包括回答问题区域字段、权威名称服务器区域字段、附加信息区域字段。<br><img src="https://img-blog.csdnimg.cn/20201127193927311.png" alt="资源记录部分"></p>
+<pre><code>1. 域名：DNS 请求的域名
+2. 类型：资源记录的类型，与问题部分中的查询类型值是一样的
+3. 类：地址类型，与问题部分中的查询类值是一样的
+4. 生存时间：以秒为单位，表示资源记录的生命周期，一般用于当地址解析程序取出资源记录后决定保存及使用缓存数据的时间，它同时也可以表明该资源记录的稳定程度，稳定的信息会被分配一个很大的值
+5. 资源数据长度：资源数据的长度
+6. 资源数据：表示按查询段要求返回的相关资源记录的数据
+</code></pre>
+<h3 id="（八）NAT协议"><a href="#（八）NAT协议" class="headerlink" title="（八）NAT协议"></a>（八）NAT协议</h3><p>&amp;emsp;&amp;emsp;<strong>NAT</strong> 网络地址转换(Network Address Translation)属接入广域网(WAN)技术，是一种将私有（保留）地址转化为合法IP地址的转换技术，它被广泛应用于各种类型Internet接入方式和各种类型的网络中。NAT不仅完美地解决了lP地址不足的问题，而且还能够有效地避免来自网络外部的攻击，隐藏并保护网络内部的计算机。</p>
+<p>&amp;emsp;&amp;emsp;借助于NAT，私有（保留）地址的”内部”网络通过路由器发送数据包时，私有地址被转换成合法的IP地址，一个局域网只需使用少量IP地址（甚至是1个）即可实现私有地址网络内所有计算机与Internet的通信需求。</p>
+<p>&amp;emsp;&amp;emsp;NAT将自动修改IP报文的源IP地址和目的IP地址，IP地址校验则在NAT处理过程中自动完成。有些应用程序将源IP地址嵌入到IP报文的数据部分中，所以还需要同时对报文的数据部分进行修改，以匹配IP头中已经修改过的源IP地址。否则，在报文数据部分嵌入IP地址的应用程序就不能正常工作。</p>
+<h4 id="8-1-NAT工作过程-✿◠‿◠"><a href="#8-1-NAT工作过程-✿◠‿◠" class="headerlink" title="8.1 NAT工作过程(✿◠‿◠)"></a>8.1 NAT工作过程(✿◠‿◠)</h4><p>①如图这个Client的网关设定为NAT主机，所以当要连上Internet的时候，该封包就会被送到NAT主机，这个时候的封包头部的源IP为192.168.1.100。<br><img src="https://img-blog.csdnimg.cn/20201127194014689.png"><br>②透过这个NAT主机，它会将Client的对外联机封包的源IP伪装成PPP0（拨号），这个接口具有公共IP。因为是公共IP了，所以这个封包就可以连上Internet，同时NAT主机并且会记忆这个联机的封包是由哪一个Client端传送来的。<br>③由Internet传送回来的封包，当然由NAT主机来接收，NAT主机会去查询原本记录的路由信息，并将目标IP由 PPP0上面的公共IP改回原来的192.168.1.100。<br>④最后则由NAT主机将该封包传送给原先发送封包的Client。</p>
+<h4 id="8-2-配置内部源地址静态NAT-●’◡’●"><a href="#8-2-配置内部源地址静态NAT-●’◡’●" class="headerlink" title="8.2 配置内部源地址静态NAT(●’◡’●)"></a>8.2 配置内部源地址静态NAT(●’◡’●)</h4><p><img src="https://img-blog.csdnimg.cn/20201127194244216.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="（九）DHCP协议"><a href="#（九）DHCP协议" class="headerlink" title="（九）DHCP协议"></a>（九）DHCP协议</h3><p>&amp;emsp;&amp;emsp;<strong>DHCP动态主机配置协议</strong>（Dynamic Host Configuration Protocol）是一个局域网的网络协议，使用UDP协议工作，主要有两个用途：1.给内部网络或网络服务供应商自动分配IP地址，2.给用户或者内部网络管理员作为对所有计算机作中央管理的手段。</p>
+<h4 id="9-1-DHCP报文种类-●’◡’●"><a href="#9-1-DHCP报文种类-●’◡’●" class="headerlink" title="9.1 DHCP报文种类(●’◡’●)"></a>9.1 DHCP报文种类(●’◡’●)</h4><ol>
+<li>Discover<br>DHCP客户端在请求IP地址时并不知道DHCP服务器的位置，因此DHCP客户端会在本地网络内以广播方式发送Discover请求报文，以发现网络中的DHCP服务器。<br>所有收到Discover报文的DHCP服务器都会发送应答报文，DHCP客户端据此可以知道网络中存在的DHCP服务器的位置。</li>
+<li>Offer<br>DHCP服务器收到Discover报文后，就会在所配置的地址池中查找一个合适的IP地址，加上相应的租约期限和其他配置信息（如网关、DNS服务器等），构造一个Offer报文，发送给DHCP客户端，告知用户本服务器可以为其提供IP地址。<br>但这个报文只是告诉DHCP客户端可以提供IP地址，最终还需要客户端通过ARP来检测该IP地址是否重复。</li>
+<li>Request<br>DHCP客户端可能会收到很多Offer请求报文，所以必须在这些应答中选择一个。通常是选择第一个Offer应答报文的服务器作为自己的目标服务器，并向该服务器发送一个广播的Request请求报文，通告选择的服务器，希望获得所分配的IP地址。<br>另外，DHCP客户端在成功获取IP地址后，在地址使用租期达到50%时，会向DHCP服务器发送单播Request请求报文请求续延租约，如果没有收到ACK报文，在租期达到87.5%时，会再次发送广播的Request请求报文以请求续延租约。</li>
+<li>ACK<br>DHCP服务器收到Request请求报文后，根据Request报文中携带的用户MAC来查找有没有相应的租约记录，如果有则发送ACK应答报文，通知用户可以使用分配的IP地址。</li>
+<li>NAK<br>如果DHCP服务器收到Request请求报文后，没有发现有相应的租约记录或者由于某些原因无法正常分配IP地址，则向DHCP客户端发送NAK应答报文，通知用户无法分配合适的IP地址。</li>
+<li>Release<br>当DHCP客户端不再需要使用分配IP地址时（一般出现在客户端关机、下线等状况）就会主动向DHCP服务器发送RELEASE请求报文，告知服务器用户不再需要分配IP地址，请求DHCP服务器释放对应的IP地址。</li>
+<li>Decline<br>DHCP客户端收到DHCP服务器ACK应答报文后，通过地址冲突检测发现服务器分配的地址冲突或者由于其他原因导致不能使用，则会向DHCP服务器发送Decline请求报文，通知服务器所分配的IP地址不可用，以期获得新的IP地址。</li>
+<li>Inform<br>DHCP客户端如果需要从DHCP服务器端获取更为详细的配置信息，则向DHCP服务器发送Inform请求报文。DHCP服务器在收到该报文后，将根据租约进行查找到相应的配置信息后，向DHCP客户端发送ACK应答报文。</li>
+</ol>
+<h4 id="9-2-DHCP报文格式-●’◡’●"><a href="#9-2-DHCP报文格式-●’◡’●" class="headerlink" title="9.2 DHCP报文格式(●’◡’●)"></a>9.2 DHCP报文格式(●’◡’●)</h4><p><img src="https://img-blog.csdnimg.cn/20201127194423566.png" alt="DHCP报文格式"></p>
+<ol>
+<li>OP：报文的操作类型。分为请求报文和响应报文，1：请求报文，2：应答报文</li>
+<li>Htype：DHCP客户端的MAC地址类型。MAC地址类型其实是指明网络类型。Htype值为1时表示为最常见的以太网MAC地址类型。</li>
+<li>Hlen：DHCP客户端的MAC地址长度。以太网MAC地址长度为6个字节，即以太网时Hlen值为6。</li>
+<li>Hops：DHCP报文经过的DHCP中继的数目，默认为0。DHCP请求报文每经过一个DHCP中继，该字段就会增加1。没有经过DHCP中继时值为0。(若数据包需经过router传送，每站加1，若在同一网内，为0)</li>
+<li>Xid：客户端通过DHCP Discover报文发起一次IP地址请求时选择的随机数，相当于请求标识。用来标识一次IP地址请求过程，在一次请求中所有报文的Xid都是一样的。</li>
+<li>Secs：DHCP客户端从获取到IP地址或者续约过程开始到现在所消耗的时间，以秒为单位。在没有获得IP地址前该字段始终为0。(DHCP客户端开始DHCP请求后所经过的时间)</li>
+<li>Flags：标志位，只使用第0比特位，是广播应答标识位，用来标识DHCP服务器应答报文是采用单播还是广播发送，0表示采用单播发送方式，1表示采用广播发送方式。注意：在客户端正式分配了IP地址之前的第一次IP地址请求过程中，所有DHCP报文都是以广播方式发送的，包括客户端发送的DHCP Discover和DHCP Request报文，以及DHCP服务器发送的DHCP Offer、DHCP ACK和DHCP NAK报文。当然，如果是由DHCP中继器转的报文，则都是以单播方式发送的。另外，IP地址续约、IP地址释放的相关报文都是采用单播方式进行发送的。</li>
+<li>Ciaddr：DHCP客户端的IP地址。仅在DHCP服务器发送的ACK报文中显示，因为在得到DHCP服务器确认前，DHCP客户端是还没有分配到IP地址的。在其他报文中均显示，只有客户端是Bound、Renew、Rebinding状态，并且能响应ARP请求时，才能被填充。</li>
+<li>Yiaddr：DHCP服务器分配给客户端的IP地址。仅在DHCP服务器发送的Offer和ACK报文中显示，其他报文中显示为0。</li>
+<li>Siaddr：下一个为DHCP客户端分配IP地址等信息的DHCP服务器IP地址。仅在DHCP Offer、DHCP ACK报文中显示，其他报文中显示为0。</li>
+<li>Giaddr：DHCP客户端发出请求报文后经过的第一个DHCP中继的IP地址。如果没有经过DHCP中继，则显示为0。</li>
+<li>Chaddr：DHCP客户端的MAC地址。在每个报文中都会显示对应DHCP客户端的MAC地址。</li>
+<li>Sname：为DHCP客户端分配IP地址的DHCP服务器名称（DNS域名格式）。在Offer和ACK报文中显示发送报文的DHCP服务器名称，其他报文显示为0。</li>
+<li>File：DHCP服务器为DHCP客户端指定的启动配置文件名称及路径信息。仅在DHCP Offer报文中显示，其他报文中显示为空。</li>
+<li>Options：可选项字段，长度可变，格式为”代码+长度+数据”。</li>
+</ol>
+<h4 id="9-3-DHCP协议的工作过程-●’◡’●"><a href="#9-3-DHCP协议的工作过程-●’◡’●" class="headerlink" title="9.3 DHCP协议的工作过程(●’◡’●)"></a>9.3 DHCP协议的工作过程(●’◡’●)</h4><ol>
+<li>发现阶段：即DHCP客户机寻找DHCP服务器的阶段。DHCP客户机以广播的方式发送DHCP Discover 发现信息来寻找DHCP服务器（因为DHCP服务器的IP地址对客户机来说是未知的），即向255.255.255.255发送特定的广播信息，网络上每一台安装了TCP&#x2F;IP协议的主机都会接收到这种广播信息，但只有DHCP服务器才会作出响应。</li>
+<li>提供阶段：即DHCP服务器提供IP地址的阶段。在网络中收到DHCP Discover发现信息的DHCP服务器都会作出响应，它从尚未出租的IP地址中挑选一个分配给DHCP客户机，向DHCP客户机发送一个包含出租的IP地址和其他设置额DHCP Offer提供信息。</li>
+<li>选择阶段：DHCP客户机选择某台DHCP服务器提供的IP地址的阶段。如果有多台DHCP服务器向DHCP客户机发来的DHCP Offer，客户机只接收第一个收到的DHCP Offer，然后它以广播的方式回答一个DHCP Request请求信息。该信息中包含它所选定的DHCP服务器请求IP地址的内容。之所以要以广播的方式回答，是为了通知所有的DHCP服务器，它将选择某台DHCP服务器所提供的IP地址。</li>
+<li>确认阶段：即DHCP服务器确认所提供的IP地址的阶段。当DHCP服务器收到DHCP客户机回答的DHCP Resquest请求后，它便向DHCP客户机发送一个包含它提供的IP地址和其他设置的DHCP ACK确认信息，告诉DHCP客户机可以使用它所提供的IP地址。然后DHCP客户机便将其TCP&#x2F;IP协议与网卡绑定，除了DHCP客户机所选择的服务器IP外，其他的DHCP服务器都将收回曾提供的IP地址。</li>
+<li>重新登陆：以后DHCP客户机每次登陆网络时，就不需要再发送DHCP Discover发现信息了。而是直接发送包含前一次所分配IP地址的DHCP Resquest请求。当DHCP服务器收到这一信息后，它会尝试让客户机继续使用原来的IP并回答一个DHCP ACK确认信息，如果此IP地址无法分配个原来的DHCP客户机时（比如IP分配给其他DHCP客户机使用），则DHCP服务器给DHCP客户机回答一个DHCP NACK否认消息，当原来的DHCP客户机收到此消息后，它就必须重新发送DHCP Discover发现信息重新请求新的IP地址。</li>
+<li>更新租约：DHCP服务器向DHCP客户机出租的IP地址一般都由一个租借期限，期满后DHCP服务器会收回出租的IP地址。如果DHCP客户机要延长其IP租约，则必须更新其租约。DHCP客户机启动时和IP租约期限过一半时，DHCP客户机都会自动向DHCP服务器发送其更新租约的信息。</li>
+</ol>
+<h3 id="（十）HTTP协议"><a href="#（十）HTTP协议" class="headerlink" title="（十）HTTP协议"></a>（十）HTTP协议</h3><p>&amp;emsp;&amp;emsp;<strong>超文本传输协议</strong>（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。<br><img src="https://img-blog.csdnimg.cn/20201127194607545.png" alt="超文本传输协议"></p>
+<h4 id="10-1-HTTP的主要特点-•̀-ω-•́"><a href="#10-1-HTTP的主要特点-•̀-ω-•́" class="headerlink" title="10.1 HTTP的主要特点( •̀ ω •́ )"></a>10.1 HTTP的主要特点( •̀ ω •́ )</h4><ol>
+<li><p>简单快速<br>客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+</li>
+<li><p>灵活<br>HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+</li>
+<li><p>无连接<br>无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+</li>
+<li><p>无状态<br>HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+</li>
+</ol>
+<h4 id="10-2-URL统一资源定位符-•̀-ω-•́"><a href="#10-2-URL统一资源定位符-•̀-ω-•́" class="headerlink" title="10.2 URL统一资源定位符( •̀ ω •́ )"></a>10.2 URL统一资源定位符( •̀ ω •́ )</h4><p><strong>HTTP</strong>使用统一资源标识符URI来传输数据和建立连接。URL是一种特殊类型的URI，包含了用于查找某个资源的足够的信息。</p>
+<p>URL，全称是Uniform Resource Locator，中文“统一资源定位符”，是互联网上用来标识某一处资源的地址。</p>
+<p>✈以下面这个URL为例，介绍下普通URL的各部分组成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.aspxfans.com:8080/news/index.asp?boardID=5&amp;ID=24618&amp;page=1<span class="comment">#name</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面的URL可以看出，一个完整的URL包括以下几部分：</p>
+<ol>
+<li>协议部分：该URL的协议部分为“http：”，这代表网页使用的是HTTP协议。在Internet中可以使用多种协议，如HTTP，FTP等本例中使用的是HTTP协议。在”HTTP”后面的“&#x2F;&#x2F;”为分隔符。</li>
+<li>域名部分：该URL的域名部分为“<a target="_blank" rel="noopener" href="http://www.aspxfans.com”.一个url中,也可以使用ip地址作为域名使用./">www.aspxfans.com”。一个URL中，也可以使用IP地址作为域名使用。</a></li>
+<li>端口部分：跟在域名后面的是端口，域名和端口之间使用“：”作为分隔符。端口不是一个URL必须的部分，如果省略端口部分，将采用默认端口。</li>
+<li>虚拟目录部分：从域名后的第一个“&#x2F;”开始到最后一个“&#x2F;”为止，是虚拟目录部分。虚拟目录也不是一个URL必须的部分。本例中的虚拟目录是“&#x2F;news&#x2F;”</li>
+<li>文件名部分：从域名后的最后一个“&#x2F;”开始到“？”为止，是文件名部分，如果没有“?”，则是从域名后的最后一个“&#x2F;”开始到“#”为止，是文件部分。如果没有“？”和“#”，那么从域名后的最后一个“&#x2F;”开始到结束，都是文件名部分。本例中的文件名是“index.asp”。文件名部分也不是一个URL必须的部分，如果省略该部分，则使用默认的文件名。</li>
+<li>锚部分：从“#”开始到最后，都是锚部分。本例中的锚部分是“name”。锚部分也不是一个URL必须的部分。</li>
+<li>参数部分：从“？”开始到“#”为止之间的部分为参数部分，又称搜索部分、查询部分。本例中的参数部分为“boardID&#x3D;5&amp;ID&#x3D;24618&amp;page&#x3D;1”。参数可以允许有多个参数，参数与参数之间用“&amp;”作为分隔符。</li>
+</ol>
+<h4 id="10-3-HTTP请求报文-❁´◡-96-❁"><a href="#10-3-HTTP请求报文-❁´◡-96-❁" class="headerlink" title="10.3 HTTP请求报文(❁´◡&#96;❁)"></a>10.3 HTTP请求报文(❁´◡&#96;❁)</h4><p><img src="https://img-blog.csdnimg.cn/20201128094644610.png" alt="HTTP请求报文"><br>一个HTTP请求报文由四个部分组成：请求行、请求头部、空行、请求数据。</p>
+<ol>
+<li><p>请求行<br>请求行由请求方法字段、URL字段和HTTP协议版本字段3个字段组成，它们用空格分隔。请求方法比较多：GET、POST、HEAD、PUT、DELETE、OPTIONS、TRACE、CONNECT，最常用的是GET和POST。</p>
+<ol>
+<li>GET<br>传递参数长度受限制，因为传递的参数是直接表示在地址栏中，而特定浏览器和服务器对url的长度是有限制的。因此，GET不适合用来传递私密数据，也不适合拿来传递大量数据。</li>
+<li>POST<br>POST把传递的数据封装在HTTP请求数据中，以名称&#x2F;值的形式出现，可以传输大量数据，对数据量没有限制，也不会显示在URL中。表单的提交用的是POST。</li>
+<li>HEAD<br>HEAD跟GET相似，不过服务端接收到HEAD请求时只返回响应头，不发送响应内容。所以，如果只需要查看某个页面的状态时，用HEAD更高效，因为省去了传输页面内容的时间。</li>
+<li>DELETE<br>删除某一个资源</li>
+<li>OPTIONS<br>用于获取当前URL所支持的方法</li>
+<li>PUT<br>把一个资源存放在指定的位置上，本质上来讲， PUT和POST极为相似，都是向服务器发送数据，但它们之间有一个重要区别，PUT通常指定了资源的存放位置，而POST则没有，POST的数据存放位置由服务器自己决定。</li>
+<li>TRACE<br>回显服务器收到的请求，主要用于测试或诊断。</li>
+<li>CONNECT<br>CONNECT方法是HTTP&#x2F;1.1协议预留的，能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接与非加密的HTTP代理服务器的通信。</li>
+</ol>
+</li>
+<li><p>请求头部<br><img src="https://img-blog.csdnimg.cn/20201127195017782.png" alt="请求头部"></p>
+</li>
+<li><p>空行<br>通过一个空行，告诉服务器请求头部到此为止</p>
+</li>
+<li><p>请求数据</p>
+</li>
+</ol>
+<h4 id="10-4-HTTP响应报文-❁´◡-96-❁"><a href="#10-4-HTTP响应报文-❁´◡-96-❁" class="headerlink" title="10.4 HTTP响应报文(❁´◡&#96;❁)"></a>10.4 HTTP响应报文(❁´◡&#96;❁)</h4><p>HTTP响应由四个部分组成，分别是：状态行、消息报头、空行和响应正文。</p>
+<ol>
+<li>状态行，由HTTP协议版本号， 状态码， 状态消息三部分组成。</li>
+</ol>
+<p>状态码：<img src="https://img-blog.csdnimg.cn/20201127195056869.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201127195112712.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201127195120882.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201127195129703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201127195137643.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li><p>消息报头，用来说明客户端要使用的一些附加信息<br><img src="https://img-blog.csdnimg.cn/20201127195224768.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li><p>空行</p>
+</li>
+<li><p>响应正文，服务器返回给客户端的文本信息</p>
+</li>
+</ol>
+<h4 id="10-5-HTTP工作原理-❁´◡-96-❁"><a href="#10-5-HTTP工作原理-❁´◡-96-❁" class="headerlink" title="10.5 HTTP工作原理(❁´◡&#96;❁)"></a>10.5 HTTP工作原理(❁´◡&#96;❁)</h4><p>&amp;emsp;&amp;emsp;HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。<br>&amp;emsp;&amp;emsp;HTTP协议采用了请求&#x2F;响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+<p>以下是 HTTP 请求&#x2F;响应的步骤：</p>
+<ol>
+<li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a target="_blank" rel="noopener" href="http://www.oakcms.cn./">http://www.oakcms.cn。</a></li>
+<li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
+<li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
+<li>释放连接TCP连接<br>若connection模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接；若connection模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求。</li>
+<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
+</ol>
+<blockquote>
+<p>例如：在浏览器地址栏键入URL，按下回车之后会经历以下流程： </p>
+<ol>
+<li>浏览器向 DNS 服务器请求解析该 URL 中的域名所对应的 IP 地址</li>
+<li>解析出 IP 地址后，根据该 IP 地址和默认端口 80，和服务器建立TCP连接</li>
+<li>浏览器发出读取文件(URL中域名后面部分对应的文件)的HTTP 请求，该请求报文作为 TCP 三次握手的第三个报文的数据发送给服务器</li>
+<li>服务器对浏览器请求作出响应，并把对应的 html 文本发送给浏览器</li>
+<li>释放 TCP连接</li>
+<li>浏览器将该 html 文本并显示内容</li>
+</ol>
+</blockquote>
+<p>如果我们在客户端（客户端）浏览器输入 <code>http://www.baidu.com</code>，而<code>baidu.com</code>为要访问的服务器（服务器），下面详细分析客户端为了访问服务器而执行的一系列关于协议的操作：</p>
+<ol>
+<li>客户端浏览器通过DNS解析到<a target="_blank" rel="noopener" href="http://www.baidu.com的ip地址220.181.27.48,通过这个ip地址找到客户端到服务器的路径.客户端浏览器发起一个http会话到220.161.27.48,然后通过tcp进行封装数据包,输入到网络层./">www.baidu.com的IP地址220.181.27.48，通过这个IP地址找到客户端到服务器的路径。客户端浏览器发起一个HTTP会话到220.161.27.48，然后通过TCP进行封装数据包，输入到网络层。</a></li>
+<li>在客户端的传输层，把HTTP会话请求分成报文段，添加源和目的端口，如服务器使用80端口监听客户端的请求，客户端由系统随机选择一个端口，如5000，与服务器进行交换，服务器把相应的请求返回给客户端的5000端口。然后使用IP层的IP地址查找目的端。</li>
+<li>客户端的网络层不用关系应用层或者传输层，主要做的是通过查找路由表确定如何到达服务器，期间可能经过多个路由器，这些都是由路由器来完成的工作，不作过多的描述，无非就是通过查找路由表决定通过那个路径到达服务器。</li>
+<li>客户端的链路层，包通过链路层发送到路由器，通过邻居协议查找给定IP地址的MAC地址，然后发送ARP请求查找目的地址，如果得到回应后就可以使用ARP的请求应答交换的IP数据包。现在就可以传输了，然后发送IP数据包到达服务器的地址。</li>
+</ol>
+<h2 id="（十一）交换机与路由器"><a href="#（十一）交换机与路由器" class="headerlink" title="（十一）交换机与路由器"></a>（十一）交换机与路由器</h2><h4 id="11-1-交换机的工作原理-❁´◡-96-❁"><a href="#11-1-交换机的工作原理-❁´◡-96-❁" class="headerlink" title="11.1 交换机的工作原理(❁´◡&#96;❁)"></a>11.1 交换机的工作原理(❁´◡&#96;❁)</h4><p>&amp;emsp;&amp;emsp;在计算机网络系统中，交换概念的提出改进了共享工作模式。我们以前介绍过的Hub集线器就是一种共享设备，Hub本身不能识别目的地址，当同一局域网内的A主机给B主机传输数据时，数据包在以Hub为架构的网络上是以广播方式传输的，由每台终端通过验证数据包头的地址信息来确定是否接收，也就是说，在这种工作方式下，同一时刻网络上只能传输一组数据帧的通信， 如果发生碰撞还得重试。这种方式就是共享网络带宽。<br>&amp;emsp;&amp;emsp;如前所述，交换机拥有条很高带宽的背部总线和内部交换矩阵。交换机上所有的端口都挂接在这条背部总线上。控制电路收到数据包以后，处理端口会查找内存中的地址对照表以确定目的MAC(网卡的硬件地址)的NIC(网卡)挂接在哪个端口上，并通过内部交换矩阵迅速将数据包传送到目的端口，目的MAC若不存在，则广播到所有的端口，接收端口回应后交换机会“学习”到新的地址，并把它添加到内部MAC地址表中。<br>&amp;emsp;&amp;emsp;使用交换机也可以把网络“分段”，通过对照MAC地址表，交换机只允许必要的网络流量通过交换机。通过交换机的过滤和转发，可以有效地隔离广播风暴，减少误包和错包的出现，避免共享冲突。</p>
+<p>&amp;emsp;&amp;emsp;交换机的主要功能有两部分，<strong>建立虚连接和转发信息</strong>。<br>当两个站点间有信息包要传输时，在这两站点间临时建立条点对点的连接，信息包发送完后，就立即拆除这个连接。在交换机内部保存了一张地址表，用来存储它所连接的各站点所在的交换机端口号和MAC地址之间的对应关系。交换机从一个端口收到信息包，识别出包中的目的站MAC地址，查地址表， 得到目的站所在的端口，就可在两个端口间建立一条虚连接，再将信息包从源端口转发到目的端口，包发送完后， 这条虚连接就不存在了。<br>&amp;emsp;&amp;emsp;总之，交换机是一种基于MAC地址识别，能完成封装转发数据包功能的网络设备。交换机可以学习MAC地址，并将其存放在内部地址表中，通过在数据帧的始发者和目标接收者之间建立临时的交换路径，使数据帧直接由源地址到达目的地址。</p>
+<h4 id="11-2-生成树协议-✿◕‿◕✿"><a href="#11-2-生成树协议-✿◕‿◕✿" class="headerlink" title="11.2 生成树协议(✿◕‿◕✿)"></a>11.2 生成树协议(✿◕‿◕✿)</h4><h5 id="11-2-1-冗余和交换环路"><a href="#11-2-1-冗余和交换环路" class="headerlink" title="11.2.1 冗余和交换环路"></a>11.2.1 冗余和交换环路</h5><p>&amp;emsp;&amp;emsp;为了保证企业网络中关键应用的可持续性，在进行网络拓扑结构设计和规划时，冗余常常是我们考虑的重要因素之一。 在如今的网络工程设计中，冗余设计是考验一个网络是否稳定的关键环节，链路冗余使网络具有了容错功能，具有冗余性的设计对于网络的可靠性是极其重要的。</p>
+<ol>
+<li><p>产生广播风暴<br>广播风暴也叫网络广播风暴，即一个数据包或帧被传送到本地网段(由广播域定义)上的每个节点就是广播，网络上的广播帧由于被转发，数量急剧增加而出现正常网络通信的反常现象。<br>广播风暴会占用相当可观的网络带宽，导致正常数据包无法正常运行。当广播数据充斥网络无法处理并占用大量网络带宽，导致正常业务不能运行，这就发生了广播风暴，造成局域网局部或整个网络瘫痪。<br><img src="https://img-blog.csdnimg.cn/20201127195419892.png" alt="冗余和交换环路"><br>如图所示就是一个存在环路的局域网络，假设B1、B2和B3都还没有学习到A的MAC地址，因为A还没有发送过任何数据。当A发送了一个数据帧，最初三个交换机都接收了这个数据帧，记录A的地址在LAN1上，并排队等待将这个数据帧转发到LAN2上。其中一个交换机首先成功地将数据帧发送到LAN2上，假设这个网桥是B1，那么B2和B3将再次收到这个数据帧，因为BI对B2和B3来说是透明的。这个数据帧就好像是A在LAN2上发送的一样。于是B2和B3记录A在LAN2上，排队等待将这个新接收到的数据帧转发到LAN1上，假设这时B2成功地将最初的数据帧转发到LAN2上，那么B1和B3都接收到这个数据帧，并排队等待转发这个数据帧到LAN1上。 如此反复，数据帧就在环路中不断循环，更糟糕的是每次成功的转发都会导致网络中出现两个新的数据帧，从而形成严重的广播风暴。</p>
+</li>
+<li><p>出现帧的复制现象<br>广播风暴不断旋转时，同一个广播帧被反复在网段上传递，交换机就要拿出更多的时间处理这个不断被复制的广播帧，从而使整个网络的性能急剧下降，甚至瘫痪，而主机也正忙于处理这些相同的广播帧，因为它们在不断地被发送到主机的网络接口卡上，这就影响了主机的正常工作，在严重时甚至会使主机死机。</p>
+</li>
+<li><p>MAC地址表不稳定<br>交换机之所以比集线器(Hub)速率快，就是因为交换机的内存里有一个MAC地址表和端口映射的缓存——MAC地址表， 但是在发生广播风暴的时候，由于广播风暴是在两个相反的方向上旋转的，所以会影响到MAC地址表的正常工作。<br>如果网络不存在物理上的环路，就不会有上述问题存在，然而当网络结构复杂时，要保证网络中没有任何环路是很困难的，并且在许多对可靠性要求高的网络中，为了保证不向断的网络服务，需要采用物理环路的冗余备份，因此，保证网络不存在环路是不现实的。</p>
+</li>
+</ol>
+<blockquote>
+<p>IEEE提出了个很好的解决办法，<br>那就是802.1D协议标准规定的STP（生成树协议的英文缩写），该协议可应用于环路网络，通过一定的算法实现路径冗余，同时将环路网络修剪成无环路的树形网络，从而避免报文在环路网络中的增生和无限循环。</p>
+</blockquote>
+<h5 id="11-2-2-STP-生成树协议简介"><a href="#11-2-2-STP-生成树协议简介" class="headerlink" title="11.2.2 STP 生成树协议简介"></a>11.2.2 STP 生成树协议简介</h5><p>&amp;emsp;&amp;emsp;<strong>STP</strong> (Spanning Tree Protocol，生成树协议)就是用来解决网络的环路。STP通过一定的算法，使得任意两个节点间有且只有一条路径连接， 而其他的冗余链路则被自动阻塞， 作为备份链路。只有当活动链路失败时，备份链路才会被激活，从而恢复设备之间的连接，保证网络的畅通。<br>&amp;emsp;&amp;emsp;STP操作对于终端来说是透明的，而不管终端连在LAN的某一部分还是多个部分。当创建网络时，网络中所有节点存在多条路径。生成树中的算法计算出最佳路径，因为每个VLAN是一个逻辑LAN部分，所以网管员能使STP一次工作在最多64个VLAN中。如果要配置超过64个VLAN，网管员需要将其他VLAN的STP禁止，因为默认的STP只能支持1–64个VLAN。</p>
+<p>&amp;emsp;&amp;emsp;运行生成树算法的网桥&#x2F;交换机在规定的问隔(默认2秒)内通过网桥协议数据单元(BPDU)的组播帧与其他交换机交换配置信息，其工作的过程如下:</p>
+<ol>
+<li>通过比较交换机优先级选取根交换机 (给定广播域内只有一个根交换机)</li>
+<li>其余的非根交换机只有一一个通向根交换机的端口称为根端口</li>
+<li>每个网段只有一个转发端口</li>
+<li>根交换机所有的连接端口均为转发端口</li>
+<li>注：生成树协议在交换机上一般是默认开启的，不经人工干预即可正常工作，但这种自动生成的方案可能导致数据传输的路径并非最优化。因此，可以通过人工设置交换机优先级的方法影响生成树的生成结果。</li>
+</ol>
+<p>启用生成树协议的交换机，其接口处于以下几种状态：</p>
+<ol>
+<li>Blocking(阻塞)：不参与帧的转发</li>
+<li>Listening(侦听)：当确定该接口将参与帧转发时，在阻寒状态后的第一个过度状态</li>
+<li>Learning(学习)：准备参与帧转发</li>
+<li>Forwarding(转发)：转发帧</li>
+<li>Disabled(禁用)：端口处于Shutdown状态、没有连接，或者没有启用Spanning–Tree，从而不参与Spanning-Tree</li>
+</ol>
+<p>&amp;emsp;&amp;emsp;STP中定义了根桥（Root Bridge)、根端口(Root Port)、指定端口（Designated Port)、路径开销(Path Cost）等，<strong>目的就在于通过构造一棵自然树的方法达到裁剪冗余环路的目的，同时实现链路备份和路径最优化</strong>。</p>
+<p>&amp;emsp;&amp;emsp;生成树算法会特意阻塞可能导致环路的冗余路径，以确保网络中所有目的地之间只有一条逻辑路径，但要实现这些功能，网桥之间必须要进行一些信息的交流，这些信息交流单元就称为网桥协议数据单元BPDU帧。</p>
+<blockquote>
+<ul>
+<li>BPDU是一种二层报文，目的MAC地址是多播地址：01-80-C2-00-00-00，所有支持STP的网桥都会接收并处理收到的BPDU报文，该报文的数据区里携带了用于生成树计算的所有有用信息。</li>
+<li>阻塞的路径不再接收和转发用户数据包，但是会接收用来防止环路的网桥协议数据单元BPDU帧。如果网络拓扑发生变化，需要启用阻塞路径来抵消网络电缆或交换机故障的影响，STP就会重新计算路径，将必要的端口解除阻塞，使冗余路径进入活动状态。</li>
+</ul>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">每个BPDU都包含<span class="number">4</span>个重要字段：</span><br><span class="line"><span class="number">1.</span>根桥的BID</span><br><span class="line"><span class="number">2.</span>转发根桥BPDU 的网桥的BID</span><br><span class="line"><span class="number">3.</span>到达根桥的开销</span><br><span class="line"><span class="number">4.</span>转发根桥BPDU 的网桥的端口ID</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>根端口：最靠近根桥的交换机端口</span><br><span class="line"><span class="number">2.</span>指定端口：网络中获准转发流量的、除根端口之外的所有端口</span><br><span class="line"><span class="number">3.</span>非指定端口：为防止环路而被置于阻塞状态的所有端口</span><br><span class="line"><span class="number">4.</span>禁用端口：是处于管理性关闭状态的交换机端口</span><br><span class="line"><span class="number">5.</span>端口开销：端口开销值与给定路径上的每个交换机端口的端口速度相关联</span><br><span class="line"><span class="number">6.</span>路径开销：路径开销是到根桥的路径上所有端口开销的总和</span><br><span class="line"><span class="number">7.</span>到根桥的最佳路径：交换机到根桥的所有路径中最短的一条路径</span><br><span class="line"><span class="number">8.B</span>PDU(网桥协议数据单元)：是运行STP交换机之间交换的消息帧</span><br></pre></td></tr></table></figure>
+
+<p>交换机完成启动后，生成树便立即确定。如果交换机端口直接从阻塞转换到转发状态，但交换机此时并不了解所有拓扑信息时，该端口可能会暂时造成数据环路。为此，STP引入了5种端口状态：<br><img src="https://img-blog.csdnimg.cn/20201127195547999.png" alt="5种端口状态"><br>端口处于各种端口状态的时间长短取决于BPDU计时器，BPDU计时器状态：</p>
+<ol>
+<li>Hello时间<br>Hello时间是端口发送BPDU帧的间隔时间，此值默认为2s，不过可调整为1～10s之间的值</li>
+<li>转发延迟<br>转发延迟是处于侦听和学习状态的时间，默认情况下，每转换一个状态要等待15s，不过此时间可调整为4～30s之间的值</li>
+<li>最大老化时间<br>最大老化时间计时器控制着交换机端口保存配置BPDU信息的最长时间，此值默认为20s，不过可调整为6～40s之间的值</li>
+</ol>
+<h5 id="11-2-3-STP端口状态转换过程"><a href="#11-2-3-STP端口状态转换过程" class="headerlink" title="11.2.3 STP端口状态转换过程"></a>11.2.3 STP端口状态转换过程</h5><p>STP端口状态的转换过程有以下5种：</p>
+<ol>
+<li>如果一个被阻塞的接口（非指定端口）在收到一个BPDU后，20s的时间内没有收到BPDU，则开始进入侦听状态。</li>
+<li>交换机端口初始化后直接进入侦听状态。</li>
+<li>在侦听状态中，交换机通过相互间的BPDU交换选出根桥、根端口、指定端口。在一个转发延迟(默认15s)之后进入下个状态。如果端口类型是以上三种之一则进入侦听状态，否则进入阻塞状态。</li>
+<li>在侦听状态中，BPDU 交换就绪。开始学习新的MAC 地址。在一个转发延迟之后(默认15s)进入下个状态。</li>
+<li>在转发状态中，端口可以接收和发送BPDU，可以接收和发送数据帧。端口现在就是生成树拓扑中的一个具有全部功能的交换机端口。</li>
+<li>如下图展示：<br><img src="https://img-blog.csdnimg.cn/20201127195624931.png" alt="STP端口状态转换过程"></li>
+</ol>
+<h5 id="11-2-4-STP收敛的步骤"><a href="#11-2-4-STP收敛的步骤" class="headerlink" title="11.2.4 STP收敛的步骤"></a>11.2.4 STP收敛的步骤</h5><ol>
+<li><p>选举根桥<br>●根桥的选举在交换机完成启动时或网络中检测到路径故障时触发。一开始，所有交换机端口都配置为阻塞状态，此状态默认情况下会持续20s。<br>●由于生成树技术允许网络的端与端之间最多有7台交换机，因此整个根桥的选举过程能够在14s内完成，此时间短于交换机端口处于阻塞状态的时间。<br>●交换BPDU，每2s发送一次，选取BID最小的网桥为根桥。</p>
+</li>
+<li><p>选举根端口<br>●除根桥外的其余每台交换机都需具有一个根端口（到根桥的路径开销最低的端口）。<br>●如果当同一交换机上有两个以上的端口到根桥的路径开销相同时，做出如下选择：</p>
+<ol>
+<li>到根路径的上一级网桥BID不同时：选择其BID小的路径。</li>
+<li>到根路径的上一级网桥BID相同时：选择其BPDU中的端口ID小的路径。</li>
+<li>当交换机从具有等价路径的多个端口中选择一个作为根端口时，落选的端口会被配置为非指定端口（阻塞状态）以避免环路。</li>
+</ol>
+</li>
+<li><p>选举指定端口和非指定端口<br>●交换网络中的每个网段只能有一个指定端口。<br>●当两台交换机交换BPDU帧时，它们会检查收到的BPDU帧内的发送方BID，BID较小的交换机会将其端口配置为指定角色，BID较大的交换机将其交换机端口配置为非指定角色(阻塞状态)。</p>
+</li>
+</ol>
+<h5 id="11-2-5-STP生成树协议的缺陷"><a href="#11-2-5-STP生成树协议的缺陷" class="headerlink" title="11.2.5 STP生成树协议的缺陷"></a>11.2.5 STP生成树协议的缺陷</h5><p>&amp;emsp;&amp;emsp;STP给透明网桥带来了新生。但是，随着应用的深入和网络技术的发展，它的缺点在应用中也被暴露了出来，STP的缺陷主要表现在收敛速度上：当拓扑发生变化，新的配置消息要经过一定的时延才能传播到整个网络，这个时延称为转发延迟，协议默认值是15s。在所有网桥收到这个变化的消息之前，若旧拓扑结构中处于转发的端口还没有发现自己应该在新的拓扑中停止转发，则可能存在临时环路。</p>
+<p>&amp;emsp;&amp;emsp;为了解决临时环路的问题，生成树使用了一种定时器策略，即在端口从阻塞状态到转发状态中间加上一个只学习MAC地址但不参与转发的中间状态，两次状态切换的时间长度都是转发延迟，这样就可以保证在拓扑变化的时候不会产生临时环路。但是，这个看似良好的解决方案实际上带来的却是至少两倍转发延迟的收敛时间。</p>
+<h5 id="11-2-6-RSTP快速生成树协议"><a href="#11-2-6-RSTP快速生成树协议" class="headerlink" title="11.2.6 RSTP快速生成树协议"></a>11.2.6 RSTP快速生成树协议</h5><p>&amp;emsp;&amp;emsp;RSTP在STP基础上做了三点重要改进，使得收敛速度快得多(最快1s以内)。</p>
+<ol>
+<li>第一点改进：为根端口和指定端口设置了快速切换用的替换端口(Alternate Port)和备份端口(Backup Port)两种角色，当根端口&#x2F;指定端口失效的情况下，替换端口&#x2F;备份端口就会无时延地进入转发状态。</li>
+<li>第二点改进：在只连接了两个交换端口的点对点链路中，指定端口只需与下游网桥进行一次握手就可以无时延地进人转发状态。如果是连接了三个以上网桥的共享链路，下游网桥是不会响应上游指定端口发出的握手请求的，只能等待两倍转发延迟时间进入转发状态。</li>
+<li>第三点改进：直接与终端相连而不是把其他网桥相连的端口定义为边缘端口(Edge Port)。边缘端口可以直接进入转发状态，不需要任何延时，但由于网桥无法知道端口是否是直接与终端相连，所以需要人工配置。</li>
+</ol>
+<h4 id="11-3-路由器工作原理-✿◠‿◠"><a href="#11-3-路由器工作原理-✿◠‿◠" class="headerlink" title="11.3 路由器工作原理(✿◠‿◠)"></a>11.3 路由器工作原理(✿◠‿◠)</h4><p>&amp;emsp;&amp;emsp;路由器(Router)用于连接多个逻辑上分开的网络。所谓逻辑网络是代表一个单独的网络或者一个子网。当数据从一个子网传输到另个子网时，可通过路由器来完成，因此，路由器具有判断网络地址和选择路径的功能，它能在多网络互联环境中，建立灵活的连接，可用完全不同的数据分组和介质访问方法连接各种子网。路由器只接受源站或其他路由器的信息，属于网络层的一种互联设备， 它不关心各子网使用的硬件设备，但要求运行与网络层协议相一致的软件。一般说来，异种网络互联与多个子网互联都应采用路由器来完成。<br>&amp;emsp;&amp;emsp;路由器的主要工作就是为经过路由器的每个数据帧寻找一条最佳传输路径，并将该数据有效地传送到目的站点。由此可见，选择最佳路径的策略即路由算法是路由器的关键所在。为了完成这项工作，在路由器中保存着各种传输路径的相关数据路由表 (Routing Table)，供路由选择时使用。路由表中保存着子网的标志信息、网上路由器的个数和下一个路由器的名字等内容。路由表可以是由系统管理员固定设置好的、也可以由系统动态修改，可以由路由器自动调整、也可以由主机控制。<br>&amp;emsp;&amp;emsp;当IP子网中的一台主机发送IP分组给同一IP子网的另一台主机时，它直接把IP分组送到网络上对方就能收到，而要送给不同IP子网上的主机时，它要选择一个使到达目的子网上的路由器，把IP分组送给该路由器，由路由器负责把IP分组送到目的地。如果没有找到这样的路由器，主机就把IP分组送给一个称为默认网关(default gateway)的路由器上。默认网关是每台主机上的一个配置参数，它是接在同一个网络上的某个路由器端口的IP地址。<br>&amp;emsp;&amp;emsp;路由器转发IP分组时，只根据IP分组目的IP地址的网络号部分，选择合适的端口，把IP分组送出去。同主机一样，路由器也要判定端口所接的是否是目的子网。如果是，就直接把分组通过端口送到网络上，否则就要选择下一个路由器来传送分组。路由器也有它的默认网关，用来传送不知道往哪儿送的IP分组。这样，通过路由器把知道如何传送的IP分组正确转发出去，不知道的IP分组送给默认网关路由器，这样一级一级地传送，IP分组最终将送到目的地，送不到目的地的IP分组则被网络丢弃了。</p>
+<blockquote>
+<p>路由动作包括两项基本内容：寻行和转发</p>
+</blockquote>
+<ol>
+<li>寻径即判定到达目的地的最佳路径，由路由选择算法来实现。</li>
+<li>由于涉及不同的路由选择协议和路由选择算法，要相对复杂一些。 为了判定最佳路径，路由选择算法必须启动并维护包含路由信息的路由表，其中路由信息依赖于所选的路由选择算法。路由选择算法将收集到的不同信息填入路由表中，根据路由表可将目的网络与下一站的关系告诉路由器。路由器间互通信息进行路由更新，更新维护路由表使之正确反映网络的拓扑变化，并由路由器根据量度来决定最佳路径。这就是路由选择协议，例如路由信息协议(RIP)、开放式最短路径优先协议(OSPF)和边界网关协议(BGP) 等。</li>
+<li>转发即沿寻径好的最佳路径传送信息分组。</li>
+<li>路由器首先在路由表中查找，判明是否知道如何将分组发送到下一个站点 (路由器或主机)，如果路由器不知道如何发送分组， 通常将该分组丢弃，否则就根据路由表的相应表项将分组发送到下一个站点：如果目的网络直接与路由器相连，路由器就把分组直接送到相应的端口上。这就是路由转发协议(Routed Protocol)。</li>
+</ol>
+<blockquote>
+<p>路由转发协议和路由选择协议是相互配合又相互独立的概念， 前者使用后者维护的路由表，同时后者要利用前者提供的功能来发布路由协议数据分组。</p>
+</blockquote>
+<p>典型的路由选择方式有两种：静态路由和动态路由</p>
+<h5 id="11-3-1-静态路由"><a href="#11-3-1-静态路由" class="headerlink" title="11.3.1 静态路由"></a>11.3.1 静态路由</h5><p>&amp;emsp;&amp;emsp;<strong>静态路由</strong>是在路由器中设置的固定的路由表。除非网络管理员干预，否则静态路由不会发生变化。由于静态路由不能对网络的改变做出反映，因而一般用于网络规模不大、拓扑结构固定的网络中。</p>
+<h5 id="11-3-2-静态路由与动态路由"><a href="#11-3-2-静态路由与动态路由" class="headerlink" title="11.3.2 静态路由与动态路由"></a>11.3.2 静态路由与动态路由</h5><p>&amp;emsp;&amp;emsp;静态路由的优点是简单、高效、可靠，在所有的路由中，静态路由的优先级最高。当动态路由与政由发生冲突时，以静态路由为准。<br>&amp;emsp;&amp;emsp;动态路由是网络中的路由器之间相互通信、传递路由信息、利用收到的路由信息更新路由器表的过程，它能实时地适应网络结构的变化。如果路由更新信息表明发生了网络变化路由这择软件就会重新计算路由，并发出新的路由更新信息，这些信息通过各个网络，引起各路由器重新启动其路由算法并更新各自的路由表以动态地反映网络网络拓扑变化。<br>&amp;emsp;&amp;emsp;动态路由适用于网络规模大、网络拓扑复杂的网络，当然，各种动态路由协议会不同程度地占用网络带宽和CPU资源静志路由和动态路由有各自的特点和适用范围，因此在网络中动态路由通常作为静态路由的补充。<br>&amp;emsp;&amp;emsp;当一个分组在路由器中进行寻径时，路由器首先查找静态路由，如果查到则根据相应的静态路由转发分组，否则即再查找动态路由。</p>
+<h5 id="11-3-3-RIP路由协议"><a href="#11-3-3-RIP路由协议" class="headerlink" title="11.3.3 RIP路由协议"></a>11.3.3 RIP路由协议</h5><ol>
+<li><p>RIP路由协议<br>RIP协议是由施乐在20世纪70年代设计开发的，是Internet中常用的路由协议。RIP采用距离向量算法，即路由器根据距离选择路由，所以也称为距离向量协议。路由器收集所有可到达目的地的不同路径，并且保存有关到达每个目的地的最少站点数的路经信息，除了到达目的地的最佳路径之外，任何其他信息均予以丢弃，同时路由器也把所收集的路由信息用RIP协议通知相邻的其他路由器，这样，正确的路由信息就逐渐扩散到了全网。</p>
+</li>
+<li><p>RIP使用非常广泛，它简单、可靠、便于配置，但是RIP只适用于小型的同构网络，因为它允许的最大站点数为15，任何超过15个站点的目的地均被标记为不可达，而且RIP每隔30s一次的路由信息广播也是造成网络的广播风暴的重要原因之一。</p>
+</li>
+</ol>
+<h5 id="11-3-4-RIPv1-和-RIPv2-的主要区别"><a href="#11-3-4-RIPv1-和-RIPv2-的主要区别" class="headerlink" title="11.3.4 RIPv1 和 RIPv2 的主要区别"></a>11.3.4 RIPv1 和 RIPv2 的主要区别</h5><ol>
+<li>RIPv1是有类路由协议，RIPv2是无类路由协议</li>
+<li>RIPv1不能支持VLSM，RIPv2 可以支持VLSM</li>
+<li>RIPv1没有认证的功能，RIPv2可以支持认证，并且有明文和MD5两种认证</li>
+<li>RIPv1没有手工汇总的功能，RIPv2 可以在关闭自动汇总的前提下，进行手工汇总</li>
+<li>RIPv1是广播更新（255.255. 255. 255），RIPv2是组播更新（224. 0.0.9）</li>
+<li>RIPv1对路由没有标记的功能，RIPv2可以对路由打标记(tag)，用于过滤和做策略</li>
+<li>RIPv1发送的更新最多可以携带25条路由条目，RIPv2在有认证的情况下最多只能携带24条路由</li>
+</ol>
+<p><strong>RIPv1特点：</strong><br>（1）有类别路由协议，不支持VLSM和CIDR<br>（2）广播更新路由信息<br>（3）不支持认证</p>
+<blockquote>
+<ul>
+<li>RIPv1的报文：包括 Request 和 Response ，Request 报文在RIP路由器接入网络时发送，用于请求对端的所有RIP路由信息，Response 报文周期30s发送，携带本路由器所有的有效的RIP路由。</li>
+<li>在支持触发更新时也会发送 Response 报文更新或删除路由。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>RIPv1的报文最大有512byte &#x3D; 8byte(UDP) + 4byte(RIP header) + 20byte(一条RIP路由) * 25，所以一个RIPv1报文最大只能携带25条路由。</li>
+</ul>
+</blockquote>
+<p><strong>RIPv2特点：</strong><br>（1）无类别路由协议，在更新路由时可以发送路由的掩码，支持VLSM和CIDR<br>（2）支持组播和广播更新，组播地址为224.0.0.9<br>（3）支持明文和MD5密文认证<br>（4）路由信息更加丰富，支持携带掩码和下一跳，支持携带路由标记</p>
+<blockquote>
+<ul>
+<li>RIPv2的报文：组播224.0.0.9发送，使用组播更安全，效率更高，只有运行RIPv2的路由器接受并处理。包括 Request 和 Response，Request 报文在RIP路由器接入网络时发送，用于请求对端的所有RIP路由信息，Response 报文周期30s发送，携带本路由器所有的有效的RIP路由。</li>
+<li>在支持触发更新时也会发送 Response 报文更新或删除路由。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>RIPv1的报文最大有512byte &#x3D; 8byte(UDP) + 4byte(RIP header) + 20byte(一条RIP路由) * 25，所以一个RIPv1报文最大只能携带25条路由。</li>
+<li>RIPv2将认证字段放在了一条路由中，使用第一条路由携带认证字段，所以如果开启了认证，则一个RIPv2报文最大只能携带24条路由。</li>
+</ul>
+</blockquote>
+<h5 id="11-3-5-OSPF路由协议"><a href="#11-3-5-OSPF路由协议" class="headerlink" title="11.3.5 OSPF路由协议"></a>11.3.5 OSPF路由协议</h5><ol>
+<li>OSPF路由协议<br>20世纪80年代中期，RIP已不能适应大规模异构网络的互联，OSPF随之产生，它是网间工程任务组织(IETF) 的内部网关协议工作组为IP网络而开发的一种路由协议。</li>
+<li>OSPF是一种基于链路状态的路由协议，需要每个路由器向其同一管理域的所有其他路由器发送链路状态广播信息。在OSPF的链路状态广播中包括所有接口信息、所有的量度和其他一些变量。</li>
+<li>利用OSPF的路由器必须首先收集有关的链路状态信息，并根据一定的算法计算出到每个节点的最短路径，而基于距离矢量的路由协议仅向其邻接路由器发送有关路由更新信息。</li>
+</ol>
+<h5 id="11-3-6-路由器的功能"><a href="#11-3-6-路由器的功能" class="headerlink" title="11.3.6 路由器的功能"></a>11.3.6 路由器的功能</h5><ol>
+<li>在网络间截获发送到远地网段的报文，起转发的作用。</li>
+<li>选择最合理的路由，引导通信。<br>为了实现这功能， 路由器要按照某种路由通信协议，查找路由表。路由表中列出整个互联网络中包含的各个节点，以及节点间的路径情况和与它们相联系的传输费用。如果到特定的节点有一条以上的路径，则基于预先确定的准则选择最优(最经济)的路径。由于各种网络段和其相互连接情况可能发生变化，因此路由情况的信息需要及时更新，这是由所使用的路由信息协议规定的定时更新或者按变化情况更新来完成的。网络中的每个路由器均按照这一规则动态地更新它所保持的路由表，以便保持有效的路由信息。</li>
+<li>路由器在转发报文的过程中，为了便于在网络间传送报文，应按照预定的规则把大的数据包分解成适当大小的数据包，到达目的地后再把分解的数据包包装成原有形式。</li>
+<li>多协议的路由器可以连接使用不同通信协议的网络段，作为不同通信协议网络段通信连接的平台。</li>
+<li>路由器的主要任务是把通信引导到目的地网络，然后到达特定的节点站地址。后一个功能是通过网络地址分解完成的。</li>
+</ol>
+<h5 id="11-3-7-RIP协议详解"><a href="#11-3-7-RIP协议详解" class="headerlink" title="11.3.7 RIP协议详解"></a>11.3.7 RIP协议详解</h5><ol>
+<li><p>RIP的主要特征</p>
+<ol>
+<li>RIP（Routing Information Protocol，路由信息协议），是早期应用比较普遍的内部网关协议，是典型的距离矢量路由协议，适用于小型网络，最大的缺点是无法在具有冗余链路的网络中有效的运用。</li>
+<li>RIP协议的默认管理距离是120，RIP所接收的路由信息都被封装在UDP协议的数据报中，在UDP的520端口接收来自远程路由的信息。<br> RIP使用跳数作为路径选择的度量值。最大跳数是15，如果最大跳数大于15，则认为该网络失效。</li>
+<li>RIPv1采用广播式更新，RIPv2采用组播更新方式，RIP默认每隔30秒周期性的发送整个路由表给邻路由。</li>
+</ol>
+</li>
+<li><p>RIP路由互相学习过程解析<br>RIP协议运行前R1、R2、R3的路由表中只有直连路由的信息<br><img src="https://img-blog.csdnimg.cn/20201127200128316.png"></p>
+<ol>
+<li>运行RIP路由协议后，R1、R2、R3宣告各自直连网络。</li>
+<li>假设R1先发送路由更新，R1将自己直连网络10.1.0.0和10.2.0.0以1跳的度量值告诉R2。</li>
+<li>R2收到R1的路由表后，将自己的路由与R1传过来的路由进行比较，R2发现自己的路由表中没有10.1.0.0，R2记下这条路由以及路由对应的接口和跳数1，并且R2发现自己的路由表中已经有10.2.0.0这个条目，而且是直连条目，直连路由的管理距离是0，学到的RIP路由的管理距离是120，所以R2忽略R1传过来的10.2.0.0这个条目。</li>
+<li>R2把自己路由表中的直连网络10.2.0.0和10.3.0.0以1跳的度量值告诉R3，并且将从R1那里学到的10.1.0.0网络以2跳的度量值告诉R3。</li>
+<li>R3收到R2发过来的路由条目，将自己的路由表和R2发过来的条目进行比较，R3发现自己路由表中没有10.1.0.0，R3记录下这条路由以及对应端口和跳数2；R3发现自己路由表中没有10.2.0.0，R3记录下这条路由和对应端口以及跳数1；R3发现自己的路由表中已经存在10.3.0.0，并且是直连，比R2发过来的RIP更新有更好的度量值，R3忽略R2发来的10.3.0.0。这样R3学到了完整的路由条目。</li>
+<li>同理，R3也会将路由发给R2，R2再发给R1，最后所有路由都可以学到所有条目。<br><img src="https://img-blog.csdnimg.cn/20201127200203962.png" alt="在这里插入图片描述"></li>
+</ol>
+</li>
+</ol>
+<h5 id="11-3-8-RIP路由环路形成解析"><a href="#11-3-8-RIP路由环路形成解析" class="headerlink" title="11.3.8 RIP路由环路形成解析"></a>11.3.8 RIP路由环路形成解析</h5><p><img src="https://img-blog.csdnimg.cn/20201127200223135.png" alt="路由环路"></p>
+<blockquote>
+<ol>
+<li>R1将网络1的路由信息发给R2，R2学到了网络1并将度量值标记为1跳，即经过一台路由可以到达，下一跳是R1。</li>
+<li>路由R2将网络1的路由信息发给R3和R5，R3和R5都学到了网络1，并将度量值标记为2跳，即经过两台路由可以到达，下一跳是路由R2；R3和R5都将网络1发给R4，R4也学到网络1，并将度量值标记为3跳，下一跳路由是R3或R5，即从两台路由都能到达，R4去往网络1的数据将负载均衡。此时所有的路由都拥有一致的认识和正确的路由表，这时网络被称作已收敛。</li>
+<li>此时，当网络1断开，R1将网络1不可达的信息发送给R2，R2将网络1不可达的信息发送给R3和R5，R4还不知道网络1不可达的信息，就在这个时候R4发送了一个更新给R5，认为通过R3可以到达网络1；当然也可能是发送给R3，告诉它通过R5可以到达网络1。</li>
+<li>这里假设是第一种情况，R5收到通过R4可以到达网络1的更新后，更新自己的路由表，并将网络1可达的信息发送给了R2，R2更新自己的路由表并发送给R3和R1。R3更新自己的路由表并发送给R4，至此，路由环路形成。</li>
+</ol>
+</blockquote>
+<h5 id="11-3-9-距离矢量路由环路的解决方法"><a href="#11-3-9-距离矢量路由环路的解决方法" class="headerlink" title="11.3.9 距离矢量路由环路的解决方法"></a>11.3.9 距离矢量路由环路的解决方法</h5><p>距离矢量路由环路的解决方法有如下五种：</p>
+<ol>
+<li>最大跳计数<br>RIP允许跳计数最大可以达到15，任何需要经过16跳才能到达的网络都被认为是不可达的。</li>
+<li>水平分隔<br>限制路由器不能按照接收信息的方向去将接收到的信息再发回去。比如路由R3和R5有关网络1的信息是从R2学习到的，它们不会将网络1的信息再从与R2相连的接口发回去，这样R4最终会学习到网络1不可达的信息。</li>
+<li>路由毒化<br>路由中毒通过将故障网络设置成最大跳计数加1来暗示网络不可达，毒性反转是避免环路的另一种方法，比如R2学习到R1发送过来的网络1不可达的信息，首先它将网络1的跳计数更改成16跳，并且根据毒性反转，它将向R1送回一条网络1不可达的更新。</li>
+<li>触发更新<br>周期性发送更新，RIP是默认每隔30秒。</li>
+<li>抑制定时器<br>比如R2收到了R1发来的网络1不可达的信息后，R2首先标记此网络不可达，同时R2的抑制定时器启动，在RIP中抑制定时器是180秒倒计时，如果在抑制定时器到期前，又从R1收到网络1可达的信息了，那么删除这个抑制定时器，并且标记网络1可达。<br>如果在抑制定时器期满前，收到一个来自其他路由的（R3或者R4）关于网络1的更新，并且这个更新具有更好的度量值（假设以前学到的是3跳，这里有其他路由告诉它只需要1跳就能到达网络1），那么R2删除抑制定时器，并且标记网络1可达。<br>如果在抑制定时器到期前，R2收到另外路由器发来的关于网络1的更新，并且具有更差的度量值，那么忽略此更新；在抑制定时器期满后，R2删除抑制定时器，接收来自任何源路由的关于网络1的更新。</li>
+</ol>
+<h5 id="11-3-10-OSPF协议详解"><a href="#11-3-10-OSPF协议详解" class="headerlink" title="11.3.10 OSPF协议详解"></a>11.3.10 OSPF协议详解</h5><ol>
+<li>OSPF(Open Shortest Path First 开放式最短路径优先）是一个内部网关协议（简称IGP），用于在单一自治系统内决策路由。</li>
+<li>OSPF的简单说就是两个相邻的路由器通过发报文的形式成为邻居关系，邻居再相互发送链路状态信息形成邻接关系，之后各自根据最短路径算法算出路由，放在OSPF路由表，OSPF路由与其他路由比较后，优的加入全局路由表。</li>
+<li>OSPF协议的优点<ol>
+<li>开销减少。OSPF减去了通过广播进行路由更新的网络开销。OSPF只在检测到拓扑变化时发送路由更新信息，而不是定时发送整个路由表，只在有必要进行更新时给路由表发送改变路由的信息，而不是整个路由表。</li>
+<li>支持VLSM和CIDR。OSPF路由更新中包括子网掩码。</li>
+<li>支持不连续网络。</li>
+<li>支持手工路由汇总。</li>
+<li>收敛时间短。在一个设计合理的OSPF网络中，一条链路发生故障之后可以很快达到收敛， 因为OSPF具有一个包含OSPF域中所有路径的完整的拓扑数据库。</li>
+<li>无环拓扑生产。</li>
+<li>跳数只受路由器资源使用和IP TTL的限制。<br> <img src="https://img-blog.csdnimg.cn/20201127200359875.png" alt="在这里插入图片描述"></li>
+</ol>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OSPF协议使用最短路径优先算法SPF来计算生成路由表，其参考值为链路成本（Cost）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>链路成本的定义是基于链路带宽的，带宽越高则链路成本越低，带宽越低则链路成本越高。</p>
+</blockquote>
+<h5 id="11-3-11-OSPF区域"><a href="#11-3-11-OSPF区域" class="headerlink" title="11.3.11 OSPF区域"></a>11.3.11 OSPF区域</h5><p>&amp;emsp;&amp;emsp;OSPF引入分层路由的概念，将网络分割成一个“主干”连接的一组相互独立的部分，这些相互独立的部分被称为“区域”，主干的部分称为“主干区域”。多区域的OSPF必须存在一个主干区域，主干区域负责收集非主干区域发出的汇总路由信息，并将这些信息返回给到各区域。</p>
+<ul>
+<li>分区域的好处：<br>（1）减少路由更新<br>（2）加速收敛<br>（3）限制不稳定到一个区域<br>（4）提高网络性能</li>
+</ul>
+<h5 id="11-3-12-OSPF路由器的类型"><a href="#11-3-12-OSPF路由器的类型" class="headerlink" title="11.3.12 OSPF路由器的类型"></a>11.3.12 OSPF路由器的类型</h5><ol>
+<li>区域内路由器：所有端口都在同一区域的路由器，它们都维护着一个相同的链路状态数据库。</li>
+<li>区域边界路由器：具有连接多区域端口的路由器，一般作为一个区域的出口。</li>
+<li>主干路由器：至少有一个连接主干区域端口的路由器。</li>
+<li>自治系统边界路由器：至少拥有一个连接外部自治域网络端口的路由器，负责将非OSPF网络信息传入OSPF网络。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/2020112720044919.png" alt="OSPF路由器"><br><strong>指定路由器</strong><br><img src="https://img-blog.csdnimg.cn/20201127200512515.png" alt="指定路由器"></p>
+<h5 id="11-3-13-OSPF路由计算"><a href="#11-3-13-OSPF路由计算" class="headerlink" title="11.3.13 OSPF路由计算"></a>11.3.13 OSPF路由计算</h5><p><img src="https://img-blog.csdnimg.cn/20201127200532461.png" alt="OSPF路由计算"><br><img src="https://img-blog.csdnimg.cn/20201127200541692.png" alt="OSPF路由计算"></p>
+<h5 id="11-3-14-OSPF数据包类型"><a href="#11-3-14-OSPF数据包类型" class="headerlink" title="11.3.14 OSPF数据包类型"></a>11.3.14 OSPF数据包类型</h5><ol>
+<li>问候（Hello) 数据包：周期性发送，用来发现和维持OSPF邻居关系以及指定路由器或备份路由器的选举。</li>
+<li>数据库描述（Database Description, DD）数据包：描述了本地LSDB中每一条LSA的摘要信息，用于两台路由器进行数据库同步。</li>
+<li>链路状态请求（Link State Request, LSR) 数据包：向对方请求所需的LSA，内容包括所需要的LSA的摘要。</li>
+<li>链路状态更新（Link State Update, LSU）数据包：向对方发送其所需要的LSA。</li>
+<li>链路状态确认（Link State Acknowledgment, LSAck) 数据包：用来对收到的LSA进行确认。</li>
+</ol>
+<ul>
+<li>OSPF首部<br><img src="https://img-blog.csdnimg.cn/20201127200630552.png" alt="在这里插入图片描述"></li>
+<li>问候（Hello) 数据包格式<br><img src="https://img-blog.csdnimg.cn/20201127200647634.png" alt="在这里插入图片描述"></li>
+<li>链路状态请求（Link State Request, LSR) 数据包格式<br><img src="https://img-blog.csdnimg.cn/2020112720070370.png" alt="在这里插入图片描述"></li>
+<li>链路状态更新（Link State Update, LSU）数据包格式<br><img src="https://img-blog.csdnimg.cn/20201127200717541.png" alt="在这里插入图片描述"></li>
+<li>链路状态确认（Link State Acknowledgment, LSAck) 数据包格式<br><img src="https://img-blog.csdnimg.cn/20201127200732581.png" alt="在这里插入图片描述"></li>
+<li>链路状态通告 LSA<br><img src="https://img-blog.csdnimg.cn/20201127200746203.png" alt="在这里插入图片描述"></li>
+<li>LSA首部格式：<br><img src="https://img-blog.csdnimg.cn/20201127200759610.png" alt="在这里插入图片描述"></li>
+</ul>
+<h5 id="11-3-15-OSPF工作原理"><a href="#11-3-15-OSPF工作原理" class="headerlink" title="11.3.15 OSPF工作原理"></a>11.3.15 OSPF工作原理</h5><pre><code>1. 建立路由器的邻居关系
+2. 进行必要的DR/BDR选举
+3. 链路状态数据库的同步
+4. 产生路由表
+5. 维护路由信息
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20201127200835513.png" alt="OSPF工作原理"></p>
+<h5 id="11-3-16-OSPF的邻居状态机"><a href="#11-3-16-OSPF的邻居状态机" class="headerlink" title="11.3.16 OSPF的邻居状态机"></a>11.3.16 OSPF的邻居状态机</h5><p><img src="https://img-blog.csdnimg.cn/20201127200856419.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201127200905792.png" alt="在这里插入图片描述"></p>
+<h5 id="11-3-17-OSPF工作原理展开"><a href="#11-3-17-OSPF工作原理展开" class="headerlink" title="11.3.17 OSPF工作原理展开"></a>11.3.17 OSPF工作原理展开</h5><ol>
+<li>OSPF协议通过Hello协议建立路由器的邻居关系<br>每个Hello数据包都包含以下信息：<br><img src="https://img-blog.csdnimg.cn/20201127201418188.png" alt="在这里插入图片描述"></li>
+</ol>
+<ul>
+<li>邻居关系的建立要经过三个状态<br><img src="https://img-blog.csdnimg.cn/20201127201714413.png" alt="在这里插入图片描述"></li>
+</ul>
+<ol start="2">
+<li><p>选举DR和BDR</p>
+<ol>
+<li>当路由器同一个或多个路由器建立双向的通信后，检查每个邻居Hello包里的优先级、DR和BDR域。列出所有符合DR和BDR选举的路由器(优先级大于0，为0时不参加选举)，列出所有的DR和BDR。</li>
+<li>从这些合格的路由器中建立一个没有宜称自己为DR的子集（因为宣称为DR的路由器不能选举成为BDR）。</li>
+<li>如果在这个子集里有一个或多个邻居（包括它自己的接口）在BDR域宣称自己为BDR，则选举具有最高优先级的路由器，如果优先级相同，则选择具有最高Router ID的那个路由器为BDR。</li>
+<li>如果在这个子集里没有路由器宣称自己为BDR，则在它的邻居里选择具有最高优先级的路由器为BDR，如果优先级相同，则选择具有最大Router ID的路由器为BDR。</li>
+<li>在宣称自己为DR的路由器列表中，如果有一个或多个路由器宣称自己为DR，则选择具有最高优先级的路由器为DR，如果优先级相同，则选择具有最大Router ID的路由器为DR。</li>
+<li>如果没有路由器宣称为DR，则将最新选举的BDR作为DR。</li>
+<li>如果是第一次选举某个路由器为DR&#x2F; BDR或没有DR&#x2F;BDR被选举，则要重复2到6步，然后是第8步。</li>
+<li>将选举出来的路由器的端口状态作相应的改变，DR的端口状态为DR, BDR的端口状态为BDR，否则的话为DR Other。</li>
+<li>在点到点的网络中，不选举DR和BDR，两台路由器之间建立主从关系，路由器ID高的作为主路由器，另一台作为从路由器，进入准启动Exstart状态。</li>
+</ol>
+</li>
+<li><p>链路状态数据库的同步<br><img src="https://img-blog.csdnimg.cn/20201127201753440.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201127201800193.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>路由表的产生<br><img src="https://img-blog.csdnimg.cn/20201127201820256.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>维护路由信息<br><img src="https://img-blog.csdnimg.cn/20201127201840433.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>总结：</p>
+<ol>
+<li>每台路由器学习激活的直接相连的网络。</li>
+<li>每台路由器和直接相连的路由器互交，发送Hello报文，建立邻居关系。</li>
+<li>每台路由器构建包含直接相连的链路状态的LSA（链路状态通告）链路状态通告中记录了所有相关的路由器，包括邻路由器的标识、链路类型、带宽等。</li>
+<li>每台路由器泛洪链路状态通告（LSA）给所有的邻路由器，并且自己也在本地储存邻路由发过来的LSA，然后再将收到的LSA泛洪给自己的所有邻居，直到在同一区域中的所有路由器收到了所有的LSA。每台路由器在本地数据库中保存所有收到的LSA副本，这个数据库被称作链路状态数据库（LSDB）。</li>
+<li>每台路由器基于本地的链路状态数据库执行最短路径优先（SPF）算法，并以本路由器为根，生成一个SPF树，基于这个SPF树计算去往每个网络的最短路径，也就得到了最终的路由表。</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>点到点网络<br>点到点网络是连接单独的一对路由器的网络，点到点网络上的有效邻居总是可以形成邻接关系的，在这种网络上，OSPF包的目标地址使用的是224.0.0.5。</li>
+<li>广播型网络<br>广播型网络上会选举一个DR和BDR，DR&#x2F;BDR发送的OSPF包的目标地址为224.0.0.5，而除了DR&#x2F;BDR以外的OSPF包的目标地址为224.0.0.6。</li>
+<li>在广播型网络中，所有路由器都以224.0.0.5的地址发送Hello包，用来维持邻居关系，DR&#x2F;BDR会使用224.0.0.5的地址来发送LSA更新，非DR&#x2F;BDR路由都以224.0.0.6的地址发送LSA更新。</li>
+<li>OSPF区域内当有链路发生变化时，如变化路由器为DR Other时，它不会将LSU泛洪给所有区域内其它路由器，而是通过组播地址224.0.0.6先发送给DR&#x2F;BDR，然后DR&#x2F;BDR再将此更新通过224.0.0.5发送给其它区域内路由器。换句话说，DR&#x2F;BDR监听224.0.0.6，而DR Other监听224.0.0.5。</li>
+</ul>
+<p> <img src="https://img-blog.csdnimg.cn/20201128120630209.jpeg" alt="越姐护体"></p>
+<hr>
+<p>(●’◡’●)****🤍❀★内容持续更新中(●’◡’●)****🤍❀★</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>sunning
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://suenning.com.cn/2023/02/01/%E4%B8%80%E4%BD%8D%E8%80%83%E7%A0%94%E5%85%9A%E4%BA%B2%E8%87%AA%E6%95%B4%E7%90%86%E7%9A%84%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8D%E7%9C%8B%E5%90%8E%E6%82%94%E7%89%88%EF%BC%89/" title="一位考研党亲自整理的大学计算机网络基础知识总结（不看后悔版）">https://suenning.com.cn/2023/02/01/一位考研党亲自整理的大学计算机网络基础知识总结（不看后悔版）/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/01/%E4%BB%85%E8%BF%99%E4%B8%80%E7%AF%87%EF%BC%8C%E5%B8%A6%E4%BD%A0%E6%95%B2%E5%BC%80C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88%E7%9A%84%E5%A4%A7%E9%97%A8/" rel="prev" title="仅这一篇，带你敲开C语言指针的大门">
+      <i class="fa fa-chevron-left"></i> 仅这一篇，带你敲开C语言指针的大门
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%8F%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="nav-number"></span> <span class="nav-text">（一）计算机网络基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%80%9A%E4%BF%A1%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">1.1 计算机通信网的组成(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">2.</span> <span class="nav-text">1.2 通信协议(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-OSI%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B%EF%BC%88Open-System-Interconnection%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">1.3 OSI参考模型（Open System Interconnection）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-OSI%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%98%E7%82%B9-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">4.</span> <span class="nav-text">1.4 OSI模型的优点(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-TCP-x2F-IP%E5%8D%8F%E8%AE%AE%E7%B0%87-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">5.</span> <span class="nav-text">1.5 TCP &#x2F; IP协议簇(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-%E6%95%B0%E6%8D%AE%E5%9C%A8%E5%90%84%E5%B1%82%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E9%80%92%E8%BF%87%E7%A8%8B-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">6.</span> <span class="nav-text">1.6 数据在各层之间的传递过程(●’◡’●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89MAC%E5%9C%B0%E5%9D%80"><span class="nav-number"></span> <span class="nav-text">（二）MAC地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-MAC%E5%9C%B0%E5%9D%80%E7%BB%84%E6%88%90-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">2.1 MAC地址组成(●’◡’●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89IP%E5%9C%B0%E5%9D%80"><span class="nav-number"></span> <span class="nav-text">（三）IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-IP%E5%9C%B0%E5%9D%80%E7%9A%84%E7%BB%84%E6%88%90-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">3.1 IP地址的组成(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-IP%E5%9C%B0%E5%9D%80%E7%B1%BB%E5%9E%8B-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">2.</span> <span class="nav-text">3.2 IP地址类型(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-IP%E5%9C%B0%E5%9D%80%E7%BC%96%E5%9D%80%E6%96%B9%E5%BC%8F-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">3.</span> <span class="nav-text">3.3 IP地址编址方式(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-%E5%AD%90%E7%BD%91-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">4.</span> <span class="nav-text">3.4 子网(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-%E8%B6%85%E7%BD%91-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">5.</span> <span class="nav-text">3.5 超网(●’◡’●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89ARP-x2F-RARP%E5%8D%8F%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">（四）ARP &#x2F; RARP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-ARP%E6%AC%BA%E9%AA%97-%E2%97%8F%CB%87%E2%88%80%CB%87%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">4.1 ARP欺骗(●ˇ∀ˇ●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-ARP%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E4%B8%BE%E4%BE%8B-%E2%97%8F%CB%87%E2%88%80%CB%87%E2%97%8F"><span class="nav-number">2.</span> <span class="nav-text">4.2 ARP工作流程举例(●ˇ∀ˇ●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-%E9%80%86%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE-%E2%97%8F%CB%87%E2%88%80%CB%87%E2%97%8F"><span class="nav-number">3.</span> <span class="nav-text">4.3 逆地址解析协议(●ˇ∀ˇ●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89IP%E5%8D%8F%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">（五）IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-IP%E6%8A%A5%E5%A4%B4-%E2%97%8F%CB%87%E2%88%80%CB%87%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">5.1 IP报头(●ˇ∀ˇ●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E5%85%AD%EF%BC%89TCP-x2F-IP%E5%8D%8F%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">（六）TCP &#x2F; IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-UDP-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">6.1 UDP(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-UDP%E7%9A%84%E7%89%B9%E7%82%B9-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">2.</span> <span class="nav-text">6.2 UDP的特点(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-TCP-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">3.</span> <span class="nav-text">6.3 TCP(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-TCP%E7%9A%84%E7%89%B9%E7%82%B9-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">4.</span> <span class="nav-text">6.4 TCP的特点(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-5-TCP%E7%9A%84%E7%8A%B6%E6%80%81-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">5.</span> <span class="nav-text">6.5 TCP的状态(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-6-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E9%97%AE%E9%A2%98-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">6.</span> <span class="nav-text">6.6 三次握手与四次挥手问题(●’◡’●)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">6.6.1 为什么要三次握手？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F"><span class="nav-number">6.2.</span> <span class="nav-text">6.6.2 为什么要四次挥手？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-7-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%AF%A6%E8%A7%A3-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">7.</span> <span class="nav-text">6.7 三次握手详解(●’◡’●)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-7-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E7%AC%AC%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="nav-number">7.1.</span> <span class="nav-text">6.7.1 为什么要进行第三次握手？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-8-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%AF%A6%E8%A7%A3%EF%BC%9A-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">8.</span> <span class="nav-text">6.8 四次挥手详解：(●’◡’●)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-8-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E2%80%9D%E6%8F%A1%E6%89%8B%E2%80%9D%E6%98%AF%E4%B8%89%E6%AC%A1%EF%BC%8C%E2%80%9D%E6%8C%A5%E6%89%8B%E2%80%9D%E5%8D%B4%E8%A6%81%E5%9B%9B%E6%AC%A1%EF%BC%9F"><span class="nav-number">8.1.</span> <span class="nav-text">6.8.1 为什么”握手”是三次，”挥手”却要四次？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-8-2-%E4%B8%BA%E4%BD%95%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E6%97%B6%E4%B8%80%E8%B5%B7%E4%BC%A0%E8%BE%93%EF%BC%8C%E9%87%8A%E6%94%BE%E8%BF%9E%E6%8E%A5%E6%97%B6%E5%8D%B4%E8%A6%81%E5%88%86%E5%BC%80%E4%BC%A0%E8%BE%93%EF%BC%9F"><span class="nav-number">8.2.</span> <span class="nav-text">6.8.2 为何建立连接时一起传输，释放连接时却要分开传输？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-8-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9C%A8TIME-WAIT%E9%98%B6%E6%AE%B5%E8%A6%81%E7%AD%892MSL"><span class="nav-number">8.3.</span> <span class="nav-text">6.8.3 为什么客户端在TIME-WAIT阶段要等2MSL?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%83%EF%BC%89DNS%E5%8D%8F%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">（七）DNS协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-%E5%9F%9F%E5%90%8D%E7%BB%93%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BE-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">7.1 域名结构示意图(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E6%96%B9%E5%BC%8F-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">2.</span> <span class="nav-text">7.2 域名解析方式(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">3.</span> <span class="nav-text">7.3 域名解析过程(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-DNS%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">4.</span> <span class="nav-text">7.4 DNS协议报文格式(●’◡’●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E5%85%AB%EF%BC%89NAT%E5%8D%8F%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">（八）NAT协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-NAT%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B-%E2%9C%BF%E2%97%A0%E2%80%BF%E2%97%A0"><span class="nav-number">1.</span> <span class="nav-text">8.1 NAT工作过程(✿◠‿◠)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-%E9%85%8D%E7%BD%AE%E5%86%85%E9%83%A8%E6%BA%90%E5%9C%B0%E5%9D%80%E9%9D%99%E6%80%81NAT-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">2.</span> <span class="nav-text">8.2 配置内部源地址静态NAT(●’◡’●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B9%9D%EF%BC%89DHCP%E5%8D%8F%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">（九）DHCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1-DHCP%E6%8A%A5%E6%96%87%E7%A7%8D%E7%B1%BB-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">1.</span> <span class="nav-text">9.1 DHCP报文种类(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2-DHCP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">2.</span> <span class="nav-text">9.2 DHCP报文格式(●’◡’●)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3-DHCP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B-%E2%97%8F%E2%80%99%E2%97%A1%E2%80%99%E2%97%8F"><span class="nav-number">3.</span> <span class="nav-text">9.3 DHCP协议的工作过程(●’◡’●)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E5%8D%81%EF%BC%89HTTP%E5%8D%8F%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">（十）HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-1-HTTP%E7%9A%84%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9-%E2%80%A2%CC%80-%CF%89-%E2%80%A2%CC%81"><span class="nav-number">1.</span> <span class="nav-text">10.1 HTTP的主要特点( •̀ ω •́ )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-2-URL%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6-%E2%80%A2%CC%80-%CF%89-%E2%80%A2%CC%81"><span class="nav-number">2.</span> <span class="nav-text">10.2 URL统一资源定位符( •̀ ω •́ )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-3-HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87-%E2%9D%81%C2%B4%E2%97%A1-96-%E2%9D%81"><span class="nav-number">3.</span> <span class="nav-text">10.3 HTTP请求报文(❁´◡&#96;❁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-4-HTTP%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87-%E2%9D%81%C2%B4%E2%97%A1-96-%E2%9D%81"><span class="nav-number">4.</span> <span class="nav-text">10.4 HTTP响应报文(❁´◡&#96;❁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-5-HTTP%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E2%9D%81%C2%B4%E2%97%A1-96-%E2%9D%81"><span class="nav-number">5.</span> <span class="nav-text">10.5 HTTP工作原理(❁´◡&#96;❁)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%88%E5%8D%81%E4%B8%80%EF%BC%89%E4%BA%A4%E6%8D%A2%E6%9C%BA%E4%B8%8E%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number"></span> <span class="nav-text">（十一）交换机与路由器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-1-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E2%9D%81%C2%B4%E2%97%A1-96-%E2%9D%81"><span class="nav-number">1.</span> <span class="nav-text">11.1 交换机的工作原理(❁´◡&#96;❁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-2-%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE-%E2%9C%BF%E2%97%95%E2%80%BF%E2%97%95%E2%9C%BF"><span class="nav-number">2.</span> <span class="nav-text">11.2 生成树协议(✿◕‿◕✿)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-1-%E5%86%97%E4%BD%99%E5%92%8C%E4%BA%A4%E6%8D%A2%E7%8E%AF%E8%B7%AF"><span class="nav-number">2.1.</span> <span class="nav-text">11.2.1 冗余和交换环路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-2-STP-%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE%E7%AE%80%E4%BB%8B"><span class="nav-number">2.2.</span> <span class="nav-text">11.2.2 STP 生成树协议简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-3-STP%E7%AB%AF%E5%8F%A3%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">11.2.3 STP端口状态转换过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-4-STP%E6%94%B6%E6%95%9B%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.4.</span> <span class="nav-text">11.2.4 STP收敛的步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-5-STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-number">2.5.</span> <span class="nav-text">11.2.5 STP生成树协议的缺陷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-6-RSTP%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.6.</span> <span class="nav-text">11.2.6 RSTP快速生成树协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-3-%E8%B7%AF%E7%94%B1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E2%9C%BF%E2%97%A0%E2%80%BF%E2%97%A0"><span class="nav-number">3.</span> <span class="nav-text">11.3 路由器工作原理(✿◠‿◠)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-1-%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">3.1.</span> <span class="nav-text">11.3.1 静态路由</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-2-%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1%E4%B8%8E%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">3.2.</span> <span class="nav-text">11.3.2 静态路由与动态路由</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-3-RIP%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.3.</span> <span class="nav-text">11.3.3 RIP路由协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-4-RIPv1-%E5%92%8C-RIPv2-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="nav-number">3.4.</span> <span class="nav-text">11.3.4 RIPv1 和 RIPv2 的主要区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-5-OSPF%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.5.</span> <span class="nav-text">11.3.5 OSPF路由协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-6-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">3.6.</span> <span class="nav-text">11.3.6 路由器的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-7-RIP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3"><span class="nav-number">3.7.</span> <span class="nav-text">11.3.7 RIP协议详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-8-RIP%E8%B7%AF%E7%94%B1%E7%8E%AF%E8%B7%AF%E5%BD%A2%E6%88%90%E8%A7%A3%E6%9E%90"><span class="nav-number">3.8.</span> <span class="nav-text">11.3.8 RIP路由环路形成解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-9-%E8%B7%9D%E7%A6%BB%E7%9F%A2%E9%87%8F%E8%B7%AF%E7%94%B1%E7%8E%AF%E8%B7%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">3.9.</span> <span class="nav-text">11.3.9 距离矢量路由环路的解决方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-10-OSPF%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3"><span class="nav-number">3.10.</span> <span class="nav-text">11.3.10 OSPF协议详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-11-OSPF%E5%8C%BA%E5%9F%9F"><span class="nav-number">3.11.</span> <span class="nav-text">11.3.11 OSPF区域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-12-OSPF%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.12.</span> <span class="nav-text">11.3.12 OSPF路由器的类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-13-OSPF%E8%B7%AF%E7%94%B1%E8%AE%A1%E7%AE%97"><span class="nav-number">3.13.</span> <span class="nav-text">11.3.13 OSPF路由计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-14-OSPF%E6%95%B0%E6%8D%AE%E5%8C%85%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.14.</span> <span class="nav-text">11.3.14 OSPF数据包类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-15-OSPF%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">3.15.</span> <span class="nav-text">11.3.15 OSPF工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-16-OSPF%E7%9A%84%E9%82%BB%E5%B1%85%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-number">3.16.</span> <span class="nav-text">11.3.16 OSPF的邻居状态机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-17-OSPF%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%B1%95%E5%BC%80"><span class="nav-number">3.17.</span> <span class="nav-text">11.3.17 OSPF工作原理展开</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sunning</p>
+  <div class="site-description" itemprop="description">且视他人之疑目如盏盏鬼火，大胆地去走你的夜路。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/SuenNing1999" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;SuenNing1999" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_43964458" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_43964458" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1878225963&auto=1&height=66"></iframe>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunning</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">147k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:14</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+

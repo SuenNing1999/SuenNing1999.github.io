@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suenning.com.cn","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="小萌新打算写一篇关于C语言中指针方面的学习心得，因为自己是一位在校大学生，专业课也涉及到C语言，在学习C语言指针的时候，相信也和大家一样，在这块知识面感觉晦涩难懂，学不好。但是小萌新并没有放弃，指针是C语言的灵魂，热心的小萌新博主想帮助大家，前车之覆，后车之鉴，我们一起来学习指针。 有不足的地方，还请大家多多批评指正！若写的好了，大家多多支持一下。谢谢啦～么么哒！ 废话不多说！C指针学习之路让我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仅这一篇，带你敲开C语言指针的大门">
+<meta property="og:url" content="https://suenning.com.cn/2023/02/01/%E4%BB%85%E8%BF%99%E4%B8%80%E7%AF%87%EF%BC%8C%E5%B8%A6%E4%BD%A0%E6%95%B2%E5%BC%80C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88%E7%9A%84%E5%A4%A7%E9%97%A8/index.html">
+<meta property="og:site_name" content="橘生淮南">
+<meta property="og:description" content="小萌新打算写一篇关于C语言中指针方面的学习心得，因为自己是一位在校大学生，专业课也涉及到C语言，在学习C语言指针的时候，相信也和大家一样，在这块知识面感觉晦涩难懂，学不好。但是小萌新并没有放弃，指针是C语言的灵魂，热心的小萌新博主想帮助大家，前车之覆，后车之鉴，我们一起来学习指针。 有不足的地方，还请大家多多批评指正！若写的好了，大家多多支持一下。谢谢啦～么么哒！ 废话不多说！C指针学习之路让我们">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128141325505.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128144144714.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200224103310782.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128153019220.png">
+<meta property="article:published_time" content="2023-02-01T08:11:37.394Z">
+<meta property="article:modified_time" content="2023-02-01T08:52:56.854Z">
+<meta property="article:author" content="sunning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201128141325505.png">
+
+<link rel="canonical" href="https://suenning.com.cn/2023/02/01/%E4%BB%85%E8%BF%99%E4%B8%80%E7%AF%87%EF%BC%8C%E5%B8%A6%E4%BD%A0%E6%95%B2%E5%BC%80C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88%E7%9A%84%E5%A4%A7%E9%97%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>仅这一篇，带你敲开C语言指针的大门 | 橘生淮南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="橘生淮南" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">橘生淮南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录学习中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://suenning.com.cn/2023/02/01/%E4%BB%85%E8%BF%99%E4%B8%80%E7%AF%87%EF%BC%8C%E5%B8%A6%E4%BD%A0%E6%95%B2%E5%BC%80C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88%E7%9A%84%E5%A4%A7%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sunning">
+      <meta itemprop="description" content="且视他人之疑目如盏盏鬼火，大胆地去走你的夜路。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="橘生淮南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          仅这一篇，带你敲开C语言指针的大门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-02-01 16:11:37 / 修改时间：16:52:56" itemprop="dateCreated datePublished" datetime="2023-02-01T16:11:37+08:00">2023-02-01</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>小萌新打算写一篇关于C语言中指针方面的学习心得，因为自己是一位在校大学生，专业课也涉及到C语言，在学习C语言指针的时候，相信也和大家一样，在这块知识面感觉晦涩难懂，学不好。但是小萌新并没有放弃，指针是C语言的灵魂，热心的小萌新博主想帮助大家，前车之覆，后车之鉴，我们一起来学习指针。</p>
+<p>有不足的地方，还请大家多多批评指正！若写的好了，大家多多支持一下。谢谢啦～么么哒！</p>
+<p><strong>废话不多说！C指针学习之路让我们开始吧!</strong></p>
+<hr>
+<h4 id="1-什么是变量"><a href="#1-什么是变量" class="headerlink" title="1. 什么是变量"></a>1. 什么是变量</h4><p>在介绍指针之前，我们先必须知道什么是变量，就这一点萌新认为在理解C语言指针非常重要！</p>
+<p>变量，从字面上理解，就是计算机中存储的数据，并且这个数据是可以变化的，电脑使用内存来记忆计算时所使用的数据</p>
+<p><strong>1. 那么内存是如何存储数据的呢？</strong></p>
+<p>存储数据之前，首先我们必须申请内存空间，就好比我们去住酒店开房间一样，只有当我们开好房间后，我们才能入住，对不对！换句话说，内存也是一样的，内存就像旅馆，数据各式各样，要先根据数据的需求（即类型）为它申请一块合适的空间。</p>
+<blockquote>
+<p>同样数据在内存中占用的字节大小也不一样 ，所以申请的空间也就不一样。</p>
+</blockquote>
+<p><strong>2. 那一次要申请多大的内存空间呢？</strong><br>我们是根据数据类型来决定内存空间的大小的：</p>
+<blockquote>
+<ol>
+<li>short int（短整数类型）占用2个字节空间 </li>
+<li>int（整数类型）占用2个字节空间 </li>
+<li>long int（长整数类型）占用4个字节空间 </li>
+<li>long long int（超长整数类型）占用4个字节空间</li>
+</ol>
+</blockquote>
+<p>同时，我们可以使用sizeof（）函数来输出不同数据类型的字节长度，在不同的环境下，相同数据占用的字节长度可能不同。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123; </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(int)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">int</span>));     <span class="comment">//占4个字节空间</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(float)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">float</span>)); <span class="comment">//占4字节空间</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(double)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">double</span>));<span class="comment">//占8字节空间</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(char)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">char</span>));   <span class="comment">//占1字节空间</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(long int)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">long</span> <span class="type">int</span>)); <span class="comment">//占8字节空间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>根据数据类型，决定空间大小</p>
+</blockquote>
+<p><strong>3. 那么由谁去申请内存空间呢？</strong><br>实际上当我们在写声明变量的时候，就已经在申请内存空间了，声明变量后，程序执行时由系统去自动分配内存空间，根据数据类型的字节长度去分配合适大小的内存空间，这个过程是由编译器完成的。这就好比有些软件占用的内存空间小，而有些软件占用的内存的大，占用内存空间大的程序运行时调用的变量就多，而内存小的，调用的变量就少，一个道理。</p>
+<p><strong>4. 那么已经将数据存入内存，如何找到它呢？</strong><br>我们先要知道数据存入内存中，不是为了玩的，而是要让CPU去调用，去运算的。</p>
+<blockquote>
+<ol>
+<li>不同的数据存入内存中有不同的地址空间，一块地址空间只能存放一个数据，而这个地址空间就是变量</li>
+<li>每申请出的一块空间，就是一个变量，变量就是一块地址空间。</li>
+</ol>
+</blockquote>
+<p>还是和开房间一样，当我们退房的时候，下一次的顾客依然可以入住上一次已经退过房的房间，而我们常说的变量，就是一块可以存放数据的内存空间。</p>
+<p><strong>5. 那我们如何找到这个地址空间呢？</strong><br>假如张三住401，李四住307，我们在找张三的时候，只需要知道401这个房间号就可以了。内存空间也是一样，也有它的房间号。内存空间由32位二进制数表示，常用标记方法是：0xFFFFFFFF，是由0x八段十六进制整数表示的。</p>
+<blockquote>
+<ol>
+<li>0x0001ab2e————存储值4</li>
+<li>0x0001ab2a————存储值5</li>
+</ol>
+</blockquote>
+<p>这就是内存空间的房间号了，当我们在找存储在这个空间里面的数据（存储值）的时候，用这个地址就可以找到了。但是萌新相信没有哪个小伙伴会这么记忆内存地址的吧，这么一长串的数字，不过那不排除记忆力好的小伙伴。</p>
+<p><strong>6. 那么内存地址不好记，怎么办？</strong><br>计算机可以通过内存地址找到它所存储的值，我们通过引入变量名来方便人的记忆，变量名就是给内存空间起的别名。</p>
+<blockquote>
+<p>变量名：给内存地址起的名字</p>
+</blockquote>
+<p>对于直接输出变量值，我们无需知道变量具体存储在哪块内存空间，只需要知道变量名即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> num1=<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> num2=<span class="number">2</span>;</span><br><span class="line"><span class="type">int</span> num3=<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>别名</th>
+<th>存储的数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x0001ab10</td>
+<td>num1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0x0001ab14</td>
+<td>num2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0x0000ab18</td>
+<td>num3</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p><strong>7. 那我们知道了内存地址，如何去操作它？</strong></p>
+<h4 id="2-什么是指针"><a href="#2-什么是指针" class="headerlink" title="2. 什么是指针"></a>2. 什么是指针</h4><p><img src="https://img-blog.csdnimg.cn/20201128141325505.png" alt="在这里插入图片描述"></p>
+<p>我们使用指针去保存并操作变量的地址（注意是保存和操作内存空间的地址）</p>
+<p><strong>8. 那我们为什么要用指针？</strong></p>
+<ul>
+<li>原因如下：</li>
+<li>提高程序执行效率</li>
+<li>实现函数与指针的双向通信</li>
+<li>利用指针实现动态内存分配</li>
+<li>利用指针操作内存</li>
+</ul>
+<blockquote>
+<p>我们通过指针去访问变量（内存空间）这个过程，叫做：<strong>间接访问</strong></p>
+<ul>
+<li>即通过访问变量a，b的地址，然后找到变量a，b的值的过程，就是间接访问</li>
+</ul>
+</blockquote>
+<p>我们先声明两个指针变量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p1=&amp;a;  指针p1保存a的地址</span><br><span class="line"><span class="type">int</span> *p2=&amp;b;  指针p2保存b的地址</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用指针p1保存变量a的地址，然后就可以找到变量a</span><br><span class="line">用指针p2保存变量b的地址，然后就可以找到变量b</span><br></pre></td></tr></table></figure>
+
+<p><strong>9. 那么使用&amp;地址符也能取出变量地址，干嘛还需要指针呢？</strong><br>因为在程序运行中，变量的地址是变化的！不是静态的。</p>
+<h4 id="3-指针的含义"><a href="#3-指针的含义" class="headerlink" title="3. 指针的含义"></a>3. 指针的含义</h4><p><strong>指针：是一种数据类型，用于保存其他变量的地址</strong><br>指针又分为：整数指针，浮点数指针，字符指针，函数指针，数组指针，指针的指针等。</p>
+<blockquote>
+<ul>
+<li>指针变量保存其他变量的地址，通过对变量地址的操作来间接的操作变量，实现更多的功能。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>声明的变量是指针类型，这个变量就是指针变量，指针变量<strong>保存</strong>其它变量的地址，来间接访问变量。（切记！）</li>
+</ul>
+</blockquote>
+<p><strong>10. 我们如何来定义一个指针变量？</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据类型名  *指针变量名；</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>*必须存在，且最好靠近指针变量名</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>int *</th>
+<th>指向整数类型的指针</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float *</td>
+<td>指向浮点数类型的指针</td>
+</tr>
+</tbody></table>
+<p>来个例子吧：</p>
+<ol>
+<li>先声明<code>int  num1=6</code><br>我们有一个变量，叫num1，它是一个整数类型，在这个变量里存放了6这个整型数据；</li>
+<li>我们再声明一个指针p，去保存num1的地址（叫作指针p指向num1），所以我们声明的指针为<code>int *p</code></li>
+</ol>
+<p><strong>11. 与指针相关的操作符</strong><br>指针声明好后，我们就要给它赋值了，但是我们不能随便赋值。注意：<strong>指针保存的是地址</strong>，这个地址是以32位二进制整数的形式表示的，当我们赋一个随便的整数，那么指针就指向了一块未知的地址。那么问题来了，在这个连你都不知道的地址里怎么能找到有你想要的数据呢？答案当然是不！</p>
+<p><strong>12. 那么我们如何给指针赋值呢？</strong></p>
+<ol>
+<li>先得到地址空间的地址（即取地址）</li>
+<li>然后把这个地址交给指针来保存（指针就是一种用来保存地址的数据类型，上面已经讲过了）</li>
+</ol>
+<p>我们这样给指针赋值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p=&amp;a;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>记作：指针 p 指向变量 a，实际上就是指针 p 保存了变量 a 的地址</p>
+</blockquote>
+<p>既然我们已经得到了地址，就可以取在地址里的数据了，但是问题又来了！</p>
+<p><strong>13. 那我们怎么取这个地址里的数据呢？</strong><br>我们声明一个指针：<code>int *p</code>，然后用指针p来取值<br>这时有小伙伴要<strong>用指针p去接收变量a的地址</strong>，于是写成<code>*p=&amp;a</code></p>
+<blockquote>
+<p>这是错误的！</p>
+</blockquote>
+<p>我们在操作指针p的时候是不能带星号的，应该写成<code>p=&amp;a</code>，这才叫<strong>用指针p去接收变量a的地址</strong>。</p>
+<p>我们在声明完<code>int *p</code>后，以后出现的星号就代表取地址里的值了，这一点大家要好好理解。</p>
+<ul>
+<li>p：表示保存变量的地址</li>
+<li>*p：表示取出已保存地址中的值</li>
+</ul>
+<p><strong>所以注意！</strong><br><strong>声明一定要带星号，赋值不能带星号</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p;  声明指针</span><br><span class="line">p=&amp;a;    指针p保存了变量a的地址</span><br></pre></td></tr></table></figure>
+<p>我们再来个例子吧！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> a=<span class="number">3</span>;	<span class="comment">//声明变量a，把数值3赋给a</span></span><br><span class="line"><span class="type">int</span> *p=<span class="literal">NULL</span>;<span class="comment">//声明指针p，指针初始化赋空值，否则成为野指针</span></span><br><span class="line">p=&amp;a;		<span class="comment">//让指针p保存a的地址</span></span><br><span class="line"><span class="built_in">printf</span>&#123;<span class="string">&quot;var a add=%p\n&quot;</span>,&amp;a&#125;;<span class="comment">//输出变量a的地址</span></span><br><span class="line"><span class="built_in">printf</span>&#123;<span class="string">&quot;p=%p\n&quot;</span>,p&#125;;			<span class="comment">//输出指针p的值，也就是保存了a的地址空间</span></span><br><span class="line"><span class="built_in">printf</span>&#123;<span class="string">&quot;date a=%d\n&quot;</span>,a&#125;;	<span class="comment">//输出a的值</span></span><br><span class="line"><span class="built_in">printf</span>&#123;<span class="string">&quot;*p=%d\n&quot;</span>,*p&#125;;		<span class="comment">//对指针p取值，也就是在a的地址空间里取值</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a add=<span class="number">0x7fff2c4dc274</span> </span><br><span class="line">p=<span class="number">0x7fff2c4dc274</span> </span><br><span class="line">date a=<span class="number">3</span></span><br><span class="line">*p=<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201128144144714.png" alt="在这里插入图片描述"></p>
+<p><strong>14. 指针变量关联的四个属性</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p1=&amp;a;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指针变量的地址——指针自身的内存地址</li>
+<li>指针变量的值——变量a的地址</li>
+<li>指针指向的<strong>地址</strong>——指针p保存a的地址</li>
+<li>指针指向的<strong>值</strong>——地址空间中a的值</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i=<span class="number">1</span>; <span class="comment">//假设i的地址为100，实际地址不是这样的</span></span><br><span class="line"><span class="type">int</span> *p=&amp;i; <span class="comment">//假设指针p的地址为200</span></span><br></pre></td></tr></table></figure>
+<p>指针变量的值也就是指针的值，也就是变量i的地址，也就是说p&#x3D;100<br>而指针指向的值，指的是指针所指向的地址100这个内存位置，所对应的值，也就是变量i的值，为1</p>
+<p><strong>所以【指针变量的值】与【指针指向的地址】是两个相同的概念</strong>，小伙伴们切记！</p>
+<p><strong>15. 什么叫指向？</strong><br>用指针保存某个变量的地址，就叫做指向</p>
+<p><strong>16.指针的值和变量的地址之间的联系</strong><br><img src="https://img-blog.csdnimg.cn/20200224103310782.png" alt="在这里插入图片描述"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> num1=<span class="number">3</span>;</span><br><span class="line"><span class="type">int</span> num2=<span class="number">2</span>;</span><br><span class="line"><span class="type">int</span> *p=<span class="literal">NULL</span>;</span><br><span class="line">p=&amp;num1;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;p date=%p\n&quot;</span>,p);</span><br><span class="line">p=&amp;num2;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;p date2=%p\n&quot;</span>,p);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;address num1=%p\n&quot;</span>,&amp;num1);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;address num2=%p\n&quot;</span>,&amp;num2);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p date=<span class="number">0x7fff7670e214</span> </span><br><span class="line">p date2=<span class="number">0x7fff7670e210</span> </span><br><span class="line">address num1=<span class="number">0x7fff7670e214</span> </span><br><span class="line">address num2=<span class="number">0x7fff7670e210</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以看出，我们可以通过指针去保存某个变量的值，但是我们不能去更改变量的地址。好比我们只能记录张三退房后又搬到哪里去了，但是我们不能去更改张三住过的房间，因为房间是固定的，同样地址空间也是固定的。</p>
+<p><strong>17. 指针变量的赋值</strong></p>
+<blockquote>
+<ul>
+<li>指针变量初始化必须赋值，而且只能赋值已经声明后的变量地址（先有变量，再有指针）</li>
+<li>给指针变量直接就赋值一个整数，这是十分危险的</li>
+<li>对指针变量赋值，实际就是让指针指向一个新的内存空间</li>
+</ul>
+</blockquote>
+<p>再举个例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> *p1=&amp;a;</span><br><span class="line"><span class="type">int</span> *p2=<span class="number">23</span>;</span><br></pre></td></tr></table></figure>
+<p>如果我们直接用<code>int *p=23</code>声明一个整数，这么做，指针直接指向23这个内存空间，你能保证这个地址里一定有你要的值吗？</p>
+<p><strong>18. 指针变量的字节长度与所指向的内容无关</strong></p>
+<blockquote>
+<p>指针既然是变量，也会有它的字节长度，但是指针变量的字节长度与所指向的内容无关</p>
+</blockquote>
+<p>在32位的操作系统中，指针变量的字节长度是4。<br>在64位的操作系统中，指针变量的字节长度是8。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123; </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(int *)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">int</span> *));			 <span class="comment">//8个字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(float *)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">float</span> *)); 	 <span class="comment">//8个字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(double *)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">double</span> *));	 <span class="comment">//8个字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(char *)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">char</span> *));		 <span class="comment">//8个字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sizeof(long int *)=%d\n&quot;</span>,<span class="keyword">sizeof</span>(<span class="type">long</span> <span class="type">int</span> *));<span class="comment">//8个字节</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>19. 比较讨厌的星号，因为它有双重意义</strong><br>星号在声明的时候和在取值的时候，意义不同：</p>
+<ul>
+<li>在声明指针的时候，加星号只是表示：为声明的是一个指针；</li>
+<li>在取值的时候，加星号表示：我要从该地址取值出来；</li>
+</ul>
+<p><strong>最后注意</strong></p>
+<ol>
+<li>指针的类型和它所指向的变量类型要匹配<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> c=<span class="string">&#x27;e&#x27;</span>;</span><br><span class="line"><span class="type">int</span> *p=&amp;c;</span><br><span class="line"><span class="comment">//指针的类型为int型，但是指针保存了一个char型的内存空间</span></span><br></pre></td></tr></table></figure></li>
+<li>声明指针的时候，同时给指针赋值，容易受到惯性思维的影响，所以不要一开始就给指针一个整数常量</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p=<span class="number">0xfff20321</span>;</span><br></pre></td></tr></table></figure>
+
+<p>推荐</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p=<span class="literal">NULL</span>; <span class="comment">//声明指针的时候先给指针p赋空值</span></span><br><span class="line">p=&amp;a;		 <span class="comment">//再让指针保存其它变量的地址</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>不经过初始化的指针，是不安全的，一般可以给它赋上空值。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> *p;</span><br><span class="line">*p=&amp;a;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>声明的时候，星号的作用只是为了区别普通变量与指针</li>
+<li>操作的时侯，星p代表的是取变量(内存地址)的值，所以声明以后再用星p就只能表示：把&amp;a（a的地址）中的值赋给指针p，<strong>即a地址中存储的值被指针p取出</strong>。</li>
+</ul>
+<h4 id="4-指针的运算规则"><a href="#4-指针的运算规则" class="headerlink" title="4. 指针的运算规则"></a>4. 指针的运算规则</h4><ol>
+<li><p>两个指针永远不能做加法运算<br>张三住301房间，李四住407房间，我们把301和407加起来，是没有意义的。</p>
+</li>
+<li><p>同类型的指针相减：两个指针所指的两个地址之间有多少个该类型的变量<br>通过407减301，我们就能得出在407到301之间有多少房间了，对不对！</p>
+</li>
+<li><p>不同类型的指针不能相减</p>
+</li>
+<li><p>指针加n<br><strong>表示指针在原来的值+n*sizeof（指针所指变量类型）</strong></p>
+</li>
+<li><p>指针减n<br><strong>表示指针在原来的值-n*sizeof（指针所指变量类型）</strong></p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> *p=<span class="literal">NULL</span>;  </span><br><span class="line">p=&amp;a; </span><br><span class="line">&amp;a=<span class="number">0x00001000</span>;  </span><br><span class="line">p=<span class="number">0x00001000</span>;</span><br><span class="line">*p=<span class="number">0</span>;</span><br><span class="line">p+<span class="number">1</span>=<span class="number">0x00001000</span> + <span class="built_in">sizeof</span>(<span class="type">int</span>);  </span><br><span class="line">p+<span class="number">2</span>=<span class="number">0x00001000</span> + <span class="number">2</span>×<span class="built_in">sizeof</span>(<span class="type">int</span>);   </span><br><span class="line">p+<span class="number">3</span>=<span class="number">0x00001000</span> + <span class="number">3</span>×<span class="built_in">sizeof</span>(<span class="type">int</span>);   </span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>只有相同类型的指针，才能相互赋值，否则必须强制类型转换一个变量</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">3</span>;</span><br><span class="line"><span class="type">int</span> b=<span class="number">4</span>;</span><br><span class="line"><span class="type">int</span> *pa=&amp;a;</span><br><span class="line"><span class="type">int</span> *pa=&amp;b;</span><br><span class="line">pa=pb;</span><br></pre></td></tr></table></figure>
+<p>a&#x3D;b或pa&#x3D;pb是等效操作，但不是等价的，因为虽然a的值变化了，但是原来那个a和b的地址没有变化。</p>
+<p><strong>指针的自加运算</strong><br>C语言中<code>*p++</code> ，<code>(*p)++</code> ，<code>*++p</code> ，<code>++*p</code>的区别：<br><img src="https://img-blog.csdnimg.cn/20201128153019220.png" alt="在这里插入图片描述"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>*p++</span><br></pre></td></tr></table></figure>
+<p><code>*</code> 和<code>++</code> 两个处于同一优先级，结合方向是自右向左，但是前提是当++在变量前面的时候才处理同一优先级，当++在变量之后时，你可以将++的优先级看成最低级的。</p>
+<p>因为程序自左向右运行，先取出<code>*p</code>（保存的地址空间中的值），再使指针p保存的地址空间下移1个空间。</p>
+<p>相当于取出存储的值之后，指针p移到下一个地址空间，存储的值并没有改变。可以这么理解：p是个指针，给p加1，相当于让p指向了x所在地址的下一个位置。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2.</span>*++p</span><br></pre></td></tr></table></figure>
+<p><code>*</code> 和<code>++</code> 两个处于同一优先级，结合方向是自右向左。先进行<code>++p</code>，即先将指针p自增1， 操作再取出该值<code>*(++p)</code>，即取出下一地址空间的值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.</span>++*p</span><br></pre></td></tr></table></figure>
+<p><code>*</code> 和<code>++</code> 两个处于同一优先级，结合方向是自右向左。先进行<code>*p</code>，即先取指针p指向的值，再将该值自增1，即<code>(*p)+1;</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4.</span>(*p)++</span><br></pre></td></tr></table></figure>
+<p>括号优先级最高，先取出p指向的变量（地址空间）中的值，再对存储的值进行自加，与<code>++*p</code>相同。<br><code>*p</code> 是指针p所指向的地址中对应的值。若为3，当输出<code>*p</code>之后，再给<code>*p</code>自加1，所以空间x中存储的值由3就变为4，而此时地址空间x并没有移动。</p>
+<hr>
+<p>最后，C指针还有许许多多的知识内容，萌新这里仅仅介绍了C指针的初识，尽力而为，最后谢谢大家了，真心希望可以通过自己的博客帮到大家。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>sunning
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://suenning.com.cn/2023/02/01/%E4%BB%85%E8%BF%99%E4%B8%80%E7%AF%87%EF%BC%8C%E5%B8%A6%E4%BD%A0%E6%95%B2%E5%BC%80C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88%E7%9A%84%E5%A4%A7%E9%97%A8/" title="仅这一篇，带你敲开C语言指针的大门">https://suenning.com.cn/2023/02/01/仅这一篇，带你敲开C语言指针的大门/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/01/%E4%BD%A0%E6%83%B3%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E9%BB%91%E5%AE%A2%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86%E5%9C%A8%E8%BF%99%E9%87%8C/" rel="prev" title="你想要了解的黑客入门知识在这里">
+      <i class="fa fa-chevron-left"></i> 你想要了解的黑客入门知识在这里
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/02/01/%E4%B8%80%E4%BD%8D%E8%80%83%E7%A0%94%E5%85%9A%E4%BA%B2%E8%87%AA%E6%95%B4%E7%90%86%E7%9A%84%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8D%E7%9C%8B%E5%90%8E%E6%82%94%E7%89%88%EF%BC%89/" rel="next" title="一位考研党亲自整理的大学计算机网络基础知识总结（不看后悔版）">
+      一位考研党亲自整理的大学计算机网络基础知识总结（不看后悔版） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E9%92%88"><span class="nav-number">2.</span> <span class="nav-text">2. 什么是指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%8C%87%E9%92%88%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">3.</span> <span class="nav-text">3. 指针的含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%8C%87%E9%92%88%E7%9A%84%E8%BF%90%E7%AE%97%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">4. 指针的运算规则</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sunning</p>
+  <div class="site-description" itemprop="description">且视他人之疑目如盏盏鬼火，大胆地去走你的夜路。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/SuenNing1999" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;SuenNing1999" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_43964458" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_43964458" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1878225963&auto=1&height=66"></iframe>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunning</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">147k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:14</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
