@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suenning.com.cn","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="开篇声明，小萌新创作这篇文章的初衷只是想介绍一些关于黑客方面的基础知识，从读者的角度去满足一些计算机爱好者的好奇心，那我们就开始吧！ 在此引用前辈的语句作为文章的开篇，成为黑客的第一步，开始阅读吧！  安全问题的本质是信任的问题  Web安全简史 起初，研究计算机系统和网络的人，被称为Hacker，他们对计算机系统有着深入的理解，因此往往能够发现其中的问题。Hacker在中国按照音译，被称为黑客。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="橘生淮南">
+<meta property="og:url" content="https://suenning.com.cn/2023/02/01/%E4%BD%A0%E6%83%B3%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E9%BB%91%E5%AE%A2%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86%E5%9C%A8%E8%BF%99%E9%87%8C/index.html">
+<meta property="og:site_name" content="橘生淮南">
+<meta property="og:description" content="开篇声明，小萌新创作这篇文章的初衷只是想介绍一些关于黑客方面的基础知识，从读者的角度去满足一些计算机爱好者的好奇心，那我们就开始吧！ 在此引用前辈的语句作为文章的开篇，成为黑客的第一步，开始阅读吧！  安全问题的本质是信任的问题  Web安全简史 起初，研究计算机系统和网络的人，被称为Hacker，他们对计算机系统有着深入的理解，因此往往能够发现其中的问题。Hacker在中国按照音译，被称为黑客。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200222180723440.jpg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200222184318189.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128164334665.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201128182355615.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020022220302550.jpeg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200222202816583.jpg">
+<meta property="article:published_time" content="2023-02-01T08:11:37.394Z">
+<meta property="article:modified_time" content="2023-02-01T00:10:12.000Z">
+<meta property="article:author" content="sunning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200222180723440.jpg">
+
+<link rel="canonical" href="https://suenning.com.cn/2023/02/01/%E4%BD%A0%E6%83%B3%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E9%BB%91%E5%AE%A2%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86%E5%9C%A8%E8%BF%99%E9%87%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | 橘生淮南</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="橘生淮南" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">橘生淮南</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录学习中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://suenning.com.cn/2023/02/01/%E4%BD%A0%E6%83%B3%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E9%BB%91%E5%AE%A2%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86%E5%9C%A8%E8%BF%99%E9%87%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sunning">
+      <meta itemprop="description" content="且视他人之疑目如盏盏鬼火，大胆地去走你的夜路。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="橘生淮南">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-02-01 16:11:37 / 修改时间：08:10:12" itemprop="dateCreated datePublished" datetime="2023-02-01T16:11:37+08:00">2023-02-01</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>开篇声明，小萌新创作这篇文章的初衷只是想介绍一些关于黑客方面的基础知识，从读者的角度去满足一些计算机爱好者的好奇心，那我们就开始吧！</p>
+<p><img src="https://img-blog.csdnimg.cn/20200222180723440.jpg" alt="在这里插入图片描述"><br>在此引用前辈的语句作为文章的开篇，成为黑客的第一步，开始阅读吧！</p>
+<blockquote>
+<p>安全问题的本质是信任的问题</p>
+</blockquote>
+<h5 id="Web安全简史"><a href="#Web安全简史" class="headerlink" title="Web安全简史"></a>Web安全简史</h5><ul>
+<li>起初，研究计算机系统和网络的人，被称为Hacker，他们对计算机系统有着深入的理解，因此往往能够发现其中的问题。Hacker在中国按照音译，被称为黑客。在计算机安全领域，黑客是一群破坏规则、不喜欢被拘束的人，因此总想着能够找到系统的漏洞，以获得一些规则之外的权力。对于现代计算机系统来说，在用户态的最高权限是Root，也是黑客们最渴望能够获取的系统最高权限。漏洞利用代码能够帮助黑客们达成这一目标。在黑客的世界里，有的黑客，精通计算机技术，能自己挖掘漏洞，而有的黑客，则只对攻击本身感兴趣，对计算机原理和各种编程技术的了解比较粗浅，因此只懂得编译别人的代码，自己并没有动手能力，这种黑客被称为脚本小子。在现实世界里，真正造成破坏的，往往并非那些挖掘并研究漏洞的黑客们，而是这些脚本小子。</li>
+</ul>
+<p><strong>黑客简史</strong></p>
+<ul>
+<li>中国黑客的发展分为启蒙时代，黄金时代，黑暗时代：</li>
+<li>首先是启蒙时代，这个时期大概处在 20 世纪 90 年代，此时中国的互联网也刚刚处于起步阶段，一些热爱新兴技术的青年受到国外黑客技术的影响，开始研究安全漏洞。启蒙时代的黑客们大多是由于个人爱好而走上这条道路，好奇心与求知欲是驱使他们前进的动力，没有任何利益的瓜葛。这个时期的中国黑客们通过互联网，看到了世界，因此与西方发达国家同期诞生的黑客精神是一脉相传的，他们崇尚分享、自由、免费的互联网精神，并热衷于分享自己的最新研究成果。</li>
+<li>接下来是黄金时代，这个时期以中美黑客大战为标志。在这个历史背景下，黑客这个特殊的群体一下子几乎吸引了社会的所有眼球，而此时黑客圈子所宣扬的黑客文化以及黑客技术的独特魅力也吸引了无数的青少年走上这条道路。自此事件后，各种黑客组织如雨后春笋般冒出。此阶段的中国黑客，其普遍的特点是年轻，有活力，充满激情，但在技术上也许还不够成熟。此时期黑客圈子里贩卖漏洞、恶意软件的现象开始升温，同时因为黑客群体的良莠不齐，也开始出现以赢利为目的的攻击行为，黑色产业链逐渐成型。</li>
+<li>最后是黑暗时代，这个阶段从几年前开始一直延续到今天，也许还将继续下去。在这个时期黑客组织也遵循着社会发展规律，优胜劣汰，大多数的黑客组织没有坚持下来。在上一个时期非常流行的黑客技术论坛越来越缺乏人气，最终走向没落。所有门户型的漏洞披露站点，也不再公布任何漏洞相关的技术细节。伴随着安全产业的发展，黑客的功利性越来越强。黑色产业链开始成熟，这个地下产业每年都会给互联网造成数十亿的损失。而在上一个时期技术还不成熟的黑客们，凡是坚持下来的，都已经成长为安全领域的高级人才，有的在安全公司贡献着自己的专业技能，有的则带着非常强的技术进入了黑色产业。此时期的黑客群体因为互相之间缺失信任已经不再具有开放和分享的精神，最为纯粹的黑客精神实质上已经死亡。</li>
+</ul>
+<p><strong>黑帽白帽</strong><img src="https://img-blog.csdnimg.cn/20200222184318189.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk2NDQ1OA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>正如一个硬币有两面一样，黑客也有好坏之分。在黑客的世界中，往往用帽子的颜色来比喻黑客的好坏。</li>
+</ul>
+<blockquote>
+<ul>
+<li>白帽子，则是指那些精通安全技术，但是工作在反黑客领域的专家们</li>
+<li>黑帽子，则是指利用黑客技术造成破坏，甚至进行网络犯罪的群体</li>
+</ul>
+</blockquote>
+<ul>
+<li>同样是研究安全，白帽子和黑帽子在工作时的心态是完全不同的。对于黑帽子来说，只要能够找到系统的一个弱点，就可以达到入侵系统的目的；而对于白帽子来说，必须找到系统的所有弱点，不能有遗漏，才能保证系统不会出现问题。这种差异是由于工作环境与工作目标的不同所导致的。白帽子一般为企业或安全公司服务，工作的出发点就是要解决所有的安全问题，因此所看所想必然要求更加的全面、宏观；黑帽子的主要目的是要入侵系统，找到对他们有价值的数据，因此黑帽子只需要以点突破，找到对他们最有用的一点，以此渗透，因此思考问题的出发点必然是有选择性的、微观的。</li>
+<li>从对待问题的角度来看，黑帽子为了完成一次入侵，需要利用各种不同漏洞的组合来达到目的，是在不断地组合问题；而白帽子在设计解决方案时，如果只看到各种问题组合后产生的效果，就会把事情变复杂，难以细致入微地解决根本问题，所以白帽子必然是在不断地分解问题，再对分解后的问题逐个予以解决。这种定位的不对称，也导致了白帽子的安全工作比较难做。破坏永远比建设容易，但凡事都不是绝对的。要如何扭转这种局面，一般来说，白帽子选择的方法，是克服某种攻击方法，而并非抵御单次的攻击。</li>
+<li>在安全领域也普遍认为：“最大的漏洞就是人”。写得再好的程序，在有人参与的情况下，就可能会出现各种各样不可预知的情况，比如管理员的密码有可能泄露，程序员有可能关掉了安全的配置参数等等。安全问题往往发生在一些意想不到的地方。另一方面，防御技术在不断完善的同时，攻击技术也在不断地发展。这就像一场军备竞赛，看谁跑在前面。白帽子们刚把某一种漏洞全部堵上，黑帽子们转眼又会玩出新花样。谁能在技术上领先，谁就能占据主动。互联网技术日新月异，在新技术领域的发展中，也存在着同样的博弈过程。可现状是，如果新技术不在一开始就考虑安全设计的话，防御技术就必然会落后于攻击技术，导致历史不断地重复。</li>
+</ul>
+<h5 id="计算机漏洞"><a href="#计算机漏洞" class="headerlink" title="计算机漏洞"></a>计算机漏洞</h5><ul>
+<li>计算机漏洞是系统的一组特性，恶意的主体（攻击者或者攻击程序）能够利用这组特性，通过手段和方式获取对资源的未授权访问，或者对系统造成损害。</li>
+<li>漏洞是在硬件、软件、协议的具体实现或系统安全策略上存在的缺陷，从而可以使攻击者能够在未授权的情况下访问或破坏系统。</li>
+<li>漏洞会影响到很大范围的软硬件设备，包括作系统本身及其支撑软件，网络客户和服务器软件，网络路由器和安全防火墙等。换言之，在这些不同的软硬件设备中都可能存在不同的安全漏洞问题。在不同种类的软、硬件设备，同种设备的不同版本之间，由不同设备构成的不同系统之间，以及同种系统在不同的设置条件下，都会存在各自不同的安全漏洞问题。</li>
+</ul>
+<blockquote>
+<p>漏洞问题是与时间紧密相关的</p>
+</blockquote>
+<ul>
+<li>一个系统从发布的那一天起，随着用户的深入使用，系统中存在的漏洞会被不断暴露出来，这些早先被发现的漏洞也会不断被系统供应商发布的补丁软件修补，或在以后发布的新版系统中得以纠正。而在新版系统纠正了旧版本中具有漏洞的同时，也会引入一些新的漏洞和错误。因而随着时间的推移，旧的漏洞会不断消失，新的漏洞会不断出现。漏洞问题也会长期存在。因而脱离具体的时间和具体的系统环境来讨论漏洞问题是毫无意义的。只能针对目标系统的作系统版本、其上运行的软件版本以及服务运行设置等实际环境来具体谈论其中可能存在的漏洞及其可行的解决办法。同时应该看到，对漏洞问题的研究必须要跟踪当前最新的计算机系统及其安全问题的最新发展动态。这一点如同对计算机病毒发展问题的研究相似。如果在工作中不能保持对新技术的跟踪，就没有谈论系统安全漏洞问题的发言权，既使是以前所作的工作也会逐渐失去价值。</li>
+</ul>
+<h5 id="漏洞问题与不同安全级别计算机系统之间的关系"><a href="#漏洞问题与不同安全级别计算机系统之间的关系" class="headerlink" title="漏洞问题与不同安全级别计算机系统之间的关系"></a>漏洞问题与不同安全级别计算机系统之间的关系</h5><ul>
+<li><p>橘皮书正式名称是“受信任计算机系统评量基准”。橘皮书中对可信任系统的定义是这样的：一个由完整的硬件及软件所组成的系统，在不违反访问权限的情况下，它能同时服务于不限定个数的用户，并处理从一般机密到最高机密等不同范围的信息。</p>
+</li>
+<li><p>橘皮书将一个计算机系统可接受的信任程度加以分级，凡符合某些安全条件、基准规则的系统即可归类为某种安全等级。橘皮书将计算机系统的安全性能由高而低划分为A、B、C、D四大等级。其中：</p>
+</li>
+</ul>
+<blockquote>
+<p>**D级——最低保护（Minimal Protection)**，凡没有通过其他安全等级测试项目的系统即属于该级，如Dos，Windows个人计算机系统</p>
+</blockquote>
+<blockquote>
+<p>**C级——自主访问控制（Discretionary Protection)**，该等级的安全特点在于系统的客体（如文件、目录）可由该系统主体（如系统管理员、用户、应用程序）自主定义访问权。例如：管理员可以决定系统中任意文件的权限</p>
+</blockquote>
+<blockquote>
+<p>**B级——强制访问控制（Mandatory Protection)**，该等级的安全特点在于由系统强制对客体进行安全保护，在该级安全系统中，每个系统客体（如文件、目录等资源）及主体（如系统管理员、用户、应用程序）都有自己的安全标签Security Label，系统依据用户的安全等级赋予其对各个对象的访问权限</p>
+</blockquote>
+<blockquote>
+<p>**A级——可验证访问控制（Verified Protection)**，而其特点在于该等级的系统拥有正式的分析及数学式方法可完全证明该系统的安全策略及安全规格的完整性与一致性</p>
+</blockquote>
+<ul>
+<li><p>可见，根据定义，系统的安全级别越高，理论上该系统也越安全。可以说，系统安全级别是一种理论上的安全保证机制。是指在正常情况下，在某个系统根据理论得以正确实现时，系统应该可以达到的安全程度。系统安全漏洞是指可以用来对系统安全造成危害，系统本身具有的，或设置上存在的缺陷。总之，漏洞是系统在具体实现中的错误。比如在建立安全机制中规划考虑上的缺陷，作系统和其他软件编程中的错误，以及在使用该系统提供的安全机制时人为的配置错误等。</p>
+</li>
+<li><p>安全漏洞的出现，是因为人们在对安全机制理论的具体实现中发生了错误，是意外出现的非正常情况。而在一切由人类实现的系统中都会不同程度的存在实现和设置上的各种潜在错误。因而在所有系统中必定存在某些安全漏洞，无论这些漏洞是否已被发现，也无论该系统的理论安全级别如何。所以可以认为，在一定程度上，安全漏洞问题是独立于作系统本身的理论安全级别而存在的。并不是说，系统所属的安全级别越高，该系统中存在的安全漏洞就越少。可以这么理解，当系统中存在的某些漏洞被入侵者利用，使入侵者得以绕过系统中的一部分安全机制并获得对系统一定程度的访问权限后，在安全性较高的系统当中，入侵者如果希望进一步获得特权或对系统造成较大的破坏，必须要克服更大的障碍。</p>
+</li>
+</ul>
+<h5 id="安全漏洞与系统攻击之间的关系"><a href="#安全漏洞与系统攻击之间的关系" class="headerlink" title="安全漏洞与系统攻击之间的关系"></a>安全漏洞与系统攻击之间的关系</h5><ul>
+<li>系统安全漏洞是在系统具体实现和具体使用中产生的错误，但并不是系统中存在的错误都是安全漏洞。只有能威胁到系统安全的错误才是漏洞。许多错误在通常情况下并不会对系统安全造成危害，只有被人在某些条件下故意使用时才会影响系统安全。</li>
+<li>漏洞虽然可能最初就存在于系统当中，但一个漏洞并不是自己出现的，必须要有人发现。在实际使用中，用户会发现系统中存在错误，而入侵者会有意利用其中的某些错误并使其成为威胁系统安全的工具，这时人们会认识到这个错误是一个系统安全漏洞。系统供应商会尽快发布针对这个漏洞的补丁程序，纠正这个错误。这就是系统安全漏洞从被发现到被纠正的一般过程。</li>
+<li>系统攻击者往往是安全漏洞的发现者和使用者，要对于一个系统进行攻击，如果不能发现和使用系统中存在的安全漏洞是不可能成功的。对于安全级别较高的系统尤其如此。<br>系统安全漏洞与系统攻击活动之间有紧密的关系。因而不该脱离系统攻击活动来谈论安全漏洞问题。了解常见的系统攻击方法，对于有针对性的理解系统漏洞问题，以及找到相应的补救方法是十分必要的。</li>
+</ul>
+<h5 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h5><p>IP是Internet Protocol（网际互连协议）的缩写，是TCP&#x2F;IP体系中的网络层协议。</p>
+<ul>
+<li>设计IP的目的是提高网络的可扩展性：</li>
+<li>一是解决互联网问题，实现大规模、异构网络的互联互通。</li>
+<li>二是分割顶层网络应用和底层网络技术之间的耦合关系，以利于两者的独立发展。根据端到端的设计原则，IP只为主机提供一种无连接、不可靠的、尽力而为的数据报传输服务。</li>
+</ul>
+<blockquote>
+<p>IP地址，它是为标识Internet上主机位置而设置的。Internet上的每一台计算机都被赋予一个世界上唯一的32位Internet地址，这一地址可用于与该计算机有关的全部通信。为了方便起见，在应用上我们以8比特为一单位，组成四组十进制数字来表示每一台主机的位置。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IP地址分类：</span><br><span class="line">A：1.0.0.0-126.0.0.0</span><br><span class="line">B：128.1.0.0-191.255.0.0</span><br><span class="line">C：192.0.1.0-223.255.255.0</span><br><span class="line">D：224.0.0.0-239.255.255.255</span><br><span class="line">E：240.0.0.0-255.255.255.254 </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>主机号全为0的地址表示网络地址</li>
+<li>主机号全为1的地址表示广播地址</li>
+</ul>
+</blockquote>
+<h5 id="内网（私有地址）"><a href="#内网（私有地址）" class="headerlink" title="内网（私有地址）"></a>内网（私有地址）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10.0.0.0-10.255.255.255</span><br><span class="line">172.16.0.0-172.31.255.255</span><br><span class="line">192.168.0.0-192.168.255.255 </span><br></pre></td></tr></table></figure>
+
+<h5 id="端口（Port）"><a href="#端口（Port）" class="headerlink" title="端口（Port）"></a>端口（Port）</h5><blockquote>
+<p>一种数据的传输通道</p>
+</blockquote>
+<p>用于接受某些数据，然后传输给相应的服务，而电脑将这些数据处理后，再将相应的恢复通过开启的端口传给对方。一般每一个端口的开放对应了相应的服务，要关闭这些端口只需要将对应的服务关闭就可以了。 </p>
+<ul>
+<li>在网络技术中，端口大致有两种意思：</li>
+<li>一是物理意义上的端口，比如，ADSL Modem、集线器、交换机、路由器用于连接其他网络设备的接口，如RJ-45端口、SC端口等等。</li>
+<li>二是逻辑意义上的端口，一般是指TCP&#x2F;IP协议中的端口，端口号的范围从0到65535，比如用于浏览网页服务的80端口，用于FTP服务的21端口等等。</li>
+</ul>
+<blockquote>
+<p>我们这里将要介绍的就是逻辑意义上的端口。我们这里所说的端口，不是计算机硬件的I&#x2F;O端口，而是软件形式上的概念.工具提供服务类型的不同，端口分为两种，一种是TCP端口，一种是UDP端口。计算机之间相互通信的时候，分为两种方式：一种是发送信息以后，可以确认信息是否到达，也就是有应答的方式，这种方式大多采用TCP协议；一种是发送以后就不管了，不去确认信息是否到达，这种方式大多采用UDP协议。对应这两种协议的服务提供的端口，也就分为TCP端口和UDP端口。</p>
+</blockquote>
+<ul>
+<li>按端口号可分为4大类：</li>
+<li>公认端口（Well-Known Ports）：范围从0到1023<br>它们紧密绑定（binding）于一些服务。通常这些端口的通讯明确表明了某种服务的协议。例如：21端口分配给FTP服务，25端口分配给SMTP（简单邮件传输协议）服务，80端口分配给HTTP服务，135端口分配给RPC（远程过程调用）服务等等。<br>我们在IE的地址栏里输入一个网址的时候（ 比如<a target="_blank" rel="noopener" href="http://www.cce.com.cn)是不必指定端口号的,因为在默认情况下www服务的端口/">www.cce.com.cn）是不必指定端口号的，因为在默认情况下WWW服务的端口</a> 号是“80”。<br>网络服务是可以使用其他端口号的，如果不是默认的端口号则应该在 地址栏上指定端口号，方法是在地址后面加上冒号“:”（半角），再加上端口 号。比如使用“8080”作为WWW服务的端口，则需要在地址栏里输入“<a href="http://www.cce.com.cn:8080”。">www.cce.com.cn:8080”。</a><br>但是有些系统协议使用固定的端口号，它是不能被改变的，比如139 端口专门用于NetBIOS与TCP&#x2F;IP之间的通信，不能手动改变。 </li>
+<li>动态端口（Dynamic Ports）：范围从1024到65535<br>之所以称为动态端口，是因为它 一般不固定分配某种服务，而是动态分配。动态分配是指当一个系统进程或应用 程序进程需要网络通信时，它向主机申请一个端口，主机从可用的端口号中分配 一个供它使用。当这个进程关闭时，同时也就释放了所占用的端口号。</li>
+<li>注册端口（Registered Ports）：从1024到49151。它们松散地绑定于一些服务。也就是说有许多服务绑定于这些端口，这些端口同样用         于许多其它目的。例如：许多系统处理动态端口从1024左右开始。</li>
+<li>私有端口（Private Ports）：从49152到65535。理论上，不应为服务分配这些端口。实际上，机器通常从1024    起分配动态端口。但也有例外：SUN的RPC端口从32768开始。</li>
+</ul>
+<h5 id="域名地址"><a href="#域名地址" class="headerlink" title="域名地址"></a>域名地址</h5><ul>
+<li>尽管IP地址能够唯一地标识网络上的计算机，但IP地址是数字型的，用户记忆这类数字十分不方便，于是人们又发明了另一套字符型的地址方案，即所谓的域名地址。</li>
+</ul>
+<blockquote>
+<p>IP地址和域名是一一对应的，域名由两种基本类型组成：以机构性质命名的域和以国家地区代码命名的域</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20201128164334665.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201128182355615.png" alt="在这里插入图片描述"><br><strong>域名解析方式</strong></p>
+<ol>
+<li>递归查询法<ol>
+<li>如果DNS服务器无法解析出DNS客户机所要求查询的域名所对应的IP地址时，DNS服务器代表DNS客户机来查询或联系其他DNS服务器，以完全解析该名称，并将应答返回给客户机。</li>
+<li>本机向本地域名服务器发出一次查询请求，就静待最终的结果。如果本地域名服务器无法解析，自己会以DNS客户机的身份向其它域名服务器查询，直到得到最终的IP地址告诉本机。</li>
+</ol>
+</li>
+<li>迭代查询法<ol>
+<li>客户机送出查询请求后，若该DNS服务器中不包含所需数据，它会告诉客户机另外一台DNS服务器的IP地址，使客户机自动转向另一台DNS服务器查询，以此类推，直到查询数据，否则由最后一台DNS服务器通知客户机查询失败。</li>
+<li>本地域名服务器向根域名服务器查询，根域名服务器告诉它下一步到哪里去查询，然后它再去查，每次它都是以客户机的身份去各个服务器查询。</li>
+</ol>
+</li>
+<li>反向查询<br> 客户机利用IP地址查询其主机完整域名。</li>
+</ol>
+<h5 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h5><p>统一资源定位器，又叫URL(Uniform Resource Locator)，是专为标识Internet网上资源位置而设的一种编址方式。</p>
+<ul>
+<li>我们平时所说的网页地址指的即是URL，URL由三部分组成：资源类型、存放资源的主机域名、资源文件名。</li>
+</ul>
+<blockquote>
+<p>如URL为：<code>http://china-window.com/shanghai/news/wnw.html</code></p>
+<ul>
+<li>http指超文本传输协议</li>
+<li>china-window.com是其Web服务器域名地址</li>
+<li>shanghai&#x2F;news是网页所在路径，wnw.html是相应的网页文件</li>
+</ul>
+</blockquote>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">标识Internet网上资源位置的三种方式：　</span><br><span class="line">IP地址：<span class="number">202.206</span><span class="number">.64</span><span class="number">.33</span>　</span><br><span class="line">域名地址：dns.hebust.edu.cn</span><br><span class="line">URL：http:<span class="comment">//china-window.com/shanghai/news/wnw.html</span></span><br></pre></td></tr></table></figure>
+<h5 id="HTTP-请求-x2F-响应的步骤"><a href="#HTTP-请求-x2F-响应的步骤" class="headerlink" title="HTTP 请求&#x2F;响应的步骤"></a>HTTP 请求&#x2F;响应的步骤</h5><ol>
+<li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a target="_blank" rel="noopener" href="http://www.oakcms.cn./">http://www.oakcms.cn。</a></li>
+<li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
+<li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
+<li>释放连接TCP连接<br>若connection模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接；若connection模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求。</li>
+<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
+</ol>
+<ul>
+<li>如果我们在客户端（客户端）浏览器输入 <code>http://www.baidu.com</code>，而<code>baidu.com</code>为要访问的服务器（服务器），下面详细分析客户端为了访问服务器而执行的一系列关于协议的操作：</li>
+</ul>
+<ol>
+<li>客户端浏览器通过DNS解析到<a target="_blank" rel="noopener" href="http://www.baidu.com的ip地址220.181.27.48,通过这个ip地址找到客户端到服务器的路径.客户端浏览器发起一个http会话到220.161.27.48,然后通过tcp进行封装数据包,输入到网络层./">www.baidu.com的IP地址220.181.27.48，通过这个IP地址找到客户端到服务器的路径。客户端浏览器发起一个HTTP会话到220.161.27.48，然后通过TCP进行封装数据包，输入到网络层。</a></li>
+<li>在客户端的传输层，把HTTP会话请求分成报文段，添加源和目的端口，如服务器使用80端口监听客户端的请求，客户端由系统随机选择一个端口，如5000，与服务器进行交换，服务器把相应的请求返回给客户端的5000端口。然后使用IP层的IP地址查找目的端。</li>
+<li>客户端的网络层不用关系应用层或者传输层，主要做的是通过查找路由表确定如何到达服务器，期间可能经过多个路由器，这些都是由路由器来完成的工作，不作过多的描述，无非就是通过查找路由表决定通过那个路径到达服务器。</li>
+<li>客户端的链路层，包通过链路层发送到路由器，通过邻居协议查找给定IP地址的MAC地址，然后发送ARP请求查找目的地址，如果得到回应后就可以使用ARP的请求应答交换的IP数据包。现在就可以传输了，然后发送IP数据包到达服务器的地址。</li>
+</ol>
+<h5 id="肉鸡"><a href="#肉鸡" class="headerlink" title="肉鸡"></a>肉鸡</h5><p>肉鸡，即拥有管理权限的远程电脑，也是指受黑客远程控制的电脑。<br><img src="https://img-blog.csdnimg.cn/2020022220302550.jpeg" alt="在这里插入图片描述"></p>
+<h5 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h5><blockquote>
+<p>web指的是在web服务器上，而shell是用脚本语言编写的脚本程序，webshell就是就是web的一个管理工具，可以对web服务器进行操作的权限</p>
+</blockquote>
+<ul>
+<li>webshell是以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，也可以将其称做为一种网页后门。</li>
+<li>黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器web目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。</li>
+</ul>
+<h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><p>&amp;emsp;&amp;emsp;提高自己在服务器中的权限</p>
+<h5 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h5><ul>
+<li>用某种暴力破解软件，对某种需要密码才能使用的服务，把可能的密码尽量多得聚集在一起，列成一个表格然后一个接一个的试，直到试验出正确的密码，也就是破解成功了。不过这种破解方式成功几率不高，耗费时间多，技术成分低，不是迫不得已是不使用的。</li>
+</ul>
+<h5 id="ASP脚本入门与防御思想"><a href="#ASP脚本入门与防御思想" class="headerlink" title="ASP脚本入门与防御思想"></a>ASP脚本入门与防御思想</h5><ol>
+<li>ASP<br>ASP是Active Server Page的缩写，意为“动态服务器页面”，它可以与数据库和其他程序交互。</li>
+</ol>
+<ul>
+<li>与HTML相比，ASP网页具有以下特点：</li>
+<li>（1）利用ASP可以实现突破静态网页的一些功能限制，实现动态网页技术。</li>
+<li>（2）ASP文件是包含在HTML代码所组成的文件中的，易于修改和测试。</li>
+<li>（3）服务器上的ASP解释程序会在服务器端制定ASP程序，并将结果以HTML格式传送到客户端浏览器上，因此使用各种浏览器都可以正常浏览ASP所产生的网页。</li>
+<li>（4）ASP提供了一些内置对象，使用这些对象可以使服务器端脚本功能更强。例如可以从web浏览器中获取用户通过HTML表单提交的信息，并在脚本中对这些信息进行处理，然后向web浏览器发送信息。</li>
+</ul>
+<ol start="2">
+<li>ASP的工作原理<br>1、用户向浏览器地址栏输入网址，默认页面的扩展名是.asp<br>2、浏览器向服务器发出请求<br>3、服务器引擎开始运行ASP程序<br>4、ASP文件按照从上到下的顺序开始处理，执行脚本命令，执行HTML页面内容<br>5、页面信息发送到浏览器</li>
+</ol>
+<ul>
+<li>ASP能做什么<ul>
+<li>动态地编辑、改变或者添加网页的任何内容</li>
+<li>对由用户从 HTML 表单提交的查询或者数据作出响应</li>
+<li>访问数据或者数据库，并向浏览器返回结果</li>
+<li>为不同的用户定制网页，提高这些页面的可用性</li>
+<li>提供安全性保障——ASP代码不能从浏览器查看</li>
+<li>优秀的 ASP 编程可最小化网络流量</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>ASP脚本防御思想<ul>
+<li>一直以来， ASP给人的印象都是不太安全，实则不然。脚本语言和数据库本身并没有过错。ASP脚本的安全隐患在于管理员的不重视和对 ASP脚本的不了解，实际上只要使用得当， ASP脚本其实可以很安全。</li>
+<li>首先要谈到的就是注入，关于要如何过滤ASP脚本注入，已经不是第一次提到了，但想要过滤非法字符这也不是意见简单的事。防止了Get，Post提交方式注入，还要记得过滤Cookie注入；防止了数字型、字符型注入，还要记得防止搜索型注入；防止了常规的非法字符，还要防范编码和大小写转换等情况。还有表名、字段名的选取问题，很多情况下注入者大都不知道什么是表名和字段名的。可是很多程序员们都喜欢用admin、manage、user、pass、password、username等容易被猜到的表名和字段名，导致ASP脚本变得极度不安全。</li>
+<li>其实，只要在所有表名上加个简单的前缀，就可以有效的防止被人猜到。也不影响正常的使用。还要防止暴库，对密码进行MD5加密、修改默认数据库路径、常给网站程序打补丁、不用sa权限连接数据库、删除SQL server的存储扩展以及禁止非法IP连接1433端口。一般来讲，防守比入侵容易，入侵一个网站的传统方法需要同时满足很多条件，管理只要破坏其中一个条件就能够保住网站，所以防御仅仅是对安全性的重视和耐心。</li>
+</ul>
+</li>
+</ol>
+<h5 id="弱口令"><a href="#弱口令" class="headerlink" title="弱口令"></a>弱口令</h5><ul>
+<li><p>弱口令没有严格和准确的定义，通常认为容易被别人猜测到或被破解工具破解的口令均为弱口令。弱口令指的是仅包含简单数字和字母的口令，例如“123”、“abc”等，因为这样的口令很容易被别人破解，从而使用户的计算机面临风险，因此不推荐用户使用。</p>
+</li>
+<li><p>弱口令避免措施：</p>
+</li>
+</ul>
+<ol>
+<li>不使用空口令或系统缺省的口令，因为这些口令众所周知，为典型的弱口令</li>
+<li>口令长度不小于8个字符</li>
+<li>口令不应该为连续的某个字符或重复某些字符的组合</li>
+<li>口令应该为以下四类字符的组合，大写字母(A-Z)、小写字母(a-z)、数字(0-9)和特殊字符。每类字符至少包含一个。如果某类字符只包含一个，那么该字符不应为首字符或尾字符</li>
+<li>口令中不应包含本人、父母、子女和配偶的姓名和出生日期、纪念日期、登录名、E-mail地址等等与本人有关的信息，以及字典中的单词</li>
+<li>口令不应该为用数字或符号代替某些字母的单词</li>
+<li>口令应该易记且可以快速输入，防止他人从你身后很容易看到你的输入</li>
+<li>至少90天内更换一次口令，防止未被发现的入侵者继续使用该口令</li>
+</ol>
+<h5 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h5><ul>
+<li><p>SQL注入即是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
+</li>
+<li><p>SQL是操作数据库数据的结构化查询语言，网页的应用数据和后台数据库中的数据进行交互时会采用SQL。而SQL注入是将Web页面的原URL、表单域或数据包输入的参数，修改拼接成SQL语句，传递给Web服务器，进而传给数据库服务器以执行数据库命令。如Web应用程序的开发人员对用户所输入的数据或cookie等内容不进行过滤或验证就直接传输给数据库，就可能导致拼接的SQL被执行，获取对数据库的信息以及提权，发生SQL注入攻击。</p>
+</li>
+</ul>
+<blockquote>
+<p>注入原理：<br>&amp;emsp;&amp;emsp;SQL注入攻击是通过操作输入来修改SQL语句，用以达到执行代码对web服务器进行攻击的方法。简单的说就是在表单、输入域名或页面请求的查询字符串中插入SQL命令，最终使web服务器执行恶意命令的过程。可以通过一个例子简单说明SQL注入攻击。假设某网站页面显示时URL为<code>http://www.example.com?test=123</code>，此时URL实际向服务器传递了值为123的变量test，这表明当前页面是对数据库进行动态查询的结果。由此，我们可以在URL中插入恶意的SQL语句并进行执行。另外，在网站开发过程中，开发人员使用动态字符串构造SQL语句，用来创建所需的应用，这种情况下SQL语句在程序的执行过程中被动态的构造使用，可以根据不同的条件产生不同的SQL语句，比如需要根据不同的要求来查询数据库中的字段。这样的开发过程其实为SQL注入攻击留下了很多的可乘之机。</p>
+</blockquote>
+<p>注入过程：</p>
+<ol>
+<li>SQL注入点探测<br>探测SQL注入点是关键的一步，通过适当的分析应用程序，可以判断什么地方存在SQL注入点。通常只要带有输入提交的动态网页，并且动态网页访问数据库，就可能存在SQL注入漏洞。如果程序员信息安全意识不强，采用动态构造SQL语句访问数据库，并且对用户的输入未进行有效性验证，则存在SQL注入漏洞的可能性很大。一般通过页面的报错信息来确定是否存在SQL注入漏洞。</li>
+<li>收集后台数据库信息<br>不同数据库的注入方法、函数都不尽相同，因此在注入之前，我们先要判断一下数据库的类型。判断数据库类型的方法很多，可以输入特殊字符，如单引号，让程序返回错误信息，我们根据错误信息提示进行判断。</li>
+<li>猜解用户名和密码<br>数据库中的表和字段命名一般都是有规律的。通过构造特殊SQL语句在数据库中依次猜解出表名、字段名、字段数、用户名和密码。</li>
+<li>查找web后台管理入口<br>web后台管理通常不对普通用户开放，要找到后台管理的登录网址，可以利用web目录扫描工具快速搜索到可能的登录地址，然后逐一尝试，便可以找到后台管理平台的登录网址。</li>
+<li>入侵和破坏<br>一般后台管理具有较高权限和较多的功能，使用前面已破译的用户名、密码成功登录后台管理平台后，就可以任意进行破坏，比如上传木马、篡改网页、修改和窃取信息等，还可以进一步提权，入侵Web服务器和数据库服务器。</li>
+</ol>
+<h5 id="脚本攻击"><a href="#脚本攻击" class="headerlink" title="脚本攻击"></a>脚本攻击</h5><ul>
+<li>脚本是使用一种特定的描述性语言，依据一定的格式编写的可执行文件，又称宏或批处理软件，脚本通常可以由应用程序临时调用并执行。各类脚本目前被广泛地应用于网页设计中。脚本不仅可以较小网页的规模和提高网页浏览速度，而且可以丰富网页的表现，如动画、声音等。</li>
+</ul>
+<h5 id="蜜罐"><a href="#蜜罐" class="headerlink" title="蜜罐"></a>蜜罐</h5><ul>
+<li><p>蜜罐技术本质上是一种对攻击方进行欺骗的技术，通过布置一些作为诱饵的主机、网络服务或者信息，诱使攻击方对它们实施攻击，从而可以对攻击行为进行捕获和分析，了解攻击方所使用的工具与方法，推测攻击意图和动机，能够让防御方清晰地了解他们所面对的安全威胁，并通过技术和管理手段来增强实际系统的安全防护能力。</p>
+</li>
+<li><p>蜜罐好像是故意让人攻击的目标，引诱黑客前来攻击。所以攻击者入侵后，你就可以知道他是如何得逞的，随时了解针对服务器发动的最新的攻击和漏洞。还可以通过窃听黑客之间的联系，收集黑客所用的种种工具，并且掌握他们的社交网络。蜜罐是一个包含漏洞的系统，它模拟一个或多个易受攻击的主机，给黑客提供一 个容易攻击的目标。由于蜜罐没有其它任务需要完成，因此所有连接的尝试都应被视为是可疑的。蜜罐的另一个用途是拖延攻击者对其真正目标的攻击，让攻击者在蜜罐上浪费时间。与此同时，最初的攻击目标受到了保护，真正有价值的内容将不受侵犯。</p>
+</li>
+</ul>
+<p>蜜罐使用方法：</p>
+<ul>
+<li><p>迷惑入侵者，保护服务器<br>一般的客户&#x2F;服务器模式里，浏览者是直接与网站服务器连接的，换句话说，整个网站服务器都暴露在入侵者面前，如果服务器安全措施不够，那么整个网站数据都有可能被入侵者轻易毁灭。但是如果在客户&#x2F;服务器模式里嵌入蜜罐，让蜜罐作为服务器角色，真正的网站服务器作为一个内部网络在蜜罐上做网络端口映射，这样可以把网站的安全系数提高，入侵者即使渗透了位于外部的“服务器”，他也得不到任何有价值的资料，因为他入侵的是蜜罐而已。虽然入侵者可以在蜜罐的基础上跳进内部网络，但那要比直接攻下一台外部服务器复杂得多，许多水平不足的入侵者只能望而却步。蜜罐也许会被破坏，可是不要忘记了，蜜罐本来就是被破坏的角色。</p>
+</li>
+<li><p>抵御入侵者，加固服务器<br>入侵与防范一直都是热点问题，而在其间插入一个蜜罐环节将会使防范变得有趣，这台蜜罐被设置得与内部网络服务器一样，当一个入侵者费尽力气入侵了这台蜜罐的时候，管理员已经收集到足够的攻击数据来加固真实的服务器。<br>采用这个策略去布置蜜罐，需要管理员配合监视，否则入侵者攻破了第一台，就有第二台接着承受攻击了……</p>
+</li>
+<li><p>诱捕网络罪犯<br>这是一个相当有趣的应用，当管理员发现一个普通的客户&#x2F;服务器模式网站服务器已经牺牲成肉鸡的时候，如果技术能力允许，管理员会迅速修复服务器。那么下次呢？既然入侵者已经确信自己把该服务器做成了肉鸡，他下次必然还会来查看战果，一些企业的管理员不会罢休，他们会设置一个蜜罐模拟出已经被入侵的状态，做起了姜太公。同样，一些企业为了查找恶意入侵者，也会故意设置一些有不明显漏洞的蜜罐，让入侵者在不起疑心的情况下乖乖被记录下一切行动证据，通过与电信局的配合，可以轻易揪出IP源头的那双黑手。</p>
+</li>
+</ul>
+<h5 id="后门"><a href="#后门" class="headerlink" title="后门"></a>后门</h5><ul>
+<li>后门是指一种绕过安全性控制而获取对程序或系统访问权的方法。在软件的开发阶段，程序员常会在软件内创建后门以便可以修改程序中的缺陷。如果后门被其他人知道，或是在发布软件之前没有删除，那么它就成了安全隐患。</li>
+</ul>
+<h5 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h5><p>计算机病毒（Computer Virus）是编制者在计算机程序中插入的破坏计算机功能或者数据的代码，能影响计算机使用，能自我复制的一组计算机指令或者程序代码。</p>
+<ul>
+<li>依附的媒体类型分类：<br>（1）网络病毒：通过计算机网络感染可执行文件的计算机病毒。<br>（2）文件病毒：主攻计算机内文件的病毒。<br>（3）引导型病毒：是一种主攻感染驱动扇区和硬盘系统引导扇区的病毒。  </li>
+<li>计算机特定算法分类：<br>（1）附带型病毒：通常附带于一个EXE文件上，其名称与EXE文件名相同，但扩展是不同的，一般不会破坏更改文件本身，但在DOS读取时首先激活的就是这类病毒。<br>（2）蠕虫病毒：它不会损害计算机文件和数据，它的破坏性主要取决于计算机网络的部署，可以使用计算机网络从一个计算机存储切换到另一个计算机存储来计算网络地址来感染病毒。<br>（3）可变病毒：可以自行应用复杂的算法，很难发现，因为在另一个地方表现的内容和长度是不同的。</li>
+</ul>
+<blockquote>
+<p>计算机病毒有自己的传输模式和不同的传输路径。计算机本身的主要功能是它自己的复制和传播，这意味着计算机病毒的传播非常容易，通常可以交换数据的环境就可以进行病毒传播。有三种主要类型的计算机病毒传输方式：<br>（1）通过移动存储设备进行病毒传播：如U盘、CD、软盘、移动硬盘等都可以是传播病毒的路径，而且因为它们经常被移动和使用，所以它们更容易得到计算机病毒的青睐，成为计算机病毒的携带者。<br>（2）通过网络来传播：这里描述的网络方法也不同，网页、电子邮件、QQ、BBS等都可以是计算机病毒网络传播的途径，特别是近年来，随着网络技术的发展和互联网的运行频率，计算机病毒的速度越来越快，范围也在逐步扩大。<br>（3）利用计算机系统和应用软件的弱点传播：近年来，越来越多的计算机病毒利用应用系统和软件应用的不足传播出去因此这种途径也被划分在计算机病毒基本传播方式中。</p>
+</blockquote>
+<ul>
+<li>隐蔽性<br>计算机病毒不易被发现，这是由于计算机病毒具有较强的隐蔽性，其往往以隐含文件或程序代码的方式存在，在普通的病毒查杀中，难以实现及时有效的查杀。病毒伪装成正常程序，计算机病毒扫描难以发现。并且，一些病毒被设计成病毒修复程序，诱导用户使用，进而实现病毒植入，入侵计算机。因此，计算机病毒的隐蔽性，使得计算机安全防范处于被动状态，造成严重的安全隐患。</li>
+<li>破坏性<br>病毒入侵计算机，往往具有极大的破坏性，能够破坏数据信息，甚至造成大面积的计算机瘫痪，对计算机用户造成较大损失。如常见的木马、蠕虫等计算机病毒，可以大范围入侵计算机，为计算机带来安全隐患。</li>
+<li>传染性<br>计算机病毒的一大特征是传染性，能够通过U盘、网络等途径入侵计算机。在入侵之后，往往可以实现病毒扩散，感染未感染计算机，进而造成大面积瘫痪等事故。随着网络信息技术的不断发展，在短时间之内，病毒能够实现较大范围的恶意入侵。因此，在计算机病毒的安全防御中，如何面对快速的病毒传染，成为有效防御病毒的重要基础，也是构建防御体系的关键。 </li>
+<li>寄生性<br>计算机病毒还具有寄生性特点。计算机病毒需要在宿主中寄生才能生存，才能更好地发挥其功能，破坏宿主的正常机能。通常情况下，计算机病毒都是在其它正常程序或数据中寄生，在此基础上利用一定媒介实现传播，在宿主计算机实际运行过程中，一旦达到某种设置条件，计算机病毒就会被激活，随着程序的启动，计算机病毒会对宿主计算机文件进行不断辅助、修改，使其破坏作用得以发挥。 </li>
+<li>可执行性<br>计算机病毒与其他合法程序一样，是一段可执行程序，但它不是一个完整的程序，而是寄生在其他可执行程序上，因此它享有一切程序所能得到的权力。 </li>
+<li>可触发性<br>病毒因某个事件或数值的出现，诱使病毒实施感染或进行攻击的特征。</li>
+<li>攻击的主动性<br>病毒对系统的攻击是主动的，计算机系统无论采取多么严密的保护措施都不可能彻底地排除病毒对系统的攻击，而保护措施充其量是一种预防的手段而已。 </li>
+<li>病毒的针对性<br>计算机病毒是针对特定的计算机和特定的操作系统的。</li>
+</ul>
+<h5 id="DDOS分布式拒绝服务攻击"><a href="#DDOS分布式拒绝服务攻击" class="headerlink" title="DDOS分布式拒绝服务攻击"></a>DDOS分布式拒绝服务攻击</h5><ul>
+<li><p>可以这么理解，凡是能导致合法用户不能够访问正常网络服务的行为都算是拒绝服务攻击。拒绝服务攻击的目的非常明确，就是要阻止合法用户对正常网络资源的访问，从而达成攻击者不可告人的目的。</p>
+</li>
+<li><p>分布式拒绝服务攻击是指处于不同位置的多个攻击者同时向一个或数个目标发动攻击，或者一个攻击者控制了位于不同位置的多台机器并利用这些机器对受害者同时实施攻击。</p>
+</li>
+</ul>
+<p>攻击原理：</p>
+<ul>
+<li>DDoS是一种基于DoS特殊形式的拒绝服务攻击，是一种分布的、协同的大规模攻击方式。单一的DoS攻击一般是采用一对一方式的，它利用网络协议和操作系统的一些缺陷，采用欺骗和伪装的策略来进行网络攻击，使网站服务器充斥大量要求回复的信息，消耗网络带宽或系统资源，导致网络或系统不胜负荷以至于瘫痪而停止提供正常的网络服务。与DoS攻击由单台主机发起攻击相比较，分布式拒绝服务攻击DDoS是借助数百、甚至数千台被入侵后安装了攻击进程的主机同时发起的集团行为。</li>
+</ul>
+<h5 id="ARP内网渗透"><a href="#ARP内网渗透" class="headerlink" title="ARP内网渗透"></a>ARP内网渗透</h5><ul>
+<li><p>协议欺骗是指通过对通信双方使用协议弱点的利用，冒充其中一方与另一方进行通信的行为。对于广播式网络，只要更改自己网卡的接收模式为混杂模式，理论上就可以截获所有内网上的通信。对于交换式网络环境，如果要截获网络上不属于自己的通信，可以通过协议欺骗来实现。</p>
+</li>
+<li><p>内网渗透指的是在网络内部的渗透，在本地局域网内部对网内的其他系统进行渗透的过程。基于ARP欺骗的内网渗透指网络攻击者利用ARP欺骗截获不属于自身的通信，并从这一条件中获取更多利益的行为。</p>
+</li>
+</ul>
+<blockquote>
+<p>ARP地址解析协议是一个位于TCP&#x2F;IP协议栈中的低层协议，负责将局域网中某个IP地址解析成对应的MAC地址。IP地址到MAC地址的映射关系主要是靠ARP协议来实现的。对于网络主机，这个映射关系存放在ARP高速缓存中。</p>
+</blockquote>
+<p>ARP协议工作原理：</p>
+<ol>
+<li>网络通信源机器向网络广播ARP请求包，请求网络通信目的机器IP所对应的MAC地址</li>
+<li>然后使用该IP的机器会向请求方发送一个含有其MAC地址的ARP回应包，这样请求方就知道向哪个MAC地址（目的主机）发送数据</li>
+</ol>
+<blockquote>
+<p>ARP协议存在以下安全问题：无连接、无认证、动态性、广播</p>
+</blockquote>
+<p>ARP协议欺骗的步骤和方法：</p>
+<ul>
+<li>主机在不知道目的IP对应的MAC地址时，进行ARP广播请求，入侵者可以在接收到该ARP请求后以自己的MAC地址应答，进行假冒。</li>
+<li>由于被假冒机器所发送的ARP应答有可能比入侵者发送的应答晚到达请求主机，为了确保请求主机的缓存中绝大部分时间存放的是入侵者的MAC地址，可以在收到ARP请求后稍微延迟一段时间再发送一遍ARP应答。</li>
+<li>有些系统会向自己缓存中的地址发送非广播的ARP请求来更新自己的缓存。在交换网络环境下，如果请求主机缓存中已存有正确的主机MAC地址，入侵者就不能用以上接收请求然后应答的方法来更换被攻击主机缓存内容。由ARP弱点分析可知，应答可以随意发送，不一定要在请求之后。</li>
+</ul>
+<p>无漏洞渗透技术是相对于利用软件漏洞进行网络渗透的技术来说的。在以太网中，只要被渗透机器在网络中传输的数据包经过本地网卡，在本地就可以截获其数据包中的敏感信息，并可以更改数据包内容、替换数据包中的传输实体，使得被渗透机器上的敏感信息泄露，并可以使其在接收到被更改过的数据包之后，产生更多的损失。对内网中的机器进行渗透，不一定需要软件漏洞的存在。将这种不需要软件漏洞进行渗透的技术称为无漏洞渗透技术。</p>
+<blockquote>
+<p>对数据包处理的方式主要有两种，敏感信息的截取和传输实体的获取与替换</p>
+</blockquote>
+<ul>
+<li>报文中敏感信息的获取<br>对于明文传输的面向连接和非面向连接的协议，在截获报文之后，对报文中传输的信息进行还原，并提取其中的敏感信息。</li>
+<li>传输实体的获取与替换<br>明文传输的面向链接的协议中有很多协议支持文件实体的传输，如HTTP协议、FTP协议、SMTP协议。</li>
+</ul>
+<p>在交换式网络中防范ARP欺骗主要有以下几种方法：</p>
+<ol>
+<li><p>使用静态ARP表<br>在关键设备如网关、防火墙和边界路由器等设置静态的ARP，不要让系统刷新设定好的ARP转换表。在网关中使用静态ARP表，则可以避免通过网关进行ARP欺骗。</p>
+</li>
+<li><p>使用ARP服务器<br>在内部网络中设置ARP服务器，通过该服务器查找自己的ARP转换表来响应其他机器的ARP广播，而禁止其他系统响应ARP请求。</p>
+</li>
+<li><p>定期轮询<br>管理员定期轮询网络内部的IP地址与MAC地址的对应关系，通过与已有记录的比较来发现ARP欺骗。</p>
+</li>
+<li><p>主动出击<br>主动出击，用一些安全工具在网络中进行检测，可以检测到本地网络上的ARP欺骗报文。</p>
+</li>
+<li><p>使用加密通信<br>无漏洞渗透的报文中敏感信息的获取和传输实体的替换主要针对非加密通信，将内网的通信进行加密可以有效地防止这类攻击。</p>
+</li>
+<li><p>划分虚拟局域网<br>欺骗攻击无法跨网段工作，将网络进行越细致地分段，无漏洞渗透成功的可能性就越小。将受信任主机设置在同一社区VLAN中，将绝密性主机设置在隔离VLAN中，可以有效地防止无漏洞渗透的渗入。</p>
+</li>
+<li><p>提高防范意识<br>目前，很多容易被攻击者注意的网站，都采用了HTTPS代替了HTTP协议来传输网页和交易数据，已经避免了这类攻击发生的可能。但对于那些没有采用加密通信的web站点来说，web链接替换攻击依然有成功的可能。对这种攻击可以从浏览器终端用户的角度来防范，使用一些较为安全的浏览器来访问网站。<br><img src="https://img-blog.csdnimg.cn/20200222202816583.jpg" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>sunning
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://suenning.com.cn/2023/02/01/%E4%BD%A0%E6%83%B3%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E9%BB%91%E5%AE%A2%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86%E5%9C%A8%E8%BF%99%E9%87%8C/" title="">https://suenning.com.cn/2023/02/01/你想要了解的黑客入门知识在这里/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/01/%E6%8A%BD%E6%97%B6%E9%97%B4%E6%95%B4%E7%90%86%E4%BA%86%E4%B8%80%E4%B8%8B%E5%A4%A7%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Web%E5%AE%89%E5%85%A8%E7%AE%80%E5%8F%B2"><span class="nav-number">1.</span> <span class="nav-text">Web安全简史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.</span> <span class="nav-text">计算机漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E9%97%AE%E9%A2%98%E4%B8%8E%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E7%BA%A7%E5%88%AB%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">漏洞问题与不同安全级别计算机系统之间的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%94%BB%E5%87%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">安全漏洞与系统攻击之间的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80"><span class="nav-number">5.</span> <span class="nav-text">IP地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E7%BD%91%EF%BC%88%E7%A7%81%E6%9C%89%E5%9C%B0%E5%9D%80%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">内网（私有地址）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%EF%BC%88Port%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">端口（Port）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E5%9C%B0%E5%9D%80"><span class="nav-number">8.</span> <span class="nav-text">域名地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#URL"><span class="nav-number">9.</span> <span class="nav-text">URL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP-%E8%AF%B7%E6%B1%82-x2F-%E5%93%8D%E5%BA%94%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">10.</span> <span class="nav-text">HTTP 请求&#x2F;响应的步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%82%89%E9%B8%A1"><span class="nav-number">11.</span> <span class="nav-text">肉鸡</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#webshell"><span class="nav-number">12.</span> <span class="nav-text">webshell</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">13.</span> <span class="nav-text">提权</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="nav-number">14.</span> <span class="nav-text">暴力破解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ASP%E8%84%9A%E6%9C%AC%E5%85%A5%E9%97%A8%E4%B8%8E%E9%98%B2%E5%BE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">15.</span> <span class="nav-text">ASP脚本入门与防御思想</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%B1%E5%8F%A3%E4%BB%A4"><span class="nav-number">16.</span> <span class="nav-text">弱口令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">17.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB"><span class="nav-number">18.</span> <span class="nav-text">脚本攻击</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%9C%9C%E7%BD%90"><span class="nav-number">19.</span> <span class="nav-text">蜜罐</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8E%E9%97%A8"><span class="nav-number">20.</span> <span class="nav-text">后门</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%97%85%E6%AF%92"><span class="nav-number">21.</span> <span class="nav-text">计算机病毒</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DDOS%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB"><span class="nav-number">22.</span> <span class="nav-text">DDOS分布式拒绝服务攻击</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ARP%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="nav-number">23.</span> <span class="nav-text">ARP内网渗透</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sunning</p>
+  <div class="site-description" itemprop="description">且视他人之疑目如盏盏鬼火，大胆地去走你的夜路。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/SuenNing1999" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;SuenNing1999" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_43964458" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_43964458" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1878225963&auto=1&height=66"></iframe>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunning</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">96k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:27</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
